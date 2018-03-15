@@ -154,8 +154,8 @@ public class FalsePosition {
         }
     }
     
-    public static void main(String[] args) {
-        FalsePosition b = new FalsePosition("(e^(3*x-12) + (x*cos(3*x)) - (x^2) + (4))", 2.0, 3.0,0.0005,100);
-        b.falsePosition();
-    }
+    // public static void main(String[] args) {
+    //     FalsePosition b = new FalsePosition("(e^(3*x-12) + (x*cos(3*x)) - (x^2) + (4))", 2.0, 3.0,0.0005,100);
+    //     b.falsePosition();
+    // }
 }

@@ -26,10 +26,10 @@ public class ParserForEuler {
         }
     }
 
-    public static void main(String[] args) {
-        ParserForEuler parserForEuler = new ParserForEuler();
-        System.out.println(parserForEuler.putEulerForEval("x+exp(x)+exp(23+34+x^2+exp(2))"));
-        System.out.println(parserForEuler.putEulerForDiff("x+e^(x)+e^(23+34+x^2+e^(2))"));
-        System.out.println(parserForEuler.putLnforEval("ln(2x+32+ln(x^2))"));
-    }
+    // public static void main(String[] args) {
+    //     ParserForEuler parserForEuler = new ParserForEuler();
+    //     System.out.println(parserForEuler.putEulerForEval("x+exp(x)+exp(23+34+x^2+exp(2))"));
+    //     System.out.println(parserForEuler.putEulerForDiff("x+e^(x)+e^(23+34+x^2+e^(2))"));
+    //     System.out.println(parserForEuler.putLnforEval("ln(2x+32+ln(x^2))"));
+    // }
 }
