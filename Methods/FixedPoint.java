@@ -10,11 +10,6 @@ public class FixedPoint {
     private String functionF;
     private String functionG;
 
-    public static void main(String[] args) {
-        FixedPoint fixedPoint = new FixedPoint(0.00005, new BigDecimal(-0.5), 10, "(x*e^(x))-(x^2)-(5*x)-(3)",
-                "((x*e^(x))-(x^2)-(3))/5");
-    }
-
     public FixedPoint(Double tolerance, BigDecimal x, int niter, String functionF, String functionG) {
         this.tolerance = tolerance;
         this.x = x;
@@ -70,14 +65,6 @@ public class FixedPoint {
         } else {
             System.out.print("Failed in: iterations");
 
-        }
-
-        for (int i = 0; i < resultTable.size(); i++) {
-            for (int j = 0; j < resultTable.get(i).size(); j++) {
-                System.out.print(resultTable.get(i).get(j));
-                System.out.print("   ");
-            }
-            System.out.println();
         }
         return resultTable;
     }
