@@ -8,16 +8,18 @@ public class Newton {
     private BigDecimal x;
     private int niter;
     private String functionF;
+    private String diffFunction;
 
     public static void main(String[] args) {
-        Newton newton = new Newton(0.5E-8, new BigDecimal(1.5), 10, "(x^3)+(4*(x^2))-(10)");
+        Newton newton = new Newton(0.5E-8, new BigDecimal(1.5), 10, "(x^3)+(4*(x^2))-(10)","(3*x^2)+(8*x)");
     }
 
-    public Newton(Double tolerance, BigDecimal x, int niter, String functionF) {
+    public Newton(Double tolerance, BigDecimal x, int niter, String functionF, String diffFunction) {
         this.tolerance = tolerance;
         this.x = x;
         this.niter = niter;
         this.functionF = functionF;
+        this.diffFunction = diffFunction;
         this.eval();
     }
 
@@ -26,13 +28,13 @@ public class Newton {
         this.x = BigDecimal.ZERO;
         this.niter = 0;
         this.functionF = "";
+        this.diffFunction = "";
     }
 
     public ArrayList<ArrayList<Double>> eval() {
         Expression expressionF = new Expression(this.functionF).setPrecision(10);
         BigDecimal fx = expressionF.setVariable("x", this.x).eval();
-        String derivate = new Diff(this.functionF).derivative();
-        Expression expressionDf = new Expression(derivate).setPrecision(10);
+        Expression expressionDf = new Expression(this.diffFunction).setPrecision(10);
         BigDecimal dfx = expressionDf.setVariable("x", this.x).eval();
 
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
@@ -69,7 +71,7 @@ public class Newton {
         } else if (error < this.tolerance) {
             System.out.print(x1);
             System.out.print("x is approximation with a tolerance = ");
-            System.out.print(tolerance);
+            System.out.println(tolerance);
         } else if(dfx == BigDecimal.ZERO){
             System.out.println(x1);
             System.out.print(" Is a possible multiple root");
@@ -78,13 +80,13 @@ public class Newton {
             System.out.println("Failed");
         }
 
-        // for (int i = 0; i < resultTable.size(); i++) {
-        //     for (int j = 0; j < resultTable.get(i).size(); j++) {
-        //         System.out.print(resultTable.get(i).get(j));
-        //         System.out.print("   ");
-        //     }
-        //     System.out.println();
-        // }
+        for (int i = 0; i < resultTable.size(); i++) {
+            for (int j = 0; j < resultTable.get(i).size(); j++) {
+                System.out.print(resultTable.get(i).get(j));
+                System.out.print("   ");
+            }
+            System.out.println();
+        }
         return resultTable;
     }
 }
