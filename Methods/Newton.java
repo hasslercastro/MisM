@@ -78,13 +78,13 @@ public class Newton {
             System.out.println("Failed");
         }
 
-        for (int i = 0; i < resultTable.size(); i++) {
-            for (int j = 0; j < resultTable.get(i).size(); j++) {
-                System.out.print(resultTable.get(i).get(j));
-                System.out.print("   ");
-            }
-            System.out.println();
-        }
+        // for (int i = 0; i < resultTable.size(); i++) {
+        //     for (int j = 0; j < resultTable.get(i).size(); j++) {
+        //         System.out.print(resultTable.get(i).get(j));
+        //         System.out.print("   ");
+        //     }
+        //     System.out.println();
+        // }
         return resultTable;
     }
 }

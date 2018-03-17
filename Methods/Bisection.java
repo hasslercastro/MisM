@@ -171,16 +171,15 @@ public class Bisection {
             return table;
         }
     }
-
-    public static void main(String[] args) {
-        Bisection b = new Bisection("((x-2)^2)-2", 0.0, 1.0, 0.0005, 100);
-        ArrayList<ArrayList<Double>> res = b.bisection();
-        for (int i = 0; i < res.size(); i++) {
-            for (int j = 0; j < res.get(i).size(); j++) {
-                System.out.print(res.get(i).get(j));
-                System.out.print("   ");
-            }
-            System.out.println();
-        }
-    }
+    // public static void main(String[] args) {
+    //     Bisection b = new Bisection("((x-2)^2)-2", 0.0, 1.0, 0.0005, 100);
+    //     ArrayList<ArrayList<Double>> res = b.bisection();
+    //     for (int i = 0; i < res.size(); i++) {
+    //         for (int j = 0; j < res.get(i).size(); j++) {
+    //             System.out.print(res.get(i).get(j));
+    //             System.out.print("   ");
+    //         }
+    //         System.out.println();
+    //     }
+    // }
 }
