@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import methods.IncrementalSearch;
+
 /**
  * Created by Hassler on 14/03/2018.
  */
@@ -21,6 +23,38 @@ public class OneVariableMethods extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(OneVariableMethods.this, bisectionView.class));
+            }
+        });
+
+        Button incrementaLSearch = (Button) findViewById(R.id.Incremental);
+        incrementaLSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, incSearch.class));
+            }
+        });
+
+        Button falsePosition = (Button) findViewById(R.id.FalsePosition);
+        falsePosition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, falsePositionView.class));
+            }
+        });
+
+        Button fixedPoint = (Button) findViewById(R.id.FixedPoint);
+        fixedPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, fixedPointView.class));
+            }
+        });
+
+        Button newton = (Button) findViewById(R.id.newton);
+        newton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, newtonView.class));
             }
         });
 

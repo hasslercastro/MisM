@@ -4,10 +4,35 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/bisection"
+        android:id="@+id/Incremental"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
+        android:text="Incremental Search" />
+
+    <Button
+        android:id="@+id/bisection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Bisection" />
+
+    <Button
+        android:id="@+id/FalsePosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="False Position" />
+
+
+    <Button
+        android:id="@+id/FixedPoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fixed Point" />
+
+    <Button
+        android:id="@+id/newton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Newton's Method" />
 
 </LinearLayout>

@@ -37,6 +37,10 @@
         <activity android:name=".Method"/>
         <activity android:name=".OneVariableMethods"/>
         <activity android:name=".bisectionView"/>
+        <activity android:name=".fixedPointView"/>
+        <activity android:name=".incSearch" />
+        <activity android:name=".TablaNewtonFixedPoint"/>
+        <activity android:name=".TableBiseccionFalsePosition"/>
 
 
         <!-- receiver for demo app widget -->

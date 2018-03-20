@@ -2,20 +2,19 @@ package methods;
 
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 /**
- * Bisection
+ * FalsePosition
  */
-public class Bisection {
+public class FalsePosition {
     private String function;
     private Double a;
     private Double b;
     private Double tolerance;
     private int iterations;
-    private String message;
+    private String msg;
 
-    public Bisection() {
+    public FalsePosition(){
         this.function = "";
         this.a = 0.0;
         this.b = 0.0;
@@ -23,15 +22,16 @@ public class Bisection {
         this.iterations = 0;
     }
 
-    public Bisection(String function, Double a, Double b, Double tolerance, int iterations) {
+    public FalsePosition(String function, Double a, Double b, Double tolerance, int iterations){
         this.function = function;
         this.a = a;
         this.b = b;
         this.tolerance = tolerance;
+        this.iterations = iterations;
     }
 
-    public int iterationsNeeded(Double a , Double b , Double tolerance){
-        return (int) Math.ceil(Math.log(b-a) - Math.log(tolerance) / Math.log(2));
+    public String getMsg(){
+        return this.msg;
     }
 
     /**
@@ -83,8 +83,6 @@ public class Bisection {
         this.b = b;
     }
 
-    public String getMessage(){ return this.message; }
-
     /**
      * @param function the function to set
      */
@@ -106,81 +104,62 @@ public class Bisection {
         this.tolerance = tolerance;
     }
 
-    public ArrayList<ArrayList<Double>> bisection() {
-        this.iterations = iterationsNeeded(this.a,this.b,this.tolerance);
-        ArrayList<ArrayList<Double>> table = new ArrayList<ArrayList<Double>>();
+    public String falsePosition(){
         BigDecimal fxi = null;
         BigDecimal fxs = null;
         BigDecimal fxm = null;
         Double xm = 0.0;
         Expression expression = new Expression(this.function).setPrecision(10);
-        fxi = expression.setVariable("x", this.a.toString()).eval();
-        fxs = expression.setVariable("x", this.b.toString()).eval();
+        fxi = expression.setVariable("x",this.a.toString()).eval();
+        fxs = expression.setVariable("x",this.b.toString()).eval();
 
         if (fxi.doubleValue() == 0.0) {
             System.out.print(this.a);
             System.out.println("Is a root");
-            return table;
-        } else if (fxs.doubleValue() == 0.0) {
+            return new BigDecimal(this.a).toString();
+        }else if (fxs.doubleValue() == 0.0){
             System.out.print(this.b);
             System.out.println("Is a root");
-            return table;
-        } else if (fxi.doubleValue() * fxs.doubleValue() < 0) {
-            xm = (this.a + this.b) / 2;
-            fxm = expression.setVariable("x", xm.toString()).eval();
+            return new BigDecimal(this.b).toString();
+        }else if(fxi.doubleValue()*fxs.doubleValue() < 0){
+            xm = a - ((expression.setVariable("x",this.a.toString()).eval().doubleValue()*(b-a))/(expression.setVariable("x",this.b.toString()).eval().doubleValue()-expression.setVariable("x",this.a.toString()).eval().doubleValue()));//(this.a+this.b)/2;
+            fxm = expression.setVariable("x",xm.toString()).eval();
             int counter = 1;
             Double error = this.tolerance + 1.0;
-            ArrayList<Double> iter1 = new ArrayList<>();
-            iter1.add((double)counter);
-            iter1.add(a);
-            iter1.add(b);
-            iter1.add(xm);
-            iter1.add(fxm.doubleValue());
-            iter1.add(0.0);
-            table.add(iter1);
             while (error > this.tolerance && fxm.doubleValue() != 0.0 && counter < this.iterations) {
-                ArrayList<Double> iter2 = new ArrayList<>();
-                if (fxi.doubleValue() * fxm.doubleValue() < 0.0) {
+                if(fxi.doubleValue() * fxm.doubleValue() < 0.0){
                     this.b = xm;
                     fxs = fxm;//expression.setVariable("x",xm.toString()).eval();
-                } else {
+                }else{
                     this.a = xm;
                     fxi = fxm;//expression.setVariable("x",xm.toString()).eval();;
                 }
                 Double xaux = xm;
-                xm = ((this.a + this.b) / 2);
-                fxm = expression.setVariable("x", xm.toString()).eval();
-                error = Math.abs(xm - xaux);
-                counter++;
-                iter2.add((double)counter);
-                iter2.add(a);
-                iter2.add(b);
-                iter2.add(xm);
-                iter2.add(fxm.doubleValue());
-                iter2.add(error);
-                table.add(iter2);
+                xm = a - ((expression.setVariable("x",this.a.toString()).eval().doubleValue()*(b-a))/(expression.setVariable("x",this.b.toString()).eval().doubleValue()-expression.setVariable("x",this.a.toString()).eval().doubleValue()));
+                fxm = expression.setVariable("x",xm.toString()).eval();
+                error = Math.abs(xm-xaux);
+                counter ++;
             }
-            if (fxm.doubleValue() == 0.0) {
+            if(fxm.doubleValue() == 0.0){
                 System.out.print(xm);
-                System.out.println("It is root");
-                this.message = "There is a root at " + xm.toString();
-                return table;
-            } else if (error < this.tolerance) {
+                System.out.println("Is root");
+                this.msg = "There is a root at" + xm.toString();
+                return xm.toString();
+            }else if(error < this.tolerance){
                 System.out.print(xm);
-                System.out.print(" It is an aproximation with a tolerance of ");
-                this.message = "There is an aproximation with a tolerance of " + this.tolerance.toString() + " at " + xm.toString();
-                return table;
-            } else {
+                System.out.print(" is an aproximation with a tolerance of ");
+                System.out.println(this.tolerance);
+                this.msg = "There is an aproximation with a tolerance of" + this.tolerance.toString() +" at " +  xm.toString();
+                return xm.toString();
+            }else{
                 System.out.print("Failed in ");
                 System.out.println(this.iterations);
                 System.out.println(" iterations");
-                this.message = "Failed in" + String.valueOf(this.iterations) + " iteration";
-                return table;
+                return new BigDecimal(-1111111111).toString();
             }
-        } else {
+        }else{
             System.out.print("The range is wrong");
-            this.message = "The range is wrong";
-            return table;
+            return new BigDecimal(-1111111111).toString();
         }
     }
 
