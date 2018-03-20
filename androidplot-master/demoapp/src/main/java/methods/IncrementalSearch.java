@@ -37,7 +37,7 @@ public class IncrementalSearch {
    }
 
   
-    public double[] incrementalSearch(){
+    public ArrayList<ArrayList<Double>> incrementalSearch(){
 
         Expression expression = new Expression(this.function).setPrecision(10);
         expression.setVariable("x", this.x0);
@@ -46,8 +46,11 @@ public class IncrementalSearch {
         BigDecimal fx1;
         BigDecimal delta = new BigDecimal(this.delta);
         if (fx0.equals(0)) {
-            this.result = new double[]{this.x0.doubleValue()};
-                return this.result;            
+
+            ArrayList<Double> currentResult =  new ArrayList<>();
+            currentResult.add(this.x0.doubleValue());
+            this.resultA.add(currentResult);
+                return this.resultA;
         } else {
             x1 = this.x0.add(delta);
             int i = 1;
@@ -60,23 +63,29 @@ public class IncrementalSearch {
                 x1 = this.x0.add(delta);
                 expression.setVariable("x", x1);
                 fx1 = expression.eval();
+                currentResult.add((double) i );
+                currentResult.add(this.x0.doubleValue());
+                currentResult.add(x1.doubleValue());
+                currentResult.add(fx0.doubleValue());
+                currentResult.add(fx1.doubleValue());
+                this.resultA.add(currentResult);
                 i++;                
             }
             if (fx1.equals(0)) {
                 this.result = new double[]{x1.doubleValue()};
                 this.message = x1.toString();
-                return this.result;
+                return this.resultA;
             }
             else if (fx0.doubleValue()*fx1.doubleValue() < 0) {
                 this.result = new double[]{this.x0.doubleValue(), x1.doubleValue()};
                 this.message = "There is a root between " + this.x0.toString() + " and " +x1.toString();
-                return this.result;
+                return this.resultA;
             } 
             else {
                 System.out.println("Failed in " + i + "iterations");
                 this.message = "Failed in " + i + " iterations";
                 this.result = new double[]{-11111, -11111};
-                return this.result;
+                return this.resultA;
             }   
         }
     }
