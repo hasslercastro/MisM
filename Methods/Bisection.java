@@ -11,6 +11,7 @@ public class Bisection {
     private Double b;
     private Double tolerance;
     private int iterations;
+    private String message;
 
     public Bisection() {
         this.function = "";
@@ -33,6 +34,13 @@ public class Bisection {
      */
     public Double getTolerance() {
         return tolerance;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
     }
 
     /**
@@ -152,27 +160,31 @@ public class Bisection {
                 table.add(iter2);
             }
             if (fxm.doubleValue() == 0.0) {
+                this.message = xm.toString()+" Is root";
                 System.out.print(xm);
                 System.out.println("Is root");
                 return table;
             } else if (error < this.tolerance) {
+                this.message = xm.toString()+" is an aproximation with a tolerance of "+ this.tolerance.toString();
                 System.out.print(xm);
                 System.out.print(" is an aproximation with a tolerance of ");
                 System.out.println(this.tolerance);
                 return table;
             } else {
+                this.message = "Failed in "+ new Double(this.iterations).toString() + " iterations";
                 System.out.print("Failed in ");
                 System.out.println(this.iterations);
                 System.out.println(" iterations");
                 return table;
             }
         } else {
+            this.message = "The range is wrong";
             System.out.print("The range is wrong");
             return table;
         }
     }
     // public static void main(String[] args) {
-    //     Bisection b = new Bisection("((x-2)^2)-2", 0.0, 1.0, 0.0005, 100);
+    //     Bisection b = new Bisection(" (e^((3*x)-(12)))+(x*(cos(3*x)))-(x^2)+(4) ", 2.0, 3.0, 0.5E-3, 100);
     //     ArrayList<ArrayList<Double>> res = b.bisection();
     //     for (int i = 0; i < res.size(); i++) {
     //         for (int j = 0; j < res.get(i).size(); j++) {
