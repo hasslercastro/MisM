@@ -50,17 +50,30 @@ public class bisectionView extends Activity {
         root = (TextView) findViewById(R.id.textView9);
 
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(bisectionView.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         Button bisection = (Button) findViewById(R.id.button);
         bisection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    limATo = Double.parseDouble(limA.getText().toString());
-                    limBTo = Double.parseDouble(limB.getText().toString());
-                    Tolerance = Double.parseDouble(tolerance.getText().toString());
-                    Bisection bisection = new Bisection(function.getText().toString(), limATo, limBTo, Tolerance, 100);
-                    toTable = bisection.bisection();
-                    root.setText(bisection.getMessage());
+                    try {
+                        limATo = Double.parseDouble(limA.getText().toString());
+                        limBTo = Double.parseDouble(limB.getText().toString());
+                        Tolerance = Double.parseDouble(tolerance.getText().toString());
+                        Bisection bisection = new Bisection(function.getText().toString(), limATo, limBTo, Tolerance, 100);
+                        toTable = bisection.bisection();
+                        root.setText(bisection.getMessage());
+                    }catch (Exception e){
+                        alertDialog.show();
+                    }
             }
         });
 
@@ -78,6 +91,7 @@ public class bisectionView extends Activity {
 
             }
         });
+
 
         Button table = (Button) findViewById(R.id.table);
         table.setOnClickListener(new View.OnClickListener() {

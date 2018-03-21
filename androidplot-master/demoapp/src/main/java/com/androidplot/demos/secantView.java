@@ -10,45 +10,40 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-
-import methods.FalsePosition;
 import methods.Newton;
+import methods.Secant;
 
 /**
- * Created by Hassler on 15/03/2018.
+ * Created by Hassler on 21/03/2018.
  */
 
-
-public class newtonView extends Activity{
+public class secantView extends Activity {
     ArrayList<ArrayList<Double>> toTable =  new ArrayList<>();
-    ArrayList<String> iter =  new ArrayList<>();
+    ArrayList<String> n =  new ArrayList<>();
     ArrayList<String> x =  new ArrayList<>();
     ArrayList<String> fx =  new ArrayList<>();
-    ArrayList<String> dfx =  new ArrayList<>();
     ArrayList<String> error =  new ArrayList<>();
 
-    EditText function,tolerance,initial,derivative,iteration;
+    EditText function,tolerance,xZero,xOne,iters;
     TextView root;
-    Double toleranceTo;
-    BigDecimal initialTo;
-    int iterationTo;
+    Double toleranceTo,xZeroTo,xOneTo, iterationTo;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newton);
+        setContentView(R.layout.secant);
 
-        function = (EditText) findViewById(R.id.editText7);
-        tolerance = (EditText) findViewById(R.id.editText11);
-        initial = (EditText) findViewById(R.id.editText12);
-        derivative = (EditText) findViewById(R.id.editText13);
-        iteration = (EditText) findViewById(R.id.editText6);
+        function = (EditText) findViewById(R.id.editText11);
+        tolerance = (EditText) findViewById(R.id.editText14);
+        xOne = (EditText) findViewById(R.id.editText7);
+        xZero =(EditText) findViewById(R.id.editText6);
+        iters = (EditText) findViewById(R.id.editText12);
         root = (TextView) findViewById(R.id.textView14);
 
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(newtonView.this).create();
+        final AlertDialog alertDialog = new AlertDialog.Builder(secantView.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("Input Error");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -58,17 +53,18 @@ public class newtonView extends Activity{
                     }
                 });
 
-        Button newt = (Button) findViewById(R.id.button3);
-        newt.setOnClickListener(new View.OnClickListener() {
+        Button sec = (Button) findViewById(R.id.button3);
+        sec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    iterationTo = Integer.parseInt(iteration.getText().toString());
-                    initialTo = new BigDecimal(initial.getText().toString());
+                    iterationTo = Double.parseDouble(iters.getText().toString());
+                    xZeroTo = Double.parseDouble(xZero.getText().toString());
+                    xOneTo =Double.parseDouble(xOne.getText().toString());
                     toleranceTo = Double.parseDouble(tolerance.getText().toString());
-                    Newton newton = new Newton(toleranceTo, initialTo, iterationTo, function.getText().toString(), derivative.getText().toString());
-                    toTable = newton.eval();
-                    root.setText(newton.getMsg());
+                    Secant secan = new Secant(toleranceTo, xZeroTo, xOneTo, iterationTo, function.getText().toString());
+                    toTable = secan.eval();
+                    root.setText(secan.getMessage());
                 }catch (Exception e){
                     alertDialog.show();
                 }
@@ -83,9 +79,9 @@ public class newtonView extends Activity{
 
                 function.setText("");
                 tolerance.setText("");
-                derivative.setText("");
-                iteration.setText("");
-                initial.setText("");
+                xOne.setText("");
+                xZero.setText("");
+                iters.setText("");
                 root.setText("Root");
 
 
@@ -96,39 +92,29 @@ public class newtonView extends Activity{
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iter.clear();
+                n.clear();
                 x.clear();
                 fx.clear();
-                dfx.clear();
                 error.clear();
+                n.add("iterations");
+                x.add("X");
+                fx.add("f(X)");
+                error.add("error");
                 for(int i = 0 ; i < toTable.size() ; i++ ){
-                    iter.add(String.valueOf(toTable.get(i).get(0).intValue()));
+                    n.add(String.valueOf(toTable.get(i).get(0).intValue()));
                     x.add(toTable.get(i).get(1).toString());
                     fx.add(toTable.get(i).get(2).toString());
-                    dfx.add(toTable.get(i).get(3).toString());
-                    error.add(toTable.get(i).get(4).toString());
+                    error.add(toTable.get(i).get(3).toString());
                 }
-                Intent t = new Intent(newtonView.this, TableNewton.class);
-                t.putExtra("iter", iter);
+                Intent t = new Intent(secantView.this, secantTable.class);
+                t.putExtra("iter", n);
                 t.putExtra("x",x);
                 t.putExtra("fx", fx);
-                t.putExtra("dfx", dfx);
                 t.putExtra("error", error);
                 startActivity(t);
-
-
-
             }
         });
-
-
-
-
     }
-
-
-
-
 }
 
 

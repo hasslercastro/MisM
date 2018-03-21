@@ -35,4 +35,16 @@
         android:layout_height="wrap_content"
         android:text="Newton's Method" />
 
+    <Button
+        android:id="@+id/secant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Secant" />
+
+    <Button
+        android:id="@+id/mroots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Multiple roots" />
+
 </LinearLayout>

@@ -1,6 +1,8 @@
 package com.androidplot.demos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -54,17 +56,33 @@ public class incSearch extends Activity {
         msg = (TextView) findViewById(R.id.textView20);
 
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(incSearch.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+
         Button incremental = (Button) findViewById(R.id.button4);
         incremental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initialPointTo = BigDecimal.valueOf(Double.parseDouble(initialPoint.getText().toString()));
-                stepTo = Double.parseDouble(step.getText().toString());
-                nIterTo = Integer.parseInt(nIter.getText().toString());
-                IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
-                toTable = iSearch.incrementalSearch();
-                msg.setMovementMethod(new ScrollingMovementMethod());
-                msg.setText(iSearch.getMessage());
+                try {
+                    initialPointTo = BigDecimal.valueOf(Double.parseDouble(initialPoint.getText().toString()));
+                    stepTo = Double.parseDouble(step.getText().toString());
+                    nIterTo = Integer.parseInt(nIter.getText().toString());
+                    IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
+                    toTable = iSearch.incrementalSearch();
+                    msg.setMovementMethod(new ScrollingMovementMethod());
+                    msg.setText(iSearch.getMessage());
+                }catch (Exception e){
+                    alertDialog.show();
+                }
 
             }
         });

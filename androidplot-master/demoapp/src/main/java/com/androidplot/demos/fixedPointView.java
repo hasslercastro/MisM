@@ -1,6 +1,8 @@
 package com.androidplot.demos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -73,17 +75,30 @@ public class fixedPointView extends Activity {
 
 
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(fixedPointView.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         final Button fixed = (Button) findViewById(R.id.button3);
         fixed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try{
                 niterTo = Integer.parseInt(niter.getText().toString());
                 toleranceTo = Double.parseDouble(tolerance.getText().toString());
                 FixedPoint fx = new FixedPoint(toleranceTo, initialPoint.getText().toString() , niterTo, function.getText().toString());
                 toTable = fx.eval();
                 root.setText(fx.getMsg());
                 table.setEnabled(true);
+                }catch(Exception e){
+                    alertDialog.show();
+                }
             }
         });
 

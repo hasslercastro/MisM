@@ -58,6 +58,22 @@ public class OneVariableMethods extends Activity {
             }
         });
 
+        Button secant = (Button) findViewById(R.id.secant);
+        secant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, secantView.class));
+            }
+        });
+
+        Button mRoots = (Button) findViewById(R.id.mroots);
+        mRoots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OneVariableMethods.this, multipleRoots.class));
+            }
+        });
+
     }
 
 
