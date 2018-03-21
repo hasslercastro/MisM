@@ -41,6 +41,8 @@
         <activity android:name=".incSearch" />
         <activity android:name=".TablaNewtonFixedPoint"/>
         <activity android:name=".TableBiseccionFalsePosition"/>
+        <activity android:name=".IncrementalTable"/>
+        <activity android:name=".falsePositionView"/>
 
 
         <!-- receiver for demo app widget -->

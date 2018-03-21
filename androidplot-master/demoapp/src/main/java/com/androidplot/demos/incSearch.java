@@ -31,9 +31,10 @@ public class incSearch extends Activity {
 
     ArrayList<ArrayList<Double>> toTable =  new ArrayList<>();
     ArrayList<String> arrayN = new ArrayList();
-    ArrayList<String> arrayXn = new ArrayList();
-    ArrayList<String> arrayGXn = new ArrayList();
-    ArrayList<String> arrayError = new ArrayList();
+    ArrayList<String> arrayXi = new ArrayList();
+    ArrayList<String> arrayXf = new ArrayList();
+    ArrayList<String> arrayFXi = new ArrayList();
+    ArrayList<String> arrayFXf = new ArrayList();
 
     EditText initialPoint,function,step,nIter;
     TextView msg;
@@ -60,10 +61,10 @@ public class incSearch extends Activity {
                 initialPointTo = BigDecimal.valueOf(Double.parseDouble(initialPoint.getText().toString()));
                 stepTo = Double.parseDouble(step.getText().toString());
                 nIterTo = Integer.parseInt(nIter.getText().toString());
-                IncrementalSearch icSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
-                icSearch.incrementalSearch();
+                IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
+                toTable = iSearch.incrementalSearch();
                 msg.setMovementMethod(new ScrollingMovementMethod());
-                msg.setText(icSearch.getMessage());
+                msg.setText(iSearch.getMessage());
 
             }
         });
@@ -82,33 +83,31 @@ public class incSearch extends Activity {
         });
 
 
-        final Button table = (Button) findViewById(R.id.button7);
-        table.setEnabled(false);
+        final Button table = (Button) findViewById(R.id.table);
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 arrayN.clear();
-                arrayN.clear();
-                arrayGXn.clear();
-                arrayError.clear();
+                arrayXi.clear();
+                arrayXf.clear();
+                arrayFXi.clear();
+                arrayFXf.clear();
                 for(int i = 0 ; i < toTable.size() ; i++ ){
                     arrayN.add(toTable.get(i).get(0).toString());
-                    arrayXn.add(toTable.get(i).get(1).toString());
-                    arrayGXn.add(toTable.get(i).get(2).toString());
-                    arrayError.add(toTable.get(i).get(3).toString());
+                    arrayXi.add(toTable.get(i).get(1).toString());
+                    arrayXf.add(toTable.get(i).get(2).toString());
+                    arrayFXi.add(toTable.get(i).get(3).toString());
+                    arrayFXf.add(toTable.get(i).get(4).toString());
                 }
-                Intent t = new Intent(incSearch.this, TableBiseccionFalsePosition.class);
+                Intent t = new Intent(incSearch.this, IncrementalTable.class);
                 t.putExtra("n", arrayN);
-                t.putExtra("Xn", arrayXn);
-                t.putExtra("GXn", arrayGXn);
-                t.putExtra("error", arrayError);
+                t.putExtra("Xi", arrayXi);
+                t.putExtra("Xf", arrayXf);
+                t.putExtra("FXi", arrayFXi);
+                t.putExtra("FXf", arrayFXf);
                 startActivity(t);
 
             }
         });
-
-
-
-
     }
 }
