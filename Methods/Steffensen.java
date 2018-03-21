@@ -7,21 +7,21 @@ public class Steffensen {
     private Double tolerance;
     private BigDecimal x;
     private int niter;
-    private String functionF;
+    private String functionG;
     private String msg;
 
-    public Steffensen(Double tolerance, BigDecimal x, int niter, String functionF) {
+    public Steffensen(Double tolerance, BigDecimal x, int niter, String functionG) {
         this.tolerance = tolerance;
         this.x = x;
         this.niter = niter;
-        this.functionF = functionF;
+        this.functionG = functionG;
     }
 
     public Steffensen() {
         this.tolerance = 0.0;
         this.x = BigDecimal.ZERO;
         this.niter = 0;
-        this.functionF = "";
+        this.functionG = "";
     }
 
     public String getMsg() {
@@ -29,34 +29,33 @@ public class Steffensen {
     }
 
     public ArrayList<ArrayList<Double>> eval() {
-        Expression expressionF = new Expression(this.functionF).setPrecision(10);
-        BigDecimal fx = expressionF.setVariable("x", this.x).eval();
+        Expression expressionG = new Expression(this.functionG).setPrecision(10);
+        BigDecimal gx = expressionG.setVariable("x", this.x).eval();
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
         ArrayList<Double> firstIteration = new ArrayList<>();
         int counter = 0;
         Double error = this.tolerance + 1;
         firstIteration.add((double)(counter));
         firstIteration.add(this.x.doubleValue());
-        firstIteration.add(fx.doubleValue());
+        firstIteration.add(gx.doubleValue());
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
-        BigDecimal x1=new BigDecimal(0);
-        while ((fx != BigDecimal.ZERO) && (error > this.tolerance) && (counter < this.niter)) {
+        while ((gx != BigDecimal.ZERO) && (error > this.tolerance) && (counter < this.niter)) {
             ArrayList<Double> nIteration = new ArrayList<>();
-            BigDecimal xfx = new BigDecimal(this.x.doubleValue() + fx.doubleValue());
-            BigDecimal fxfx = expressionF.setVariable("x", xfx).eval();
-            x1 = new BigDecimal((Math.pow(fx.doubleValue(), 2))/(fxfx.doubleValue() - fx.doubleValue()));
-            fx = expressionF.setVariable("x", x1).eval();
+            gx = expressionG.setVariable("x", this.x).eval();
+            BigDecimal xgx = new BigDecimal(this.x.doubleValue() + gx.doubleValue());
+            BigDecimal gxgx = expressionG.setVariable("x", xgx).eval();
+            BigDecimal x1 = new BigDecimal(this.x.doubleValue() - ((Math.pow(gx.doubleValue(), 2))/(gxgx.doubleValue() - gx.doubleValue())));         
             error = Math.abs((x1.doubleValue() - x.doubleValue())/x1.doubleValue());
             nIteration.add(counter + 1.0);
             nIteration.add(x1.doubleValue());
-            nIteration.add(fx.doubleValue());
+            nIteration.add(gx.doubleValue());
             nIteration.add(error);
             resultTable.add(nIteration);
             this.x = x1;
             counter++;
         }
-        if (fx == BigDecimal.ZERO) {
+        if (gx == BigDecimal.ZERO) {
             this.msg = this.x.toString() + " is a root";
         } 
         else if (error < this.tolerance) {
