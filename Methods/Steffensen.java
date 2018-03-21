@@ -45,8 +45,7 @@ public class Steffensen {
             ArrayList<Double> nIteration = new ArrayList<>();
             BigDecimal xfx = new BigDecimal(this.x.doubleValue() + fx.doubleValue());
             BigDecimal fxfx = expressionF.setVariable("x", xfx).eval();
-            x1 = new BigDecimal((Math.pow(fx.doubleValue(), 2))/(fxfx.doubleValue() - fx.doubleValue()));
-            fx = expressionF.setVariable("x", x1).eval();
+            x1 = new BigDecimal(this.x.doubleValue() - ((Math.pow(fx.doubleValue(), 2))/(fxfx.doubleValue() - fx.doubleValue())));            fx = expressionF.setVariable("x", x1).eval();
             error = Math.abs((x1.doubleValue() - x.doubleValue())/x1.doubleValue());
             nIteration.add(counter + 1.0);
             nIteration.add(x1.doubleValue());
