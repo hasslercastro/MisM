@@ -39,10 +39,10 @@ public class falsePositionView extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bisection_cel_view);
+        setContentView(R.layout.false_position);
 
-        function = (EditText) findViewById(R.id.editText);
-        tolerance = (EditText) findViewById(R.id.editText2);
+        function = (EditText) findViewById(R.id.editText2);
+        tolerance = (EditText) findViewById(R.id.editText);
         limA = (EditText) findViewById(R.id.editText3);
         limB = (EditText) findViewById(R.id.editText4);
 
@@ -59,7 +59,7 @@ public class falsePositionView extends Activity {
                 limBTo = Double.parseDouble(limB.getText().toString());
                 Tolerance = Double.parseDouble(tolerance.getText().toString());
                 FalsePosition fp = new FalsePosition(function.getText().toString(),  limATo , limBTo , Tolerance,100);
-                toTable = fp.falsePosition();
+                toTable = fp.eval();
                 root.setText(fp.getMessage());
 
             }
@@ -70,7 +70,7 @@ public class falsePositionView extends Activity {
             @Override
             public void onClick(View view) {
 
-                root.setText("");
+                root.setText("Root");
                 limA.setText("");
                 limB.setText("");
                 function.setText("");

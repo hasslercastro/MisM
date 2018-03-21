@@ -62,7 +62,7 @@ public class incSearch extends Activity {
                 stepTo = Double.parseDouble(step.getText().toString());
                 nIterTo = Integer.parseInt(nIter.getText().toString());
                 IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
-                iSearch.incrementalSearch();
+                toTable = iSearch.incrementalSearch();
                 msg.setMovementMethod(new ScrollingMovementMethod());
                 msg.setText(iSearch.getMessage());
 
@@ -84,7 +84,6 @@ public class incSearch extends Activity {
 
 
         final Button table = (Button) findViewById(R.id.table);
-        table.setEnabled(false);
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

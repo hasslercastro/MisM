@@ -71,9 +71,9 @@ public class IncrementalSearch {
                 this.resultA.add(currentResult);
                 i++;                
             }
-            if (fx1.equals(0)) {
+            if (fx1.doubleValue() == 0.0) {
                 this.result = new double[]{x1.doubleValue()};
-                this.message = x1.toString();
+                this.message ="There is a root at " + x1.toString();
                 return this.resultA;
             }
             else if (fx0.doubleValue()*fx1.doubleValue() < 0) {
