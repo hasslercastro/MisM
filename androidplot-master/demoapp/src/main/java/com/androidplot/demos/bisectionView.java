@@ -6,6 +6,8 @@ package com.androidplot.demos;
 
 import methods.Bisection;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -53,13 +55,12 @@ public class bisectionView extends Activity {
         bisection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                limATo = Double.parseDouble(limA.getText().toString());
-                limBTo = Double.parseDouble(limB.getText().toString());
-                Tolerance = Double.parseDouble(tolerance.getText().toString());
-                Bisection bisection = new Bisection(function.getText().toString(),  limATo , limBTo , Tolerance,100);
-                toTable = bisection.bisection();
-                root.setText(bisection.getMessage());
-
+                    limATo = Double.parseDouble(limA.getText().toString());
+                    limBTo = Double.parseDouble(limB.getText().toString());
+                    Tolerance = Double.parseDouble(tolerance.getText().toString());
+                    Bisection bisection = new Bisection(function.getText().toString(), limATo, limBTo, Tolerance, 100);
+                    toTable = bisection.bisection();
+                    root.setText(bisection.getMessage());
             }
         });
 

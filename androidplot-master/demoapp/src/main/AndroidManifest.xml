@@ -43,6 +43,8 @@
         <activity android:name=".TableBiseccionFalsePosition"/>
         <activity android:name=".IncrementalTable"/>
         <activity android:name=".falsePositionView"/>
+        <activity android:name=".newtonView"/>
+        <activity android:name=".TableNewton" />
 
 
         <!-- receiver for demo app widget -->
