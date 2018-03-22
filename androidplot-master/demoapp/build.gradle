@@ -20,7 +20,7 @@ apply plugin: 'com.github.triplet.play'
 dependencies {
 	compile project(':androidplot-core')
     compile 'com.crittercism:crittercism-android-agent:5.4.0'
-
+    compile 'com.jjoe64:graphview:4.2.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'

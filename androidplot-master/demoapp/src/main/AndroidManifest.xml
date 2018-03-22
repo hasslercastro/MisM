@@ -49,6 +49,7 @@
         <activity android:name=".secantTable"/>
         <activity android:name=".multipleRoots"/>
         <activity android:name=".multipleRootsTable"/>
+        <activity android:name=".Grapher"/>
 
 
         <!-- receiver for demo app widget -->

@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         fxPlotExampleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, FXPlotExampleActivity.class));
+                startActivity(new Intent(MainActivity.this, Grapher.class));
             }
         });
 

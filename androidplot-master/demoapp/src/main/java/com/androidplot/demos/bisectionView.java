@@ -120,6 +120,25 @@ public class bisectionView extends Activity {
         });
 
 
+        Button aitken = (Button) findViewById(R.id.Aitken);
+        aitken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    limATo = Double.parseDouble(limA.getText().toString());
+                    limBTo = Double.parseDouble(limB.getText().toString());
+                    Tolerance = Double.parseDouble(tolerance.getText().toString());
+                    Bisection bisection = new Bisection(function.getText().toString(), limATo, limBTo, Tolerance, 100);
+                    toTable = bisection.bisection();
+                    root.setText(bisection.getMessage());
+                }catch (Exception e){
+                    alertDialog.show();
+                }
+            }
+        });
+
+
+
 
 
     }
