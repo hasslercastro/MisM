@@ -50,6 +50,7 @@
         <activity android:name=".multipleRoots"/>
         <activity android:name=".multipleRootsTable"/>
         <activity android:name=".Grapher"/>
+        <activity android:name=".GraphFromMethods"/>
 
 
         <!-- receiver for demo app widget -->

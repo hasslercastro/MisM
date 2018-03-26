@@ -26,12 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginBottom="95dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
+        android:layout_marginEnd="219dp"
+        android:layout_marginRight="219dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginLeft="39dp"
         android:layout_marginTop="93dp"
         android:text="Function:"
         app:layout_constraintBottom_toBottomOf="@+id/editText2"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toStartOf="@+id/button8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView2"
@@ -47,6 +49,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -177,14 +180,14 @@
 
     <Button
         android:id="@+id/table"
-        android:layout_width="54dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="49dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="87dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text=" ? "
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,5 +206,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.015" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="55dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="412dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:text="G"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/table" />
 
 </android.support.constraint.ConstraintLayout>

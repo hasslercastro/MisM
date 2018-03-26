@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,7 @@ public class bisectionView extends Activity {
     //editText3;      //A
    // editText4;       //B
 
-    //editText; //fuction
+    //editText; //function
     //editText1; //Tolerance
 
     EditText limA,limB,function,tolerance;
@@ -136,6 +137,23 @@ public class bisectionView extends Activity {
                 }
             }
         });
+
+        Button grph = (Button) findViewById(R.id.button8);
+        grph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent t = new Intent(bisectionView.this, GraphFromMethods.class);
+                    t.putExtra("function", function.getText().toString());
+                    startActivity(t);
+                }catch (Exception e){
+                    Log.d("This is the error", e.toString());
+                    alertDialog.show();
+                }
+            }
+        });
+
+
 
 
 

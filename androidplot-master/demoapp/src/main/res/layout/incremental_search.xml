@@ -104,8 +104,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:maxLines = "300"
-        android:scrollbars = "vertical"
+        android:maxLines="300"
+        android:scrollbars="vertical"
         android:text="Answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,15 +163,26 @@
     <Button
         android:id="@+id/table"
         android:layout_width="54dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="122dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text=" ? "
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="50dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="371dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:text="G"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/table" />
 
 </android.support.constraint.ConstraintLayout>

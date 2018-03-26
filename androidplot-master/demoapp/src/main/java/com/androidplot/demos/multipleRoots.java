@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,11 +42,11 @@ public class multipleRoots extends Activity{
         setContentView(R.layout.multiple_roots);
 
         function = (EditText) findViewById(R.id.editText11);
-        tolerance = (EditText) findViewById(R.id.editText15);
+        iterations = (EditText) findViewById(R.id.editText15);
         firstD = (EditText) findViewById(R.id.editText14);
         secondD = (EditText) findViewById(R.id.editText6);
-        iterations = (EditText) findViewById(R.id.editText12);
-        initialPoint =  (EditText) findViewById(R.id.editText7);
+        initialPoint = (EditText) findViewById(R.id.editText12);
+        tolerance =  (EditText) findViewById(R.id.editText7);
         root = (TextView) findViewById(R.id.textView13);
 
 
@@ -127,6 +128,21 @@ public class multipleRoots extends Activity{
                 t.putExtra("ddfx", ddfx);
                 t.putExtra("error", error);
                 startActivity(t);
+            }
+        });
+
+        Button grph = (Button) findViewById(R.id.button8);
+        grph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent t = new Intent(multipleRoots.this, GraphFromMethods.class);
+                    t.putExtra("function", function.getText().toString());
+                    startActivity(t);
+                }catch (Exception e){
+                    Log.d("This is the error", e.toString());
+                    alertDialog.show();
+                }
             }
         });
     }
