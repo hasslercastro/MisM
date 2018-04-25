@@ -30,8 +30,8 @@ public class Bisection {
         this.tolerance = tolerance;
     }
 
-    public int iterationsNeeded(Double a , Double b , Double tolerance){
-        return (int) Math.ceil(Math.log(b-a) - Math.log(tolerance) / Math.log(2));
+    public int iterationsNeeded(Double a, Double b, Double tolerance) {
+        return (int) Math.ceil(Math.log(b - a) - Math.log(tolerance) / Math.log(2));
     }
 
     /**
@@ -83,7 +83,9 @@ public class Bisection {
         this.b = b;
     }
 
-    public String getMessage(){ return this.message; }
+    public String getMessage() {
+        return this.message;
+    }
 
     /**
      * @param function the function to set
@@ -107,7 +109,7 @@ public class Bisection {
     }
 
     public ArrayList<ArrayList<Double>> bisection() {
-        this.iterations = iterationsNeeded(this.a,this.b,this.tolerance);
+        this.iterations = iterationsNeeded(this.a, this.b, this.tolerance);
         ArrayList<ArrayList<Double>> table = new ArrayList<ArrayList<Double>>();
         BigDecimal fxi = null;
         BigDecimal fxs = null;
@@ -118,12 +120,10 @@ public class Bisection {
         fxs = expression.setVariable("x", this.b.toString()).eval();
 
         if (fxi.doubleValue() == 0.0) {
-            System.out.print(this.a);
-            System.out.println("Is a root");
+            this.message = this.a.toString() + " is a root";
             return table;
         } else if (fxs.doubleValue() == 0.0) {
-            System.out.print(this.b);
-            System.out.println("Is a root");
+            this.message = this.b.toString() + " is a root";
             return table;
         } else if (fxi.doubleValue() * fxs.doubleValue() < 0) {
             xm = (this.a + this.b) / 2;
@@ -131,7 +131,7 @@ public class Bisection {
             int counter = 1;
             Double error = this.tolerance + 1.0;
             ArrayList<Double> iter1 = new ArrayList<>();
-            iter1.add((double)counter);
+            iter1.add((double) counter);
             iter1.add(a);
             iter1.add(b);
             iter1.add(xm);
@@ -142,17 +142,17 @@ public class Bisection {
                 ArrayList<Double> iter2 = new ArrayList<>();
                 if (fxi.doubleValue() * fxm.doubleValue() < 0.0) {
                     this.b = xm;
-                    fxs = fxm;//expression.setVariable("x",xm.toString()).eval();
+                    fxs = fxm;
                 } else {
                     this.a = xm;
-                    fxi = fxm;//expression.setVariable("x",xm.toString()).eval();;
+                    fxi = fxm;
                 }
                 Double xaux = xm;
                 xm = ((this.a + this.b) / 2);
                 fxm = expression.setVariable("x", xm.toString()).eval();
                 error = Math.abs(xm - xaux);
                 counter++;
-                iter2.add((double)counter);
+                iter2.add((double) counter);
                 iter2.add(a);
                 iter2.add(b);
                 iter2.add(xm);
@@ -161,27 +161,19 @@ public class Bisection {
                 table.add(iter2);
             }
             if (fxm.doubleValue() == 0.0) {
-                System.out.print(xm);
-                System.out.println("It is root");
-                this.message = "There is a root at " + xm.toString();
+                this.message = xm.toString() + " is a root";
                 return table;
             } else if (error < this.tolerance) {
-                System.out.print(xm);
-                System.out.print(" It is an aproximation with a tolerance of ");
-                this.message = "There is an aproximation with a tolerance of " + this.tolerance.toString() + " at " + xm.toString();
+                this.message = xm.toString() + " is an approximation to the root with absolute error "
+                        + error.toString();
                 return table;
             } else {
-                System.out.print("Failed in ");
-                System.out.println(this.iterations);
-                System.out.println(" iterations");
-                this.message = "Failed in" + String.valueOf(this.iterations) + " iteration";
+                this.message = "The method failed in " + String.valueOf(this.iterations) + " iterations";
                 return table;
             }
         } else {
-            System.out.print("The range is wrong");
-            this.message = "The range is wrong";
+            this.message = "The interval is inadequate";
             return table;
         }
     }
-
 }

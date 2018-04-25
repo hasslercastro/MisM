@@ -10,7 +10,7 @@ public class FixedPoint {
     private BigDecimal x;
     private int niter;
     private String functionG;
-    private String msg;
+    private String message;
 
     public FixedPoint(Double tolerance, String x, int niter, String functionG) {
         this.tolerance = tolerance;
@@ -26,10 +26,76 @@ public class FixedPoint {
         this.functionG = "";
     }
 
-    public String getMsg(){
-        return this.msg;
+    /**
+     * @return the functionG
+     */
+    public String getFunctionG() {
+        return functionG;
     }
 
+    /**
+     * @return the niter
+     */
+    public int getNiter() {
+        return niter;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @return the tolerance
+     */
+    public Double getTolerance() {
+        return tolerance;
+    }
+
+    /**
+     * @return the x
+     */
+    public BigDecimal getX() {
+        return x;
+    }
+
+    /**
+     * @param functionG the functionG to set
+     */
+    public void setFunctionG(String functionG) {
+        this.functionG = functionG;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @param niter the niter to set
+     */
+    public void setNiter(int niter) {
+        this.niter = niter;
+    }
+
+    /**
+     * @param tolerance the tolerance to set
+     */
+    public void setTolerance(Double tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(BigDecimal x) {
+        this.x = x;
+    }
+    
     public ArrayList<ArrayList<Double>> eval() {
         Expression expressionG = new Expression(this.functionG).setPrecision(16);
         BigDecimal resultG = expressionG.setVariable("x", this.x).eval();
@@ -42,11 +108,11 @@ public class FixedPoint {
         firstIteration.add(resultG.doubleValue());
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
-        while ((error > this.tolerance) && (counter < this.niter)) {
+        while ((resultG != 0.0) && (error > this.tolerance) && (counter < this.niter)) {
             ArrayList<Double> nIteration = new ArrayList<>();
             resultG = expressionG.setVariable("x", this.x).eval();
             BigDecimal xn = resultG;
-            error = Math.abs((xn.doubleValue() - this.x.doubleValue())/xn.doubleValue());
+            error = Math.abs(xn.doubleValue() - this.x.doubleValue());
             nIteration.add(counter + 1.0);
             nIteration.add(xn.doubleValue());
             nIteration.add(resultG.doubleValue());
@@ -55,17 +121,16 @@ public class FixedPoint {
             this.x = xn;
             counter++;
         }
-        if (error < this.tolerance) {
-            System.out.print(this.x);
-            System.out.print("xa is approximation with a tolerance = ");
-            System.out.print(tolerance);
-            this.msg = "There is a root with a tolerance of " + this.tolerance.toString() + " at " + this.x;
-        } else {
-            System.out.print("Failed in: iterations");
-            this.msg = "Failed in " + niter + " iterations";
+        if(resultG.doubleValue() == 0.0){
+            this.message = this.x.toString() + " is a root";
+            return resultTable;
         }
-
-
-        return resultTable;
+        else if (error < this.tolerance) {
+            this.message = this.x.toString() + " is an approximation to the root with absolute error " + error.toString();
+            return resultTable;            
+        } else {
+            this.message = "The method failed in " + String.valueOf(niter) + " iterations";
+            return resultTable;
+        }
     }
 }

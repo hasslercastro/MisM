@@ -15,7 +15,7 @@ public class FalsePosition {
     private int iterations;
     private String message;
 
-    public FalsePosition(){
+    public FalsePosition() {
         this.function = "";
         this.a = 0.0;
         this.b = 0.0;
@@ -23,7 +23,7 @@ public class FalsePosition {
         this.iterations = 0;
     }
 
-    public FalsePosition(String function, Double a, Double b, Double tolerance, int iterations){
+    public FalsePosition(String function, Double a, Double b, Double tolerance, int iterations) {
         this.function = function;
         this.a = a;
         this.b = b;
@@ -108,31 +108,29 @@ public class FalsePosition {
         this.tolerance = tolerance;
     }
 
-    public ArrayList<ArrayList<Double>> eval(){
+    public ArrayList<ArrayList<Double>> eval() {
         ArrayList<ArrayList<Double>> table = new ArrayList<ArrayList<Double>>();
         BigDecimal fxi = null;
         BigDecimal fxs = null;
         BigDecimal fxm = null;
         Double xm = 0.0;
         Expression expression = new Expression(this.function).setPrecision(16);
-        fxi = expression.setVariable("x",this.a.toString()).eval();
-        fxs = expression.setVariable("x",this.b.toString()).eval();
+        fxi = expression.setVariable("x", this.a.toString()).eval();
+        fxs = expression.setVariable("x", this.b.toString()).eval();
 
         if (fxi.doubleValue() == 0.0) {
-            System.out.print(this.a);
-            System.out.println("Is a root");
+            this.message = this.a.toString() + " is a root";
             return table;
-        }else if (fxs.doubleValue() == 0.0){
-            System.out.print(this.b);
-            System.out.println("Is a root");
+        } else if (fxs.doubleValue() == 0.0) {
+            this.message = this.b.toString() + " is a root";
             return table;
-        }else if(fxi.doubleValue()*fxs.doubleValue() < 0){
-            xm = a - ((expression.setVariable("x",this.a.toString()).eval().doubleValue()*(b-a))/(expression.setVariable("x",this.b.toString()).eval().doubleValue()-expression.setVariable("x",this.a.toString()).eval().doubleValue()));//(this.a+this.b)/2;
-            fxm = expression.setVariable("x",xm.toString()).eval();
+        } else if (fxi.doubleValue() * fxs.doubleValue() < 0) {
+            xm = a - ((expression.setVariable("x", this.a.toString()).eval().doubleValue() * (b - a)) / (expression.setVariable("x", this.b.toString()).eval().doubleValue() - expression.setVariable("x", this.a.toString()).eval().doubleValue()));
+            fxm = expression.setVariable("x", xm.toString()).eval();
             int counter = 1;
             Double error = this.tolerance + 1.0;
             ArrayList<Double> iter1 = new ArrayList<>();
-            iter1.add((double)counter);
+            iter1.add((double) counter);
             iter1.add(a);
             iter1.add(b);
             iter1.add(xm);
@@ -141,19 +139,21 @@ public class FalsePosition {
             table.add(iter1);
             while (error > this.tolerance && fxm.doubleValue() != 0.0 && counter < this.iterations) {
                 ArrayList<Double> iter2 = new ArrayList<>();
-                if(fxi.doubleValue() * fxm.doubleValue() < 0.0){
+                if (fxi.doubleValue() * fxm.doubleValue() < 0.0) {
                     this.b = xm;
-                    fxs = fxm;//expression.setVariable("x",xm.toString()).eval();
-                }else{
+                    fxs = fxm;
+                } else {
                     this.a = xm;
-                    fxi = fxm;//expression.setVariable("x",xm.toString()).eval();;
+                    fxi = fxm;
                 }
                 Double xaux = xm;
-                xm = a - ((expression.setVariable("x",this.a.toString()).eval().doubleValue()*(b-a))/(expression.setVariable("x",this.b.toString()).eval().doubleValue()-expression.setVariable("x",this.a.toString()).eval().doubleValue()));
-                fxm = expression.setVariable("x",xm.toString()).eval();
-                error = Math.abs(xm-xaux);
-                counter ++;
-                iter2.add((double)counter);
+                xm = a - ((expression.setVariable("x", this.a.toString()).eval().doubleValue() * (b - a))
+                        / (expression.setVariable("x", this.b.toString()).eval().doubleValue()
+                                - expression.setVariable("x", this.a.toString()).eval().doubleValue()));
+                fxm = expression.setVariable("x", xm.toString()).eval();
+                error = Math.abs(xm - xaux);
+                counter++;
+                iter2.add((double) counter);
                 iter2.add(a);
                 iter2.add(b);
                 iter2.add(xm);
@@ -161,40 +161,19 @@ public class FalsePosition {
                 iter2.add(error);
                 table.add(iter2);
             }
-            if(fxm.doubleValue() == 0.0){
-                this.message = xm.toString()+" Is root";
-                System.out.print(xm);
-                System.out.println("Is root");
+            if (fxm.doubleValue() == 0.0) {
+                this.message = xm.toString() + " is a root";
                 return table;
-            }else if(error < this.tolerance){
-                this.message = xm.toString()+" is an aproximation with a tolerance of "+ this.tolerance.toString();
-                System.out.print(xm);
-                System.out.print(" is an aproximation with a tolerance of ");
-                System.out.println(this.tolerance);
+            } else if (error < this.tolerance) {
+                this.message = xm.toString() + " is an approximation to the root with absolute error " + error.toString();
                 return table;
-            }else{
-                this.message = "Failed in "+ new Double(this.iterations).toString() + " iterations";
-                System.out.print("Failed in ");
-                System.out.println(this.iterations);
-                System.out.println(" iterations");
+            } else {
+                this.message = "The method failed in " + String.valueOf(this.iterations) + " iterations";
                 return table;
             }
-        }else{
-            this.message = "The range is wrong";
-            System.out.print("The range is wrong");
+        } else {
+            this.message = "The interval is inadequate";
             return table;
         }
     }
-    
-    // public static void main(String[] args) {
-    //     FalsePosition b = new FalsePosition(" (e^((3*x)-(12)))+(x*(cos(3*x)))-(x^2)+(4) ", 2.0, 3.0, 0.5E-3, 100);
-    //     ArrayList<ArrayList<Double>> res = b.eval();
-    //     for (int i = 0; i < res.size(); i++) {
-    //         for (int j = 0; j < res.get(i).size(); j++) {
-    //             System.out.print(res.get(i).get(j));
-    //             System.out.print("   ");
-    //         }
-    //         System.out.println();
-    //     }
-    // }
 }

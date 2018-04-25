@@ -15,7 +15,7 @@ public class Secant {
     private String function;
     private String message;
 
-    public Secant(Double tolerance, Double x0, Double x1, Double niter, String function){
+    public Secant(Double tolerance, Double x0, Double x1, Double niter, String function) {
         this.tolerance = tolerance;
         this.x0 = x0;
         this.x1 = x1;
@@ -24,7 +24,7 @@ public class Secant {
         this.message = "";
     }
 
-    public Secant(){
+    public Secant() {
         this.tolerance = 0.0;
         this.x0 = 0.0;
         this.x1 = 0.0;
@@ -75,59 +75,102 @@ public class Secant {
         return message;
     }
 
-    public ArrayList<ArrayList<Double>> eval(){
+    /**
+     * @param function the function to set
+     */
+    public void setFunction(String function) {
+        this.function = function;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @param niter the niter to set
+     */
+    public void setNiter(Double niter) {
+        this.niter = niter;
+    }
+
+    /**
+     * @param tolerance the tolerance to set
+     */
+    public void setTolerance(Double tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    /**
+     * @param x0 the x0 to set
+     */
+    public void setX0(Double x0) {
+        this.x0 = x0;
+    }
+
+    /**
+     * @param x1 the x1 to set
+     */
+    public void setX1(Double x1) {
+        this.x1 = x1;
+    }
+
+    public ArrayList<ArrayList<Double>> eval() {
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
         ArrayList<Double> iteration = new ArrayList<>();
         Expression expressionF = new Expression(this.function).setPrecision(16);
         BigDecimal fx0 = expressionF.setVariable("x", this.x0.toString()).eval();
-
-        if(fx0.doubleValue() == 0.0){
-            this.message = this.x0.toString() + " Is a root"; 
-        }else{
+        if (fx0.doubleValue() == 0.0) {
+            this.message = this.x0.toString() + " is a root";
+            return resultTable;
+        } else {
             BigDecimal fx1 = expressionF.setVariable("x", this.x1.toString()).eval();
             int counter = 0;
             Double error = this.tolerance + 1.0;
             BigDecimal den = new BigDecimal(fx1.doubleValue() - fx0.doubleValue());
-            iteration.add((double)counter);
+            iteration.add((double) counter);
             iteration.add(this.x0);
             iteration.add(fx0.doubleValue());
             iteration.add(0.0);
             resultTable.add(iteration);
             ArrayList<Double> iteration2 = new ArrayList<>();
-            iteration2.add((double)counter+1.0);
+            iteration2.add((double) counter + 1.0);
             iteration2.add(this.x1);
             iteration2.add(fx1.doubleValue());
             iteration2.add(0.0);
             resultTable.add(iteration2);
-            counter = counter+2;
-            while(error > this.tolerance && fx1.doubleValue() != 0.0 && den != BigDecimal.ZERO && counter < niter){   
+            counter = counter + 2;
+            while (error > this.tolerance && fx1.doubleValue() != 0.0 && den.doubleValue() == 0.0 && counter < niter) {
                 ArrayList<Double> iterationN = new ArrayList<>();
-
-                BigDecimal x2 = new BigDecimal(x1-((fx1.doubleValue()*(this.x1-this.x0))/(den.doubleValue())));
-                error = Math.abs((x2.doubleValue() - this.x1)/x2.doubleValue());
+                BigDecimal x2 = new BigDecimal(x1 - ((fx1.doubleValue() * (this.x1 - this.x0)) / (den.doubleValue())));
+                error = Math.abs(x2.doubleValue() - this.x1.doubleValue());
                 this.x0 = this.x1;
                 fx0 = fx1;
                 this.x1 = x2.doubleValue();
                 fx1 = expressionF.setVariable("x", this.x1.toString()).eval();
                 den = new BigDecimal(fx1.doubleValue() - fx0.doubleValue());
-                iterationN.add((double)counter);
+                iterationN.add((double) counter);
                 iterationN.add(x2.doubleValue());
                 iterationN.add(fx1.doubleValue());
                 iterationN.add(error);
                 resultTable.add(iterationN);
-                counter ++;
-
+                counter++;
             }
-            if(fx1.doubleValue() == 0.0){
-                this.message = this.x1.toString() + " Is a root";
-            }else if(error < this.tolerance){
-                this.message = this.x1.toString() + " Is an aproximation to a root with a tolerance of = "+this.tolerance.toString();
-            }else if(den == BigDecimal.ZERO){
+            if (fx1.doubleValue() == 0.0) {
+                this.message = this.x1.toString() + " is a root";
+                return resultTable;
+            } else if (error < this.tolerance) {
+                this.message = this.x1.toString() + " is an approximation to the root with absolute error " + error.toString();
+                return resultTable;
+            } else if (den.doubleValue() == 0.0) {
                 this.message = "There is a possible mutiple root";
-            }else{
-                this.message = "Failed in "+niter.toString();
+                return resultTable;
+            } else {
+                this.message = "The method failed in " + String.valueOf(this.niter) + " iterations";
+                return resultTable;
             }
         }
-        return resultTable;
     }
 }
