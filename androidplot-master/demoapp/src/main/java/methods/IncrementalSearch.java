@@ -39,7 +39,7 @@ public class IncrementalSearch {
   
     public ArrayList<ArrayList<Double>> incrementalSearch(){
 
-        Expression expression = new Expression(this.function).setPrecision(10);
+        Expression expression = new Expression(this.function).setPrecision(16);
         expression.setVariable("x", this.x0);
         BigDecimal fx0 = expression.eval();
         BigDecimal x1;

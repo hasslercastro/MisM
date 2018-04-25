@@ -113,7 +113,7 @@ public class Bisection {
         BigDecimal fxs = null;
         BigDecimal fxm = null;
         Double xm = 0.0;
-        Expression expression = new Expression(this.function).setPrecision(10);
+        Expression expression = new Expression(this.function).setPrecision(16);
         fxi = expression.setVariable("x", this.a.toString()).eval();
         fxs = expression.setVariable("x", this.b.toString()).eval();
 

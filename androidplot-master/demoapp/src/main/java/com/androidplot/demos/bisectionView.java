@@ -120,7 +120,7 @@ public class bisectionView extends Activity {
             }
         });
 
-
+/**
         Button aitken = (Button) findViewById(R.id.Aitken);
         aitken.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class bisectionView extends Activity {
                     alertDialog.show();
                 }
             }
-        });
+        });*/
 
         Button grph = (Button) findViewById(R.id.button8);
         grph.setOnClickListener(new View.OnClickListener() {

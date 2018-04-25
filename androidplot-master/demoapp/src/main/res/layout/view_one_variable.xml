@@ -33,7 +33,7 @@
         android:id="@+id/newton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Newton's Method" />
+        android:text="Newton" />
 
     <Button
         android:id="@+id/secant"

@@ -31,7 +31,7 @@ public class FixedPoint {
     }
 
     public ArrayList<ArrayList<Double>> eval() {
-        Expression expressionG = new Expression(this.functionG).setPrecision(10);
+        Expression expressionG = new Expression(this.functionG).setPrecision(16);
         BigDecimal resultG = expressionG.setVariable("x", this.x).eval();
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
         ArrayList<Double> firstIteration = new ArrayList<>();

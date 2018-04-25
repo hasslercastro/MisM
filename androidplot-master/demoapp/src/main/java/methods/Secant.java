@@ -78,7 +78,7 @@ public class Secant {
     public ArrayList<ArrayList<Double>> eval(){
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
         ArrayList<Double> iteration = new ArrayList<>();
-        Expression expressionF = new Expression(this.function).setPrecision(20);
+        Expression expressionF = new Expression(this.function).setPrecision(16);
         BigDecimal fx0 = expressionF.setVariable("x", this.x0.toString()).eval();
 
         if(fx0.doubleValue() == 0.0){

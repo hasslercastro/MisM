@@ -34,9 +34,9 @@ public class Newton {
     }
 
     public ArrayList<ArrayList<Double>> eval() {
-        Expression expressionF = new Expression(this.functionF).setPrecision(10);
+        Expression expressionF = new Expression(this.functionF).setPrecision(16);
         BigDecimal fx = expressionF.setVariable("x", this.x).eval();
-        Expression expressionDf = new Expression(this.diffFunction).setPrecision(10);
+        Expression expressionDf = new Expression(this.diffFunction).setPrecision(16);
         BigDecimal dfx = expressionDf.setVariable("x", this.x).eval();
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
         ArrayList<Double> firstIteration = new ArrayList<>();
