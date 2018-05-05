@@ -108,7 +108,7 @@ public class FixedPoint {
         firstIteration.add(resultG.doubleValue());
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
-        while ((resultG != 0.0) && (error > this.tolerance) && (counter < this.niter)) {
+        while ((resultG.doubleValue() != 0.0) && (error > this.tolerance) && (counter < this.niter)) {
             ArrayList<Double> nIteration = new ArrayList<>();
             resultG = expressionG.setVariable("x", this.x).eval();
             BigDecimal xn = resultG;

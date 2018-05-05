@@ -70,7 +70,7 @@ public class multipleRoots extends Activity{
                     toleranceTo = Double.parseDouble(tolerance.getText().toString());
                     MultipleRoots mroot = new MultipleRoots(toleranceTo, initial, iterTo, function.getText().toString(), firstD.getText().toString(), secondD.getText().toString());
                     toTable = mroot.eval();
-                    root.setText(mroot.getMsg());
+                    root.setText(mroot.getMessage());
                 }catch (Exception e){
                     alertDialog.show();
                 }

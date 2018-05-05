@@ -95,7 +95,7 @@ public class fixedPointView extends Activity {
                 toleranceTo = Double.parseDouble(tolerance.getText().toString());
                 FixedPoint fx = new FixedPoint(toleranceTo, initialPoint.getText().toString() , niterTo, function.getText().toString());
                 toTable = fx.eval();
-                root.setText(fx.getMsg());
+                root.setText(fx.getMessage());
                 table.setEnabled(true);
                 }catch(Exception e){
                     alertDialog.show();

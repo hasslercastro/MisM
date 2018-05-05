@@ -25,6 +25,18 @@ public class Method extends Activity{
             }
         });
 
+
+
+        Button equations = (Button) findViewById(R.id.Equations);
+        equations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Method.this, MatrixMethods.class));
+            }
+        });
+
+
+
     }
 
 }

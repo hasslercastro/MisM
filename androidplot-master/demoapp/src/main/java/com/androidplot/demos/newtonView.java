@@ -69,7 +69,7 @@ public class newtonView extends Activity{
                     toleranceTo = Double.parseDouble(tolerance.getText().toString());
                     Newton newton = new Newton(toleranceTo, initialTo, iterationTo, function.getText().toString(), derivative.getText().toString());
                     toTable = newton.eval();
-                    root.setText(newton.getMsg());
+                    root.setText(newton.getMessage());
                 }catch (Exception e){
                     alertDialog.show();
                 }
