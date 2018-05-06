@@ -1,6 +1,7 @@
 package com.androidplot.demos;
 
 import android.app.Activity;
+import methods.SimpleGauss;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,6 +19,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import methods.SimpleGauss;
 
 /**
  * Created by Hassler on 25/04/2018.
@@ -31,9 +33,9 @@ public class LinearEquation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.matrix);
 
-        int rows= getIntent().getExtras().getInt("size");
+        final int rows= getIntent().getExtras().getInt("size");
         int columns= getIntent().getExtras().getInt("size");;
-        String method = getIntent().getExtras().getString("method");
+        final String method = getIntent().getExtras().getString("method");
     /**
         // GET THE MATRIX DIMENSIONS
         int rows=4;
@@ -71,8 +73,11 @@ public class LinearEquation extends Activity {
         title.setText(method);
         title.setTextSize(30);
         title.setGravity(Gravity.CENTER);
-        TableLayout ll = (TableLayout) findViewById(R.id.matrixT);
-        TableLayout b = (TableLayout) findViewById(R.id.b);
+        final TableLayout A = (TableLayout) findViewById(R.id.matrixT);
+        final TableLayout b = (TableLayout) findViewById(R.id.b);
+        final TableLayout x = (TableLayout) findViewById(R.id.x);
+
+
 
         for(int i = 0 ; i < rows ; i++){
             TableRow row= new TableRow(this);
@@ -95,10 +100,54 @@ public class LinearEquation extends Activity {
                 position.setInputType(InputType.TYPE_CLASS_NUMBER);
                 row.addView(position);
             }
-            ll.addView(row,i);
+            A.addView(row,i);
         }
+        final double[][] A_matrix = new double[rows][columns];
+        final double[] vect_b = new double[rows];
 
 
 
- }
+        Button run = (Button) findViewById(R.id.run);
+        run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                x.removeAllViews();
+
+                switch (method){
+                    case "Simple Gauss":
+                        for(int i = 0 ; i < rows ; i++){
+                            TableRow row = (TableRow) A.getChildAt(i);
+                            TableRow row_b = (TableRow) b.getChildAt(0);
+                            EditText temp = (EditText) row.getChildAt(i);
+                            vect_b[i] = Double.valueOf(temp.getText().toString());
+                            for(int j = 0 ; j < rows ; j++){
+                                temp = (EditText) row.getChildAt(j);
+                                A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                            }
+                        }
+                        SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
+                        double[] solution = sg.getSolution();
+
+                        for(int i = 0 ; i < rows ; i++){
+
+                            TableRow row= new TableRow(LinearEquation.this);
+                            EditText value  = new EditText(LinearEquation.this);
+                            value.setText(String.valueOf(solution[i]));
+                            value.setEnabled(false);
+                            row.addView(value);
+                            x.addView(row,i);
+                        }
+
+
+
+
+
+
+                }
+            }
+        });
+
+
+
+    }
 }
