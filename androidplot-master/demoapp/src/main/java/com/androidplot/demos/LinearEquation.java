@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -145,6 +146,25 @@ public class LinearEquation extends Activity {
 
                 }
             }
+        });
+
+
+
+        PopupWindow popupWindow;
+        Button pop = (Button) findViewById(R.id.solve);
+        pop.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PopSolve.class);
+                startActivity(intent);
+
+
+
+
+
+            }
+
+
         });
 
 
