@@ -142,7 +142,7 @@ public class Secant {
             iteration2.add(0.0);
             resultTable.add(iteration2);
             counter = counter + 2;
-            while (error > this.tolerance && fx1.doubleValue() != 0.0 && den.doubleValue() == 0.0 && counter < niter) {
+            while (error > this.tolerance && fx1.doubleValue() != 0.0 && den.doubleValue() != 0.0 && counter < niter) {
                 ArrayList<Double> iterationN = new ArrayList<>();
                 BigDecimal x2 = new BigDecimal(x1 - ((fx1.doubleValue() * (this.x1 - this.x0)) / (den.doubleValue())));
                 error = Math.abs(x2.doubleValue() - this.x1.doubleValue());
