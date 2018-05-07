@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/Incremental"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Incremental Search" />
+
+    <Button
+        android:id="@+id/bisection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bisection" />
+
+    <Button
+        android:id="@+id/FalsePosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="False Position" />
+
+
+    <Button
+        android:id="@+id/FixedPoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fixed Point" />
+
+    <Button
+        android:id="@+id/newton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Newton" />
+
+    <Button
+        android:id="@+id/secant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Secant" />
+
+    <Button
+        android:id="@+id/mroots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Multiple roots" />
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.androidplot.demos;
+package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.eafit.dis.mathismath.R;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

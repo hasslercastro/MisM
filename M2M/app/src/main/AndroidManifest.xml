@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.eafit.dis.mathismath">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+
+        <activity android:name="com.eafit.dis.mathismath.CodeMethods.MainActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".CodeMethods.Method"/>
+        <activity android:name=".CodeMethods.OneVariableMethods"/>
+        <activity android:name=".CodeMethods.bisectionView"/>
+        <activity android:name=".CodeMethods.fixedPointView"/>
+        <activity android:name=".CodeMethods.incSearch" />
+        <activity android:name=".CodeMethods.TablaNewtonFixedPoint"/>
+        <activity android:name=".CodeMethods.TableBiseccionFalsePosition"/>
+        <activity android:name=".CodeMethods.IncrementalTable"/>
+        <activity android:name=".CodeMethods.falsePositionView"/>
+        <activity android:name=".CodeMethods.newtonView"/>
+        <activity android:name=".CodeMethods.TableNewton" />
+        <activity android:name=".CodeMethods.secantView"/>
+        <activity android:name=".CodeMethods.secantTable"/>
+        <activity android:name=".CodeMethods.multipleRoots"/>
+        <activity android:name=".CodeMethods.multipleRootsTable"/>
+        <activity android:name=".CodeMethods.Grapher"/>
+        <activity android:name=".CodeMethods.GraphFromMethods"/>
+        <activity android:name=".CodeMethods.LinearEquation"/>
+        <activity android:name=".CodeMethods.MatrixMethods"/>
+        <activity android:name=".CodeMethods.PopSolve"
+            android:theme="@style/back"
+
+            />
+
+
+
+    </application>
+</manifest>
