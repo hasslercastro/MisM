@@ -39,7 +39,6 @@
         <activity android:name=".CodeMethods.MatrixMethods"/>
         <activity android:name=".CodeMethods.PopSolve"
             android:theme="@style/back"
-
             />
 
 

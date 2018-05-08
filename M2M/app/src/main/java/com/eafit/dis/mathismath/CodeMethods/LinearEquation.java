@@ -110,6 +110,8 @@ public class LinearEquation extends Activity {
         }
         final double[][] A_matrix = new double[rows][columns];
         final double[] vect_b = new double[rows];
+        final ArrayList<String> sol = new ArrayList<String>();
+
 
 
 
@@ -133,6 +135,9 @@ public class LinearEquation extends Activity {
                         }
                         SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
                         double[] solution = sg.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
+                        }
 
                         for(int i = 0 ; i < rows ; i++){
 
@@ -161,6 +166,7 @@ public class LinearEquation extends Activity {
 
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
+                intent.putExtra("solution", sol);
                 startActivity(intent);
 
 
