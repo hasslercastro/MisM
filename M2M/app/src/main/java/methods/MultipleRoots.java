@@ -152,7 +152,7 @@ public class MultipleRoots {
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
         BigDecimal x1=new BigDecimal(0);
-        while ((fx.doubleValue() == 0.0) && (error > this.tolerance) && (counter < this.niter) && (dfx.doubleValue() == 0.0)) {
+        while ((fx.doubleValue() != 0.0) && (error > this.tolerance) && (counter < this.niter) && (dfx.doubleValue() != 0.0)) {
             ArrayList<Double> nIteration = new ArrayList<>();
             x1 = new BigDecimal(this.x.doubleValue()-((fx.doubleValue()*dfx.doubleValue())/(Math.pow(dfx.doubleValue(),2) -(fx.doubleValue()*d2fx.doubleValue()))));
             fx = expressionF.setVariable("x", x1).eval();
