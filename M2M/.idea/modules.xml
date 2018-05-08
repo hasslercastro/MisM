@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/M2M.iml" filepath="$PROJECT_DIR$/M2M.iml" />
+      <module fileurl="file://H:\Documentos\Quinto\Análisis\métodos\unidad2\MisM\M2M\M2M.iml" filepath="H:\Documentos\Quinto\Análisis\métodos\unidad2\MisM\M2M\M2M.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://H:\Documentos\Quinto\Análisis\métodos\unidad2\MisM\M2M\app\app.iml" filepath="H:\Documentos\Quinto\Análisis\métodos\unidad2\MisM\M2M\app\app.iml" />
     </modules>
   </component>
 </project>

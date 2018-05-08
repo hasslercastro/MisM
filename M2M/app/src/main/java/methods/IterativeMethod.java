@@ -1,4 +1,6 @@
 
+
+package methods;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math.*;
@@ -6,6 +8,7 @@ import java.lang.Math.*;
 /**
  * This class contains all the similar stuff of the iterative methods, in order to avoid repeating code.
  */
+
 public class IterativeMethod {
     private double[][] A;
     private double[] b, x0;

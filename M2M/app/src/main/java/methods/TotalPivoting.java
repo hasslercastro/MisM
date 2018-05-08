@@ -2,6 +2,7 @@
  * @author Hassler Castro Cuesta - Joshua Sanchez Alvarez- Edwin Rengifo Villa -
  *         Camilo Villa Restrepo
  */
+package methods;
 public class TotalPivoting {
 
     static int[] marks;

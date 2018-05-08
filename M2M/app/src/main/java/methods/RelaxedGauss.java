@@ -1,6 +1,9 @@
+package methods;
 /**
  * RelaxedGauss
  */
+import methods.IterativeMethod;
+
 public class RelaxedGauss extends IterativeMethod{
     private double w;
     
