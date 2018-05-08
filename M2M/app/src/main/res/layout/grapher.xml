@@ -18,11 +18,10 @@
 
     <EditText
         android:id="@+id/function"
-        android:layout_width="214dp"
-        android:layout_height="36dp"
+        android:layout_width="215dp"
+        android:layout_height="46dp"
         android:layout_marginBottom="43dp"
         android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
