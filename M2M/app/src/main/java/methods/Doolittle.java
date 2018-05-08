@@ -1,4 +1,4 @@
-
+package  methods;
 public class Doolittle extends DirectElimination{
 
     public Doolittle(double[][] A, double[] b){

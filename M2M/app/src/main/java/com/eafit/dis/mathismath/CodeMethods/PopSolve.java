@@ -30,7 +30,7 @@ public class PopSolve extends Activity {
         Log.d("size",  String.valueOf(solution.size()));
 
         for(int i = 0 ; i < solution.size() ; i++){
-            TableRow row= new TableRow(PopSolve.this);
+            TableRow row = new TableRow(PopSolve.this);
             TextView value  = new TextView(PopSolve.this);
             value.setText(solution.get(i));
             row.addView(value);

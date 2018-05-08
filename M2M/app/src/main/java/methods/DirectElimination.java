@@ -1,6 +1,4 @@
-/**
- * DirectElimination
- */
+package  methods;
 public class DirectElimination {
 
     private double[][] A;
@@ -15,23 +13,11 @@ public class DirectElimination {
         this.U = new double[A.length][A.length];
         this.eval();
     }
-    public double[][] getA() {
-        return A;
-    }
-    public double[] getB() {
-        return b;
-    }
-    public double[][] getL() {
-        return L;
-    }
-    public double[][] getU() {
-        return U;
-    }
-    public void setL(int i,int j, double l) {
-        this.L[i][j] = l;
-    }
-    public void setU(int i,int j, double u) {
-        this.U[i][j] = u;
+    public  double[] getSolution(){
+        double[] sol = new SimpleGauss(this.L, this.b).getSolution(); // Lz
+        sol = new SimpleGauss(this.U, sol).getSolution(); // Ux
+        return  sol;
+        
     }
     public void eval(){
         double [][][] res = new double[2][A.length][A.length];
@@ -59,6 +45,25 @@ public class DirectElimination {
                 this.U[k][j] = (this.A[k][j] - sum1)/this.L[k][k];
             }
         }
+    }
+
+    public double[][] getA() {
+        return A;
+    }
+    public double[] getB() {
+        return b;
+    }
+    public double[][] getL() {
+        return L;
+    }
+    public double[][] getU() {
+        return U;
+    }
+    public void setL(int i,int j, double l) {
+        this.L[i][j] = l;
+    }
+    public void setU(int i,int j, double u) {
+        this.U[i][j] = u;
     }
     //These methods will be overriden depending of each method(Doolittle, Crout, Cholesky).
     public void auxFactorization(){}

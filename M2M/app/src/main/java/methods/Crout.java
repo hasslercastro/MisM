@@ -1,4 +1,4 @@
-
+package  methods;
 public class Crout extends DirectElimination{
 
     public Crout(double[][] A, double[] b){

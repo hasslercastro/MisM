@@ -15,9 +15,8 @@ public class PartialPivoting {
     /**
      * @return the elimination
      */
-    public double[][] getElimination() {
-        return this.elimination;
-    }
+    public double[][] getElimination() { return this.elimination; }
+
 
     /**
      * @return the solution
@@ -25,6 +24,7 @@ public class PartialPivoting {
     public double[] getSolution() {
         return this.solution;
     }
+
 
     public static void printMatrix(double[][] M) {
         System.out.println("\n");

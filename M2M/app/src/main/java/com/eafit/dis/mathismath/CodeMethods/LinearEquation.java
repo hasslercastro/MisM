@@ -120,88 +120,84 @@ public class LinearEquation extends Activity {
             public void onClick(View view) {
                 x.removeAllViews();
                 double[] solution;
+                for(int i = 0 ; i < rows ; i++){
+                    TableRow row = (TableRow) A.getChildAt(i);
+                    TableRow row_b = (TableRow) b.getChildAt(0);
+                    EditText temp = (EditText) row.getChildAt(i);
+                    vect_b[i] = Double.valueOf(temp.getText().toString());
+                    for(int j = 0 ; j < rows ; j++){
+                        temp = (EditText) row.getChildAt(j);
+                        A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                    }
+                }
                 switch (method){
                     case "Simple Gauss":
-                        for(int i = 0 ; i < rows ; i++){
-                            TableRow row = (TableRow) A.getChildAt(i);
-                            TableRow row_b = (TableRow) b.getChildAt(0);
-                            EditText temp = (EditText) row.getChildAt(i);
-                            vect_b[i] = Double.valueOf(temp.getText().toString());
-                            for(int j = 0 ; j < rows ; j++){
-                                temp = (EditText) row.getChildAt(j);
-                                A_matrix[i][j] = Double.valueOf(temp.getText().toString());
-                            }
-                        }
                         SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
                         solution = sg.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-
-                        for(int i = 0 ; i < rows ; i++){
-
-                            TableRow row= new TableRow(LinearEquation.this);
-                            EditText value  = new EditText(LinearEquation.this);
-                            value.setText(String.valueOf(solution[i]));
-                            value.setEnabled(false);
-                            row.addView(value);
-                            x.addView(row,i);
-                        }
                         break;
                     case "Partial Pivoting":
-                        for(int i = 0 ; i < rows ; i++){
-                            TableRow row = (TableRow) A.getChildAt(i);
-                            TableRow row_b = (TableRow) b.getChildAt(0);
-                            EditText temp = (EditText) row.getChildAt(i);
-                            vect_b[i] = Double.valueOf(temp.getText().toString());
-                            for(int j = 0 ; j < rows ; j++){
-                                temp = (EditText) row.getChildAt(j);
-                                A_matrix[i][j] = Double.valueOf(temp.getText().toString());
-                            }
-                        }
                         PartialPivoting pp = new PartialPivoting(A_matrix, vect_b);
                         solution = pp.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-
-                        for(int i = 0 ; i < rows ; i++){
-
-                            TableRow row= new TableRow(LinearEquation.this);
-                            EditText value  = new EditText(LinearEquation.this);
-                            value.setText(String.valueOf(solution[i]));
-                            value.setEnabled(false);
-                            row.addView(value);
-                            x.addView(row,i);
-                        }
                         break;
                     case "Total Pivoting":
-                        for(int i = 0 ; i < rows ; i++){
-                            TableRow row = (TableRow) A.getChildAt(i);
-                            TableRow row_b = (TableRow) b.getChildAt(0);
-                            EditText temp = (EditText) row.getChildAt(i);
-                            vect_b[i] = Double.valueOf(temp.getText().toString());
-                            for(int j = 0 ; j < rows ; j++){
-                                temp = (EditText) row.getChildAt(j);
-                                A_matrix[i][j] = Double.valueOf(temp.getText().toString());
-                            }
-                        }
                         TotalPivoting tp = new TotalPivoting(A_matrix, vect_b);
                         solution = tp.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-
-                        for(int i = 0 ; i < rows ; i++){
-
-                            TableRow row= new TableRow(LinearEquation.this);
-                            EditText value  = new EditText(LinearEquation.this);
-                            value.setText(String.valueOf(solution[i]));
-                            value.setEnabled(false);
-                            row.addView(value);
-                            x.addView(row,i);
+                        break;
+                    case "Doolittle":
+                        TotalPivoting doo = new TotalPivoting(A_matrix, vect_b);
+                        solution = doo.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
                         }
+                        break;
+                    case "Crout":
+                        TotalPivoting cr = new TotalPivoting(A_matrix, vect_b);
+                        solution = cr.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
+                        }
+                        break;
+                    case "Cholesky":
+                        TotalPivoting ch = new TotalPivoting(A_matrix, vect_b);
+                        solution = ch.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
+                        }
+                        break;
+                    case "Jacobi":
+                        TotalPivoting jab = new TotalPivoting(A_matrix, vect_b);
+                        solution = jab.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
+                        }
+                        break;
+                    case "Gauss Seidel":
+                        TotalPivoting ga = new TotalPivoting(A_matrix, vect_b);
+                        solution = ga.getSolution();
+                        for (int i = 0 ; i < solution.length ; i++){
+                            sol.add(String.valueOf(solution[i]));
+                        }
+                        break;
+                    default:
+                        solution = new double[] {-1, -1, -1};
+                }
 
+                for(int i = 0 ; i < rows ; i++){
+                    TableRow row= new TableRow(LinearEquation.this);
+                    EditText value  = new EditText(LinearEquation.this);
+                    value.setText(String.valueOf(solution[i]));
+                    value.setEnabled(false);
+                    row.addView(value);
+                    x.addView(row,i);
                 }
             }
         });
