@@ -26,6 +26,10 @@ public class PopSolve extends Activity {
         setContentView(R.layout.pop_solve);
 
         ArrayList<String> solution = getIntent().getStringArrayListExtra("solution");
+        Bundle bundle = getIntent().getExtras();
+        double[][] A = (double[][]) bundle.getSerializable("A");
+        double[][] L = (double[][]) bundle.getSerializable("A");
+        double[][] U = (double[][]) bundle.getSerializable("A");
         TableLayout x_vector = (TableLayout) findViewById(R.id.x_vector);
         Log.d("size",  String.valueOf(solution.size()));
 

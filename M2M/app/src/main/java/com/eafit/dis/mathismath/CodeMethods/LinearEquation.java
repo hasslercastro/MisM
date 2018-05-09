@@ -118,6 +118,10 @@ public class LinearEquation extends Activity {
         }
 
         final ArrayList<String> sol = new ArrayList<String>();
+        final double[][] res_A = new double[rows][columns];
+        final double[][] L = new double[rows][columns];
+        final double[][] U = new double[rows][columns];
+
 
         Button run = (Button) findViewById(R.id.run);
         run.setOnClickListener(new View.OnClickListener() {
@@ -129,9 +133,11 @@ public class LinearEquation extends Activity {
                 double[][] A_matrix = new double[rows][columns];
                 double[] vect_b = new double[rows];
 
-                double[][] res_A = new double[rows][columns];
-                double[][] L = new double[rows][columns];
-                double[][] U = new double[rows][columns];
+                double[][] A_temp,L_temp,U_temp;
+
+                //double[][] res_A = new double[rows][columns];
+                //double[][] L = new double[rows][columns];
+                //double[][] U = new double[rows][columns];
 
 
                 for(int i = 0 ; i < rows ; i++){
@@ -154,7 +160,13 @@ public class LinearEquation extends Activity {
                     case "Simple Gauss":
                         SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
                         solution = sg.getSolution();
-                        res_A = sg.getElimination();
+                        A_temp = sg.getElimination();
+                        for(int i = 0; i < A_temp.length; i++) {
+                            for (int j = 0; j  < A_temp.length ; j++){
+                                res_A[i][j] = A_temp[i][j];
+                            }
+                        }
+
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -162,7 +174,14 @@ public class LinearEquation extends Activity {
                     case "Partial Pivoting":
                         PartialPivoting pp = new PartialPivoting(A_matrix, vect_b);
                         solution = pp.getSolution();
-                        res_A = pp.getElimination();
+
+                        A_temp = pp.getElimination();
+                        for(int i = 0; i < A_temp.length; i++) {
+                            for (int j = 0; j  < A_temp.length ; j++){
+                                res_A[i][j] = A_temp[i][j];
+                            }
+                        }
+
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -170,7 +189,14 @@ public class LinearEquation extends Activity {
                     case "Total Pivoting":
                         TotalPivoting tp = new TotalPivoting(A_matrix, vect_b);
                         solution = tp.getSolution();
-                        res_A = tp.getElimination();
+
+                        A_temp = tp.getElimination();
+                        for(int i = 0; i < A_temp.length; i++) {
+                            for (int j = 0; j  < A_temp.length ; j++){
+                                res_A[i][j] = A_temp[i][j];
+                            }
+                        }
+
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -178,8 +204,14 @@ public class LinearEquation extends Activity {
                     case "Doolittle":
                         Doolittle doo = new Doolittle(A_matrix, vect_b);
                         solution = doo.getSolution();
-                        L = doo.getL();
-                        U = doo.getU();
+                        L_temp = doo.getL();
+                        U_temp = doo.getU();
+                        for(int i = 0; i < L.length; i++) {
+                            for (int j = 0; j  < L.length ; j++){
+                                L[i][j] = L_temp[i][j];
+                                U[i][j] = U_temp[i][j];
+                            }
+                        }
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -187,8 +219,14 @@ public class LinearEquation extends Activity {
                     case "Crout":
                         Crout cr = new Crout(A_matrix, vect_b);
                         solution = cr.getSolution();
-                        L = cr.getL();
-                        U = cr.getU();
+                        L_temp = cr.getL();
+                        U_temp = cr.getU();
+                        for(int i = 0; i < L.length; i++) {
+                            for (int j = 0; j  < L.length ; j++){
+                                L[i][j] = L_temp[i][j];
+                                U[i][j] = U_temp[i][j];
+                            }
+                        }
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -196,8 +234,14 @@ public class LinearEquation extends Activity {
                     case "Cholesky":
                         Cholesky ch = new Cholesky(A_matrix, vect_b);
                         solution = ch.getSolution();
-                        L = ch.getL();
-                        U = ch.getU();
+                        L_temp = ch.getL();
+                        U_temp = ch.getU();
+                        for(int i = 0; i < L.length; i++) {
+                            for (int j = 0; j  < L.length ; j++){
+                                L[i][j] = L_temp[i][j];
+                                U[i][j] = U_temp[i][j];
+                            }
+                        }
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -232,13 +276,22 @@ public class LinearEquation extends Activity {
                 }
             }
         });
-        PopupWindow popupWindow;
+
         Button pop = (Button) findViewById(R.id.solve);
         pop.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("A" , res_A);
+                intent.putExtra("A" , bundle);
+                bundle.putSerializable("L" , L);
+                intent.putExtra("L" , bundle);
+                bundle.putSerializable("U" , U);
+                intent.putExtra("U" , bundle);
                 intent.putExtra("solution", sol);
+
+
                 startActivity(intent);
             }
 
