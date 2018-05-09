@@ -1,6 +1,12 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
+
+import methods.Cholesky;
+import methods.Crout;
+import methods.Doolittle;
+import methods.GaussSeidel;
+import methods.Jacobi;
 import methods.SimpleGauss;
 import methods.PartialPivoting;
 import methods.TotalPivoting;
@@ -123,6 +129,11 @@ public class LinearEquation extends Activity {
                 double[][] A_matrix = new double[rows][columns];
                 double[] vect_b = new double[rows];
 
+                double[][] res_A = new double[rows][columns];
+                double[][] L = new double[rows][columns];
+                double[][] U = new double[rows][columns];
+
+
                 for(int i = 0 ; i < rows ; i++){
                     TableRow row_r = (TableRow) b.getChildAt(i);
                     EditText temp = (EditText) row_r.getChildAt(0);
@@ -143,6 +154,7 @@ public class LinearEquation extends Activity {
                     case "Simple Gauss":
                         SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
                         solution = sg.getSolution();
+                        res_A = sg.getElimination();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -150,6 +162,7 @@ public class LinearEquation extends Activity {
                     case "Partial Pivoting":
                         PartialPivoting pp = new PartialPivoting(A_matrix, vect_b);
                         solution = pp.getSolution();
+                        res_A = pp.getElimination();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
@@ -157,45 +170,54 @@ public class LinearEquation extends Activity {
                     case "Total Pivoting":
                         TotalPivoting tp = new TotalPivoting(A_matrix, vect_b);
                         solution = tp.getSolution();
+                        res_A = tp.getElimination();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Doolittle":
-                        TotalPivoting doo = new TotalPivoting(A_matrix, vect_b);
+                        Doolittle doo = new Doolittle(A_matrix, vect_b);
                         solution = doo.getSolution();
+                        L = doo.getL();
+                        U = doo.getU();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Crout":
-                        TotalPivoting cr = new TotalPivoting(A_matrix, vect_b);
+                        Crout cr = new Crout(A_matrix, vect_b);
                         solution = cr.getSolution();
+                        L = cr.getL();
+                        U = cr.getU();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Cholesky":
-                        TotalPivoting ch = new TotalPivoting(A_matrix, vect_b);
+                        Cholesky ch = new Cholesky(A_matrix, vect_b);
                         solution = ch.getSolution();
+                        L = ch.getL();
+                        U = ch.getU();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
+
+                    /**
                     case "Jacobi":
-                        TotalPivoting jab = new TotalPivoting(A_matrix, vect_b);
+                        Jacobi jab = new Jacobi(A_matrix, vect_b);
                         solution = jab.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Gauss Seidel":
-                        TotalPivoting ga = new TotalPivoting(A_matrix, vect_b);
+                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b);
                         solution = ga.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-                        break;
+                        break;*/
                     default:
                         solution = new double[] {-1, -1, -1};
                 }
@@ -210,9 +232,6 @@ public class LinearEquation extends Activity {
                 }
             }
         });
-
-
-
         PopupWindow popupWindow;
         Button pop = (Button) findViewById(R.id.solve);
         pop.setOnClickListener(new View.OnClickListener() {
@@ -221,17 +240,9 @@ public class LinearEquation extends Activity {
                 Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
                 intent.putExtra("solution", sol);
                 startActivity(intent);
-
-
-
-
-
             }
 
 
         });
-
-
-
     }
 }
