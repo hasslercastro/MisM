@@ -42,7 +42,7 @@ public class LinearEquation extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         final int rows= getIntent().getExtras().getInt("size");
-        int columns= getIntent().getExtras().getInt("size");;
+        final int columns= getIntent().getExtras().getInt("size");;
         final String method = getIntent().getExtras().getString("method");
     /**
         // GET THE MATRIX DIMENSIONS
@@ -91,7 +91,7 @@ public class LinearEquation extends Activity {
             TableRow row= new TableRow(this);
             EditText position = new EditText(this);
             position.setText(" 0 ");
-            position.setInputType(InputType.TYPE_CLASS_NUMBER);
+            position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             row.addView(position);
             b.addView(row,i);
 
@@ -105,13 +105,12 @@ public class LinearEquation extends Activity {
             {
                 EditText position = new EditText(this);
                 position.setText(" 0 ");
-                position.setInputType(InputType.TYPE_CLASS_NUMBER);
+                position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 row.addView(position);
             }
             A.addView(row,i);
         }
-        final double[][] A_matrix = new double[rows][columns];
-        final double[] vect_b = new double[rows];
+
         final ArrayList<String> sol = new ArrayList<String>();
 
         Button run = (Button) findViewById(R.id.run);
@@ -119,14 +118,24 @@ public class LinearEquation extends Activity {
             @Override
             public void onClick(View view) {
                 x.removeAllViews();
+                sol.clear();
                 double[] solution;
+                double[][] A_matrix = new double[rows][columns];
+                double[] vect_b = new double[rows];
+
+                for(int i = 0 ; i < rows ; i++){
+                    TableRow row_r = (TableRow) b.getChildAt(i);
+                    EditText temp = (EditText) row_r.getChildAt(0);
+                    vect_b[i] = Double.valueOf(temp.getText().toString());
+                    Log.d("Valoooor",String.valueOf(Double.valueOf(temp.getText().toString())));
+                }
                 for(int i = 0 ; i < rows ; i++){
                     TableRow row = (TableRow) A.getChildAt(i);
-                    TableRow row_b = (TableRow) b.getChildAt(0);
-                    EditText temp = (EditText) row.getChildAt(i);
-                    vect_b[i] = Double.valueOf(temp.getText().toString());
+                    //vect_b[i] = Double.valueOf(temp.getText().toString());
+                    //Log.d("Valooooor",String.valueOf(Double.valueOf(temp.getText().toString())));
                     for(int j = 0 ; j < rows ; j++){
-                        temp = (EditText) row.getChildAt(j);
+                        EditText temp = (EditText) row.getChildAt(j);
+                        Log.d("Valor",String.valueOf(Double.valueOf(temp.getText().toString())));
                         A_matrix[i][j] = Double.valueOf(temp.getText().toString());
                     }
                 }
