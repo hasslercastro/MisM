@@ -1,4 +1,6 @@
 
+
+package methods;
 import java.util.List;
 import java.util.ArrayList;
 import java.lang.Math.*;
@@ -6,6 +8,7 @@ import java.lang.Math.*;
 /**
  * This class contains all the similar stuff of the iterative methods, in order to avoid repeating code.
  */
+
 public class IterativeMethod {
     private double[][] A;
     private double[] b, x0;
@@ -44,7 +47,7 @@ public class IterativeMethod {
         }
     }
 
-    //This method will be overriden by this class children, so right now it's useless.
+    //This method will be overridden by this class children, so right now it's useless.
     public double[] calculateX1(){
         double[] result = {0.0};
         return result;
@@ -66,12 +69,11 @@ public class IterativeMethod {
        return maxx;
     }
 
+    public double[] getSolution(){return this.getX0();}
     public double[][] getA() {
         return A;
     }
-    public double[] getB() {
-        return b;
-    }
+    public double[] getB() { return b;}
     public String getMsg() {
         return msg;
     }
@@ -84,7 +86,7 @@ public class IterativeMethod {
     public double[] getX0() {
         return x0;
     }
-    public void setTable(ArrayList<ArrayList<Double>> table) {
-        this.table = table;
+    public void setTable(ArrayList<ArrayList<Double>> tabla) {
+        this.table = tabla;
     }
 }

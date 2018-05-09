@@ -30,7 +30,7 @@ public class PopSolve extends Activity {
         Log.d("size",  String.valueOf(solution.size()));
 
         for(int i = 0 ; i < solution.size() ; i++){
-            TableRow row= new TableRow(PopSolve.this);
+            TableRow row = new TableRow(PopSolve.this);
             TextView value  = new TextView(PopSolve.this);
             value.setText(solution.get(i));
             row.addView(value);
@@ -45,7 +45,7 @@ public class PopSolve extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8) , (int) (height*.7));
+        getWindow().setLayout((int)(width*.9) , (int) (height*.8));
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;

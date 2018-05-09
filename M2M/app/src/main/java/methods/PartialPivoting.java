@@ -1,6 +1,8 @@
 /**
  * @author Hassler Castro Cuesta - Joshua Sanchez Alvarez- Edwin Rengifo Villa - Camilo Villa Restrepo
  */
+package methods;
+
 public class PartialPivoting {
     private double [] solution;
     private double [][] elimination;
@@ -13,16 +15,16 @@ public class PartialPivoting {
     /**
      * @return the elimination
      */
-    public double[][] getElimination() {
-        return elimination;
-    }
+    public double[][] getElimination() { return this.elimination; }
+
 
     /**
      * @return the solution
      */
     public double[] getSolution() {
-        return solution;
+        return this.solution;
     }
+
 
     public static void printMatrix(double[][] M) {
         System.out.println("\n");
@@ -85,7 +87,7 @@ public class PartialPivoting {
     public static double[][] augmentedMatrix(double[][] A, double[] b){
         double[][] Ab = new double [A.length][A[0].length+1];
         if (A.length != b.length){
-            System.out.println("Error, can't build the augmented matrix. Wrong dimesions");
+            System.out.println("Error, can't build the augmented matrix. Wrong dimensions");
             System.exit(0);
             return Ab;
         }else{

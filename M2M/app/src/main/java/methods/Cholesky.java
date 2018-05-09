@@ -1,4 +1,4 @@
-
+package  methods;
 public class Cholesky extends DirectElimination{
 
     public Cholesky(double[][] A, double[] b){

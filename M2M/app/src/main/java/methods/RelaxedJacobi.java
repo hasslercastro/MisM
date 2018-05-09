@@ -1,4 +1,4 @@
-
+package methods;
 public class RelaxedJacobi extends IterativeMethod{
     private double w;
     
