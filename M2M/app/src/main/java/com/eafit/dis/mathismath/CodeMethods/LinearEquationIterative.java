@@ -1,15 +1,7 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
+import android.app.ActionBar;
 import android.app.Activity;
-
-import methods.Cholesky;
-import methods.Crout;
-import methods.Doolittle;
-import methods.GaussSeidel;
-import methods.Jacobi;
-import methods.SimpleGauss;
-import methods.PartialPivoting;
-import methods.TotalPivoting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -19,25 +11,24 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.eafit.dis.mathismath.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
-import methods.SimpleGauss;
+
+import methods.Jacobi;
+import methods.GaussSeidel;
+import methods.RelaxedJacobi;
+import methods.RelaxedGauss;
 
 /**
  * Created by Hassler on 25/04/2018.
  */
 
-public class LinearEquation extends Activity {
+public class LinearEquationIterative extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +41,6 @@ public class LinearEquation extends Activity {
         final int rows= getIntent().getExtras().getInt("size");
         final int columns= getIntent().getExtras().getInt("size");;
         final String method = getIntent().getExtras().getString("method");
-        final String helpText = getIntent().getExtras().getString("help");
     /**
         // GET THE MATRIX DIMENSIONS
         int rows=4;
@@ -88,9 +78,10 @@ public class LinearEquation extends Activity {
         title.setText(method);
         title.setTextSize(30);
         title.setGravity(Gravity.CENTER);
-        final TableLayout A = (TableLayout) findViewById(R.id.matrixT);
-        final TableLayout b = (TableLayout) findViewById(R.id.b);
+        final TableLayout A = (TableLayout) findViewById(R.id.matrixT_iterative);
+        final TableLayout b = (TableLayout) findViewById(R.id.b_iterative);
         final TableLayout x = (TableLayout) findViewById(R.id.x);
+        final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative);
 
 
 
@@ -101,6 +92,16 @@ public class LinearEquation extends Activity {
             position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             row.addView(position);
             b.addView(row,i);
+
+        }
+
+        for(int i = 0 ; i < rows ; i++){
+            TableRow row= new TableRow(this);
+            EditText position = new EditText(this);
+            position.setText(" 0 ");
+            position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+            row.addView(position);
+            x0.addView(row,i);
 
         }
 
@@ -157,119 +158,31 @@ public class LinearEquation extends Activity {
                         A_matrix[i][j] = Double.valueOf(temp.getText().toString());
                     }
                 }
+                //temp borrar luego junto con los parametros de  gauss seidel y jacobi
+                double[] arr = {1,2,3};
                 switch (method){
-                    case "Simple Gauss":
-                        SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
-                        solution = sg.getSolution();
-                        A_temp = sg.getElimination();
-                        for(int i = 0; i < A_temp.length; i++) {
-                            for (int j = 0; j  < A_temp.length ; j++){
-                                res_A[i][j] = A_temp[i][j];
-                            }
-                        }
-
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Partial Pivoting":
-                        PartialPivoting pp = new PartialPivoting(A_matrix, vect_b);
-                        solution = pp.getSolution();
-
-                        A_temp = pp.getElimination();
-                        for(int i = 0; i < A_temp.length; i++) {
-                            for (int j = 0; j  < A_temp.length ; j++){
-                                res_A[i][j] = A_temp[i][j];
-                            }
-                        }
-
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Total Pivoting":
-                        TotalPivoting tp = new TotalPivoting(A_matrix, vect_b);
-                        solution = tp.getSolution();
-
-                        A_temp = tp.getElimination();
-                        for(int i = 0; i < A_temp.length; i++) {
-                            for (int j = 0; j  < A_temp.length ; j++){
-                                res_A[i][j] = A_temp[i][j];
-                            }
-                        }
-
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Doolittle":
-                        Doolittle doo = new Doolittle(A_matrix, vect_b);
-                        solution = doo.getSolution();
-                        L_temp = doo.getL();
-                        U_temp = doo.getU();
-                        for(int i = 0; i < L.length; i++) {
-                            for (int j = 0; j  < L.length ; j++){
-                                L[i][j] = L_temp[i][j];
-                                U[i][j] = U_temp[i][j];
-                            }
-                        }
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Crout":
-                        Crout cr = new Crout(A_matrix, vect_b);
-                        solution = cr.getSolution();
-                        L_temp = cr.getL();
-                        U_temp = cr.getU();
-                        for(int i = 0; i < L.length; i++) {
-                            for (int j = 0; j  < L.length ; j++){
-                                L[i][j] = L_temp[i][j];
-                                U[i][j] = U_temp[i][j];
-                            }
-                        }
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Cholesky":
-                        Cholesky ch = new Cholesky(A_matrix, vect_b);
-                        solution = ch.getSolution();
-                        L_temp = ch.getL();
-                        U_temp = ch.getU();
-                        for(int i = 0; i < L.length; i++) {
-                            for (int j = 0; j  < L.length ; j++){
-                                L[i][j] = L_temp[i][j];
-                                U[i][j] = U_temp[i][j];
-                            }
-                        }
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-
-                    /**
                     case "Jacobi":
-                        Jacobi jab = new Jacobi(A_matrix, vect_b);
+
+                        Jacobi jab = new Jacobi(A_matrix, vect_b,arr,1E-4,100);
                         solution = jab.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Gauss Seidel":
-                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b);
+                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b,arr,1E-4,100);
                         solution = ga.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-                        break;*/
+                        break;
                     default:
                         solution = new double[] {-1, -1, -1};
                 }
 
                 for(int i = 0 ; i < rows ; i++){
-                    TableRow row= new TableRow(LinearEquation.this);
-                    EditText value  = new EditText(LinearEquation.this);
+                    TableRow row= new TableRow(LinearEquationIterative.this);
+                    EditText value  = new EditText(LinearEquationIterative.this);
                     value.setText(String.valueOf(solution[i]));
                     value.setEnabled(false);
                     row.addView(value);
@@ -297,19 +210,5 @@ public class LinearEquation extends Activity {
 
 
         });
-
-        Button help = (Button) findViewById(R.id.help);
-        help.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),  PopHelp.class);
-                intent.putExtra("msg",helpText);
-                startActivity(intent);
-            }
-
-
-        });
-
-
     }
 }

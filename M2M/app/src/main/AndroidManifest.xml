@@ -38,11 +38,12 @@
         <activity android:name=".CodeMethods.LinearEquation"/>
         <activity android:name=".CodeMethods.MatrixMethods"/>
         <activity android:name=".CodeMethods.Interpolation"/>
+        <activity android:name=".CodeMethods.Iterative_methodsView"/>
+        <activity android:name=".CodeMethods.matrix_clasificationView"/>
         <activity android:name=".CodeMethods.PopSolve"
             android:theme="@style/AppTheme.black"
             />
-
-
+        <activity android:name=".CodeMethods.PopHelp" android:theme="@style/AppTheme.black"/>
 
     </application>
 </manifest>
