@@ -284,14 +284,13 @@ public class LinearEquation extends Activity {
                 Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("A" , res_A);
-                intent.putExtra("A" , bundle);
+                intent.putExtra("A" , res_A);
                 bundle.putSerializable("L" , L);
-                intent.putExtra("L" , bundle);
+                intent.putExtra("L" , L);
                 bundle.putSerializable("U" , U);
-                intent.putExtra("U" , bundle);
+                intent.putExtra("U" , U);
                 intent.putExtra("solution", sol);
-
-
+                intent.putExtra("type", method);
                 startActivity(intent);
             }
 
