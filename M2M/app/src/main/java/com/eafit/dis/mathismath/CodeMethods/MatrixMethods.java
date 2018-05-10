@@ -47,6 +47,7 @@ public class MatrixMethods extends Activity {
                 Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                 intent.putExtra("method", "Partial Pivoting");
                 intent.putExtra("size"  ,nSize);
+                intent.putExtra("help","In every stage k, this method find the biggest (in absolute value) of the k column that occupies the position akk.In other words, it looks for the biggest between |akk| with  k <= i <= n , and it swaps the rows in order to set the biggest chosen in the row k. These steps guarantee the next property.\n");
                 startActivity(intent);
             }
         });
@@ -59,6 +60,7 @@ public class MatrixMethods extends Activity {
                 Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                 intent.putExtra("method", "Total Pivoting");
                 intent.putExtra("size"  ,nSize);
+                intent.putExtra("help","In every stage k, this method find the biggest (in absolute value) of the submatrix, that is the result of the elimination rows from F1 until Fk-1 and columns from C1 until Ck-1 in the augmented matrix Ab . When the maximum value is detected the method swaps rows and columns to locate this element in the position Ab(k,k). After apply the swaps you have to have in mind that this change the order of the system variables");
                 startActivity(intent);
             }
         });
