@@ -34,6 +34,7 @@ public class MatrixMethods extends Activity {
                 Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                 intent.putExtra("method", "Simple Gauss");
                 intent.putExtra("size"  ,nSize);
+                intent.putExtra("help","The method of gaussian elimination is used to solve systems of linear equations. This method has to steps. First it converts the original matrix to another equivalent trought a serie of transformations, this matrix is called the scalonated matrix,  this matrix is also an lower triangular matrix. And the final step is to replace variables from the last row to the first one.\n");
                 startActivity(intent);
             }
         });

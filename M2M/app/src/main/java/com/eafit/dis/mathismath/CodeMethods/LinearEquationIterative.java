@@ -158,16 +158,19 @@ public class LinearEquationIterative extends Activity {
                         A_matrix[i][j] = Double.valueOf(temp.getText().toString());
                     }
                 }
+                //temp borrar luego junto con los parametros de  gauss seidel y jacobi
+                double[] arr = {1,2,3};
                 switch (method){
                     case "Jacobi":
-                        Jacobi jab = new Jacobi(A_matrix, vect_b);
+
+                        Jacobi jab = new Jacobi(A_matrix, vect_b,arr,1E-4,100);
                         solution = jab.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
                         break;
                     case "Gauss Seidel":
-                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b);
+                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b,arr,1E-4,100);
                         solution = ga.getSolution();
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));

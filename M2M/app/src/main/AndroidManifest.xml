@@ -42,8 +42,7 @@
         <activity android:name=".CodeMethods.PopSolve"
             android:theme="@style/AppTheme.black"
             />
-
-
+        <activity android:name=".CodeMethods.PopHelp" android:theme="@style/AppTheme.black"/>
 
     </application>
 </manifest>

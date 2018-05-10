@@ -50,6 +50,7 @@ public class LinearEquation extends Activity {
         final int rows= getIntent().getExtras().getInt("size");
         final int columns= getIntent().getExtras().getInt("size");;
         final String method = getIntent().getExtras().getString("method");
+        final String helpText = getIntent().getExtras().getString("help");
     /**
         // GET THE MATRIX DIMENSIONS
         int rows=4;
@@ -296,5 +297,19 @@ public class LinearEquation extends Activity {
 
 
         });
+
+        Button help = (Button) findViewById(R.id.help);
+        help.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),  PopHelp.class);
+                intent.putExtra("msg",helpText);
+                startActivity(intent);
+            }
+
+
+        });
+
+
     }
 }
