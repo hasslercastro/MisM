@@ -33,7 +33,7 @@ public class Method extends Activity{
         equations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Method.this, MatrixMethods.class));
+                startActivity(new Intent(Method.this, matrix_clasificationView.class));
             }
         });
 

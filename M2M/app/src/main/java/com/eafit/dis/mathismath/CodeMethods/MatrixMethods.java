@@ -98,30 +98,5 @@ public class MatrixMethods extends Activity {
             }
         });
 
-        Button Jacobi = (Button) findViewById(R.id.Jacobi);
-        Jacobi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int nSize = Integer.parseInt(size.getText().toString());
-                Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
-                intent.putExtra("method", "Jacobi");
-                intent.putExtra("size"  ,nSize);
-                startActivity(intent);
-            }
-        });
-        Button GaussSeidel = (Button) findViewById(R.id.GaussSeidel);
-        GaussSeidel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int nSize = Integer.parseInt(size.getText().toString());
-                Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
-                intent.putExtra("method", "Gauss Seidel");
-                intent.putExtra("size"  ,nSize);
-                startActivity(intent);
-            }
-        });
-
-
-
     }
 }

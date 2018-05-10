@@ -1,15 +1,6 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
-
-import methods.Cholesky;
-import methods.Crout;
-import methods.Doolittle;
-import methods.GaussSeidel;
-import methods.Jacobi;
-import methods.SimpleGauss;
-import methods.PartialPivoting;
-import methods.TotalPivoting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -19,7 +10,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,17 +17,18 @@ import android.widget.TextView;
 
 import com.eafit.dis.mathismath.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
-import methods.SimpleGauss;
+
+import methods.Jacobi;
+import methods.RelaxedGauss;
+import  methods.GaussSeidel;
+import methods.RelaxedJacobi;
 
 /**
  * Created by Hassler on 25/04/2018.
  */
 
-public class LinearEquation extends Activity {
+public class LinearEquationIterative extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,11 +78,9 @@ public class LinearEquation extends Activity {
         title.setText(method);
         title.setTextSize(30);
         title.setGravity(Gravity.CENTER);
-        final TableLayout A = (TableLayout) findViewById(R.id.matrixT);
-        final TableLayout b = (TableLayout) findViewById(R.id.b);
-        final TableLayout x = (TableLayout) findViewById(R.id.x);
-
-
+        final TableLayout A = (TableLayout) findViewById(R.id.matrixT_iterative);
+        final TableLayout b = (TableLayout) findViewById(R.id.b_iterative);
+        final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative);
 
         for(int i = 0 ; i < rows ; i++){
             TableRow row= new TableRow(this);
@@ -100,6 +89,16 @@ public class LinearEquation extends Activity {
             position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             row.addView(position);
             b.addView(row,i);
+
+        }
+
+        for(int i = 0 ; i < rows ; i++){
+            TableRow row= new TableRow(this);
+            EditText position = new EditText(this);
+            position.setText(" 0 ");
+            position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+            row.addView(position);
+            x0.addView(row,i);
 
         }
 
@@ -116,6 +115,8 @@ public class LinearEquation extends Activity {
             }
             A.addView(row,i);
         }
+
+
 
         final ArrayList<String> sol = new ArrayList<String>();
 
@@ -151,59 +152,7 @@ public class LinearEquation extends Activity {
                     }
                 }
                 switch (method){
-                    case "Simple Gauss":
-                        SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
-                        solution = sg.getSolution();
-                        res_A = sg.getElimination();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Partial Pivoting":
-                        PartialPivoting pp = new PartialPivoting(A_matrix, vect_b);
-                        solution = pp.getSolution();
-                        res_A = pp.getElimination();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Total Pivoting":
-                        TotalPivoting tp = new TotalPivoting(A_matrix, vect_b);
-                        solution = tp.getSolution();
-                        res_A = tp.getElimination();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Doolittle":
-                        Doolittle doo = new Doolittle(A_matrix, vect_b);
-                        solution = doo.getSolution();
-                        L = doo.getL();
-                        U = doo.getU();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Crout":
-                        Crout cr = new Crout(A_matrix, vect_b);
-                        solution = cr.getSolution();
-                        L = cr.getL();
-                        U = cr.getU();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Cholesky":
-                        Cholesky ch = new Cholesky(A_matrix, vect_b);
-                        solution = ch.getSolution();
-                        L = ch.getL();
-                        U = ch.getU();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
 
-                    /**
                     case "Jacobi":
                         Jacobi jab = new Jacobi(A_matrix, vect_b);
                         solution = jab.getSolution();
@@ -217,14 +166,14 @@ public class LinearEquation extends Activity {
                         for (int i = 0 ; i < solution.length ; i++){
                             sol.add(String.valueOf(solution[i]));
                         }
-                        break;*/
+                        break;
                     default:
                         solution = new double[] {-1, -1, -1};
                 }
 
                 for(int i = 0 ; i < rows ; i++){
-                    TableRow row= new TableRow(LinearEquation.this);
-                    EditText value  = new EditText(LinearEquation.this);
+                    TableRow row= new TableRow(LinearEquationIterative.this);
+                    EditText value  = new EditText(LinearEquationIterative.this);
                     value.setText(String.valueOf(solution[i]));
                     value.setEnabled(false);
                     row.addView(value);
