@@ -37,6 +37,7 @@
         <activity android:name=".CodeMethods.GraphFromMethods"/>
         <activity android:name=".CodeMethods.LinearEquation"/>
         <activity android:name=".CodeMethods.MatrixMethods"/>
+        <activity android:name=".CodeMethods.Interpolation"/>
         <activity android:name=".CodeMethods.PopSolve"
             android:theme="@style/AppTheme.black"
             />

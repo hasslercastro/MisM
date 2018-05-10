@@ -1,9 +1,8 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
-import android.app.ActionBar.Tab;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,7 +36,7 @@ public class PopSolve extends Activity {
         int elementSize = 20;
 
         Log.d("aiajkshdakjsdh", type);
-        if (type.equals("Simple Gauss") || type.equals("Partial pivoting") || type.equals("Total pivoting")) {
+        if (type.equals("Simple Gauss") || type.equals("Partial Pivoting") || type.equals("Total Pivoting")) {
 
             TextView title_A = new TextView(this);
             title_A.setTextSize(titleSize);
@@ -107,7 +106,7 @@ public class PopSolve extends Activity {
             TableRow row = new TableRow(PopSolve.this);
             TextView value = new TextView(PopSolve.this);
             value.setTextSize(elementSize);
-            value.setText("x" + i + " " + solution.get(i));
+            value.setText("x" + i + ": " + solution.get(i));
             row.addView(value);
             x_vector.addView(row);
         }

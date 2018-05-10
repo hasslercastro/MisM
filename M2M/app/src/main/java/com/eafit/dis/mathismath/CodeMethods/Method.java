@@ -37,6 +37,14 @@ public class Method extends Activity{
             }
         });
 
+        Button interpolation = (Button) findViewById(R.id.Interpolation);
+        interpolation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Method.this, Interpolation.class));
+            }
+        });
+
 
 
     }
