@@ -1,5 +1,6 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,9 +20,9 @@ import com.eafit.dis.mathismath.R;
 import java.util.ArrayList;
 
 import methods.Jacobi;
-import methods.RelaxedGauss;
-import  methods.GaussSeidel;
+import methods.GaussSeidel;
 import methods.RelaxedJacobi;
+import methods.RelaxedGauss;
 
 /**
  * Created by Hassler on 25/04/2018.
@@ -80,7 +80,10 @@ public class LinearEquationIterative extends Activity {
         title.setGravity(Gravity.CENTER);
         final TableLayout A = (TableLayout) findViewById(R.id.matrixT_iterative);
         final TableLayout b = (TableLayout) findViewById(R.id.b_iterative);
+        final TableLayout x = (TableLayout) findViewById(R.id.x);
         final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative);
+
+
 
         for(int i = 0 ; i < rows ; i++){
             TableRow row= new TableRow(this);
@@ -116,9 +119,11 @@ public class LinearEquationIterative extends Activity {
             A.addView(row,i);
         }
 
-
-
         final ArrayList<String> sol = new ArrayList<String>();
+        final double[][] res_A = new double[rows][columns];
+        final double[][] L = new double[rows][columns];
+        final double[][] U = new double[rows][columns];
+
 
         Button run = (Button) findViewById(R.id.run);
         run.setOnClickListener(new View.OnClickListener() {
@@ -130,9 +135,11 @@ public class LinearEquationIterative extends Activity {
                 double[][] A_matrix = new double[rows][columns];
                 double[] vect_b = new double[rows];
 
-                double[][] res_A = new double[rows][columns];
-                double[][] L = new double[rows][columns];
-                double[][] U = new double[rows][columns];
+                double[][] A_temp,L_temp,U_temp;
+
+                //double[][] res_A = new double[rows][columns];
+                //double[][] L = new double[rows][columns];
+                //double[][] U = new double[rows][columns];
 
 
                 for(int i = 0 ; i < rows ; i++){
@@ -152,7 +159,6 @@ public class LinearEquationIterative extends Activity {
                     }
                 }
                 switch (method){
-
                     case "Jacobi":
                         Jacobi jab = new Jacobi(A_matrix, vect_b);
                         solution = jab.getSolution();
@@ -181,13 +187,21 @@ public class LinearEquationIterative extends Activity {
                 }
             }
         });
-        PopupWindow popupWindow;
+
         Button pop = (Button) findViewById(R.id.solve);
         pop.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("A" , res_A);
+                intent.putExtra("A" , res_A);
+                bundle.putSerializable("L" , L);
+                intent.putExtra("L" , L);
+                bundle.putSerializable("U" , U);
+                intent.putExtra("U" , U);
                 intent.putExtra("solution", sol);
+                intent.putExtra("type", method);
                 startActivity(intent);
             }
 
