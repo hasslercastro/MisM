@@ -132,6 +132,21 @@ public class secantView extends Activity {
                 }
             }
         });
+
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(secantView.this, PopHelp.class);
+                intent.putExtra("help", "Since the Newton method is a fixed point variant, it must meet the \tsame conditions to ensure its convergence:\n\n" +
+                        "\n" +
+                        "→ g must be a continuous function in the interval [a, b].\n\n" +
+                        "→ g (x) ∈ [a, b] for all x ∈ [a, b].\n\n" +
+                        "→ g'(x) exists in every element of \t[a, b] with the property |g'(x)| ≤ k <1 for all x ∈ [a, b].\n" +
+                        "\n");
+                startActivity(intent);
+            }
+        });
     }
 }
 

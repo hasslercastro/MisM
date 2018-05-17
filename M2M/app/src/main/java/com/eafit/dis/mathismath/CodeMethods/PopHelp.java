@@ -15,7 +15,7 @@ public class PopHelp extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pop_help);
-        String msg = getIntent().getStringExtra("msg");
+        String msg = getIntent().getStringExtra("help");
         TextView title_A = findViewById(R.id.helpText);
         title_A.setText(msg);
 

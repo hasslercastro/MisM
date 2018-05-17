@@ -134,7 +134,18 @@ public class fixedPointView extends Activity {
             }
         });
 
-
-
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(fixedPointView.this, PopHelp.class);
+                intent.putExtra("help", "A good fixed point function must meet 3 conditions to ensure that it converges to a single fixed point:\n\n" +
+                        "\n" +
+                        "→ g must be a continuous function in the interval [a, b].\n\n" +
+                        "→ g (x) ∈ [a, b] for all x ∈ [a, b].\n\n" +
+                        "→ g'(x) exists in every element of \t[a, b] with the property |g'(x)| ≤ k < 1 for all x ∈ [a, b].");
+                startActivity(intent);
+            }
+        });
     }
 }

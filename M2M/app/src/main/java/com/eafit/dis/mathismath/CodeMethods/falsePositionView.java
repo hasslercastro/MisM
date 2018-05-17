@@ -139,13 +139,18 @@ public class falsePositionView extends Activity {
             }
         });
 
-
-
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(falsePositionView.this, PopHelp.class);
+                intent.putExtra("help", "To guarantee the existence of a root the function must fulfill 2 conditions:\n\n" +
+                        "→The function must be continuous in the interval [a, b].\n\n\n" +
+                        "→The function evaluated at the extremes of the interval must have a sign change (f (a) * f (b) <0).\n");
+                startActivity(intent);
+            }
+        });
 
     }
-
-
-
-
 }
 
