@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@drawable/pop_color">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     <TableLayout
@@ -37,5 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </TableLayout>
+    </HorizontalScrollView>
 
 </ScrollView>
