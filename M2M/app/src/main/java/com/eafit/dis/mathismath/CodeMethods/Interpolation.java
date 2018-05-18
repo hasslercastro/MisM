@@ -15,6 +15,9 @@ import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
 
+import methods.Newton;
+import methods.NewtonPolinomio;
+
 /**
  * Created by Hassler on 10/05/2018.
  */
@@ -26,19 +29,30 @@ public class Interpolation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interpolation);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        int Size = Integer.parseInt(getIntent().getStringExtra("size"));
         final ArrayList<String> x_array = new ArrayList<>();
         final ArrayList<String> y_array = new ArrayList<>();
         {
 
+            final double [] x = new double[Size];
+            final double [] y = new double[Size];
 
-            TextView execute = (TextView) findViewById(R.id.execute);
+
+            final TextView polinomio = (TextView) findViewById(R.id.polinomio);
             //Setear el texto dps
             final TableLayout table = (TableLayout) findViewById(R.id.data);
-            final EditText x = (EditText) findViewById(R.id.x);
-            final EditText y = (EditText) findViewById(R.id.y);
+            //final EditText x = (EditText) findViewById(R.id.x);
+            //final EditText y = (EditText) findViewById(R.id.y);
 
+            TableRow row = new TableRow(Interpolation.this);
+            EditText ord = new EditText(Interpolation.this);
+            row.addView(ord);
+            row.addView(ord);
 
+            for(int i = 0 ; i < Size ; i++ ){
+                table.addView(row);
+            }
+            /**
             Button add = (Button) findViewById(R.id.add);
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,6 +64,23 @@ public class Interpolation extends Activity {
                     value.setText(x.getText().toString() + " , " + y.getText().toString());
                     row.addView(value);
                     table.addView(row);
+
+                }
+            });*/
+            Button newton = (Button) findViewById(R.id.newton);
+            newton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    for(int i = 0 ; i < x.length ; i++){
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText temp = (EditText) row.getChildAt(0);
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        x[i] = Double.parseDouble(temp.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                        NewtonPolinomio np = new NewtonPolinomio(x,y);
+                        polinomio.setText(np.getPolinomio());
+                    }
 
                 }
             });

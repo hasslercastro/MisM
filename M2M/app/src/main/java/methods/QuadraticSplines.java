@@ -98,13 +98,4 @@ public class QuadraticSplines {
     public String[] getPolinomio() {
         return polinomio;
     }
-    
-    public static void main(String[] args) {
-        double[] x = {0,1,2,3};
-        double[] y = {0,1,1,0};
-        QuadraticSplines q = new QuadraticSplines(x, y);
-        for (int i = 0; i < q.getPolinomio().length; i++) {
-            System.out.println(q.getPolinomio()[i]);
-        }
-    }
 }
