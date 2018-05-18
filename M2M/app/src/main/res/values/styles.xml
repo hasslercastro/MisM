@@ -6,11 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/blue_edwin</item>
+        <item name="android:textColorPrimaryInverse">@android:color/background_light</item>
+        <item name="colorButtonNormal">@color/button_color</item>
+        <!--<item name="android:background">@drawable/inf</item>-->
     </style>
 
     <style name="AppTheme.black">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="Theme.AppTheme.Wallpaper" parent="android:Theme.DeviceDefault.Wallpaper" >
+        <item name="android:colorPrimary">@android:color/darker_gray</item>
+        <item name="android:navigationBarColor">@color/custom</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="android:textColorPrimaryInverse">@android:color/holo_green_dark</item>
+        <item name="android:windowBackground">@android:color/holo_red_dark</item>
     </style>
 
 </resources>

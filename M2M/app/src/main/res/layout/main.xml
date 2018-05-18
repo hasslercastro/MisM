@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="true"
-                android:text="Graph" />
+                android:text="Graph"
+                android:background="@drawable/round_sahpe"/>
 
 
         </RelativeLayout>
@@ -55,7 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="true"
-                android:text="Methods" />
+                android:text="Methods"
+                android:background="@drawable/round_sahpe"
+                />
 
 
         </RelativeLayout>
@@ -69,7 +72,8 @@
         android:layout_marginTop="126dp"
         android:textSize="40dp"
         android:fontFamily="casual"
-        android:text="M^M" />
+        android:text="M^M"
+        android:textStyle="bold"/>
 
 
 </RelativeLayout>

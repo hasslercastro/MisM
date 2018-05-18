@@ -1,3 +1,4 @@
+package methods;
 
 public class CubicSpline {
     private double[] points;

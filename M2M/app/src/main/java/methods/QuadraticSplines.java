@@ -1,6 +1,5 @@
-import java.util.Arrays;
+package methods;
 
-import java.math.*;
 /**
  * QuadraticSplines
  */
