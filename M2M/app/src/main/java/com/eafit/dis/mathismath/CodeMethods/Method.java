@@ -28,7 +28,6 @@ public class Method extends Activity{
         });
 
 
-
         Button equations = (Button) findViewById(R.id.Equations);
         equations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,11 +40,17 @@ public class Method extends Activity{
         interpolation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Method.this, Interpolation.class));
+                startActivity(new Intent(Method.this, pre_interpolation_view.class));
             }
         });
 
-
+        Button splines = (Button) findViewById(R.id.Splines);
+        splines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Method.this, splinesView.class));
+            }
+        });
 
     }
 
