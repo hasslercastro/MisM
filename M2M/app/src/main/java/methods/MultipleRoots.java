@@ -2,6 +2,7 @@ package methods;
 
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -133,6 +134,7 @@ public class MultipleRoots {
     }
 
     public ArrayList<ArrayList<Double>> eval() {
+        MathContext mc = new MathContext(5);
         Expression expressionF = new Expression(this.functionF).setPrecision(16);
         BigDecimal fx = expressionF.setVariable("x", this.x).eval();
         Expression expressionDf = new Expression(this.diffFunction).setPrecision(16);
@@ -145,10 +147,10 @@ public class MultipleRoots {
         int counter = 0;
         Double error = this.tolerance + 1;
         firstIteration.add((double)(counter));
-        firstIteration.add(this.x.doubleValue());
-        firstIteration.add(fx.doubleValue());
-        firstIteration.add(dfx.doubleValue());
-        firstIteration.add(d2fx.doubleValue());
+        firstIteration.add(this.x.round(mc).doubleValue());
+        firstIteration.add(fx.round(mc).doubleValue());
+        firstIteration.add(dfx.round(mc).doubleValue());
+        firstIteration.add(d2fx.round(mc).doubleValue());
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
         BigDecimal x1=new BigDecimal(0);
@@ -160,11 +162,11 @@ public class MultipleRoots {
             d2fx = expressionD2f.setVariable("x", x1).eval();
             error = Math.abs(x1.doubleValue() - this.x.doubleValue());
             nIteration.add(counter + 1.0);
-            nIteration.add(x1.doubleValue());
-            nIteration.add(fx.doubleValue());
-            nIteration.add(dfx.doubleValue());
-            nIteration.add(d2fx.doubleValue());
-            nIteration.add(error);
+            nIteration.add(x1.round(mc).doubleValue());
+            nIteration.add(fx.round(mc).doubleValue());
+            nIteration.add(dfx.round(mc).doubleValue());
+            nIteration.add(d2fx.round(mc).doubleValue());
+            nIteration.add(new BigDecimal(error).round(mc).doubleValue());
             resultTable.add(nIteration);
             this.x = x1;
             counter++;

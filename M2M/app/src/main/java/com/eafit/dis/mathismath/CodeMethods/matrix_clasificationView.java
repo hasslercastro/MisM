@@ -26,11 +26,11 @@ public class matrix_clasificationView extends Activity {
             }
         });
 
-        Button iterative_methods = (Button) findViewById(R.id.iterative_methods);
-        iterative_methods.setOnClickListener(new View.OnClickListener() {
+        Button iterativeMethodsMatrix = (Button) findViewById(R.id.iterative_methods);
+        iterativeMethodsMatrix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(matrix_clasificationView.this,  Iterative_methodsView.class));
+                startActivity(new Intent(matrix_clasificationView.this,  IterativeMethods.class));
             }
         });
     }

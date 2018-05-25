@@ -4,6 +4,7 @@ import android.util.Log;
 
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -121,12 +122,11 @@ public class Secant {
 
     public ArrayList<ArrayList<Double>> eval() {
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
+        MathContext mc = new MathContext(5);
         ArrayList<Double> iteration = new ArrayList<>();
         Expression expressionF = new Expression(this.function).setPrecision(16);
         BigDecimal fx0 = expressionF.setVariable("x", this.x0.toString()).eval();
-        Log.d("dgfdhg","hjgbhjvg");
         if (fx0.doubleValue() == 0.0) {
-            Log.d("dgfdhg","hjgbhjvg");
             this.message = this.x0.toString() + " is a root";
             return resultTable;
         } else {
@@ -135,14 +135,14 @@ public class Secant {
             Double error = this.tolerance + 1.0;
             BigDecimal den = new BigDecimal(fx1.doubleValue() - fx0.doubleValue());
             iteration.add((double) counter);
-            iteration.add(this.x0);
-            iteration.add(fx0.doubleValue());
+            iteration.add(new BigDecimal(this.x0).round(mc).doubleValue());
+            iteration.add(fx0.round(mc).doubleValue());
             iteration.add(0.0);
             resultTable.add(iteration);
             ArrayList<Double> iteration2 = new ArrayList<>();
             iteration2.add((double) counter + 1.0);
-            iteration2.add(this.x1);
-            iteration2.add(fx1.doubleValue());
+            iteration2.add(new BigDecimal(this.x1).round(mc).doubleValue());
+            iteration2.add(fx1.round(mc).doubleValue());
             iteration2.add(0.0);
             resultTable.add(iteration2);
             counter = counter + 2;
@@ -156,9 +156,9 @@ public class Secant {
                 fx1 = expressionF.setVariable("x", this.x1.toString()).eval();
                 den = new BigDecimal(fx1.doubleValue() - fx0.doubleValue());
                 iterationN.add((double) counter);
-                iterationN.add(x2.doubleValue());
-                iterationN.add(fx1.doubleValue());
-                iterationN.add(error);
+                iterationN.add(x2.round(mc).doubleValue());
+                iterationN.add(fx1.round(mc).doubleValue());
+                iterationN.add(new BigDecimal(error).round(mc).doubleValue());
                 resultTable.add(iterationN);
                 counter++;
             }

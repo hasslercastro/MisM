@@ -2,6 +2,7 @@ package methods;
 
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -111,6 +112,7 @@ public class Bisection {
     public ArrayList<ArrayList<Double>> bisection() {
         this.iterations = iterationsNeeded(this.a, this.b, this.tolerance);
         ArrayList<ArrayList<Double>> table = new ArrayList<ArrayList<Double>>();
+        MathContext mc = new MathContext(5);
         BigDecimal fxi = null;
         BigDecimal fxs = null;
         BigDecimal fxm = null;
@@ -132,10 +134,10 @@ public class Bisection {
             Double error = this.tolerance + 1.0;
             ArrayList<Double> iter1 = new ArrayList<>();
             iter1.add((double) counter);
-            iter1.add(a);
-            iter1.add(b);
-            iter1.add(xm);
-            iter1.add(fxm.doubleValue());
+            iter1.add(new BigDecimal(a).round(mc).doubleValue());
+            iter1.add(new BigDecimal(b).round(mc).doubleValue());
+            iter1.add(new BigDecimal(xm).round(mc).doubleValue());
+            iter1.add(fxm.round(mc).doubleValue());
             iter1.add(0.0);
             table.add(iter1);
             while (error > this.tolerance && fxm.doubleValue() != 0.0 && counter < this.iterations) {
@@ -153,11 +155,11 @@ public class Bisection {
                 error = Math.abs(xm - xaux);
                 counter++;
                 iter2.add((double) counter);
-                iter2.add(a);
-                iter2.add(b);
-                iter2.add(xm);
-                iter2.add(fxm.doubleValue());
-                iter2.add(error);
+                iter2.add(new BigDecimal(a).round(mc).doubleValue());
+                iter2.add(new BigDecimal(b).round(mc).doubleValue());
+                iter2.add(new BigDecimal(xm).round(mc).doubleValue());
+                iter2.add(fxm.round(mc).doubleValue());
+                iter2.add(new BigDecimal(error).round(mc).doubleValue());
                 table.add(iter2);
             }
             if (fxm.doubleValue() == 0.0) {

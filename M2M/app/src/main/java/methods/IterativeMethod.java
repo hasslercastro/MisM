@@ -86,6 +86,7 @@ public class IterativeMethod {
     public double[] getX0() {
         return x0;
     }
+    public ArrayList<ArrayList<Double>> getTable(){ return  this.table;};
     public void setTable(ArrayList<ArrayList<Double>> tabla) {
         this.table = tabla;
     }

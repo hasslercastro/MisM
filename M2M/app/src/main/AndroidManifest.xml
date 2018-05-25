@@ -37,7 +37,10 @@
         <activity android:name=".CodeMethods.GraphFromMethods"/>
         <activity android:name=".CodeMethods.LinearEquation"/>
         <activity android:name=".CodeMethods.MatrixMethods"/>
-        <activity android:name=".CodeMethods.Iterative_methodsView"/>
+        <activity android:name=".CodeMethods.IterativeMethods"/>
+        <activity android:name=".CodeMethods.LinearEquationIterative"/>
+        <activity android:name=".CodeMethods.IterativeMatrixMethodsTable"/>
+        <activity android:name=".CodeMethods.LinearEquationIterativeRelaxed"/>
         <activity android:name=".CodeMethods.matrix_clasificationView"/>
         <activity android:name=".CodeMethods.PopSolve"
             android:theme="@style/AppTheme.black"

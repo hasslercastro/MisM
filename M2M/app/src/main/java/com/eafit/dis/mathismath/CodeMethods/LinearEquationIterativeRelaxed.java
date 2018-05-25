@@ -1,6 +1,5 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,15 +18,16 @@ import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
 
-import methods.Jacobi;
 import methods.GaussSeidel;
-import methods.RelaxedJacobi;
+import methods.Jacobi;
 import methods.RelaxedGauss;
+import methods.RelaxedJacobi;
 
-public class LinearEquationIterative extends Activity {
+public class LinearEquationIterativeRelaxed extends Activity {
 
     int iterationsM;
     Double toleranceM;
+    Double weightM;
     ArrayList<ArrayList<Double>> resultTable =  new ArrayList<>();
     ArrayList<String> arrayIterations = new ArrayList<>();
     ArrayList<String> arrayDelta = new ArrayList<>();
@@ -37,7 +37,7 @@ public class LinearEquationIterative extends Activity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.iterative_matrix);
+        setContentView(R.layout.iterative_matrix_relaxed);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -45,16 +45,17 @@ public class LinearEquationIterative extends Activity {
         final int columns= getIntent().getExtras().getInt("size");;
         final String method = getIntent().getExtras().getString("method");
 
-        TextView title = (TextView) findViewById(R.id.title_iterative);
+        TextView title = (TextView) findViewById(R.id.title_iterative_r);
         title.setText(method);
         title.setTextSize(30);
         title.setGravity(Gravity.CENTER);
         final TableLayout A = (TableLayout) findViewById(R.id.matrixT_iterative);
-        final TableLayout b = (TableLayout) findViewById(R.id.b_iterative);
+        final TableLayout b = (TableLayout) findViewById(R.id.b_iterative_r);
         final TableLayout x = (TableLayout) findViewById(R.id.x);
-        final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative);
+        final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative_r);
         final EditText tolerance = (EditText) findViewById(R.id.editTextTolerance);
         final EditText iterations = (EditText) findViewById(R.id.editTextIterations);
+        final EditText weight = (EditText) findViewById(R.id.editTextWeight);
 
 
         for(int i = 0 ; i < rows ; i++){
@@ -111,7 +112,7 @@ public class LinearEquationIterative extends Activity {
                         arrayX.add(resultTable.get(i).get(j).toString());
                     }
                 }
-                Intent t = new Intent(LinearEquationIterative.this, IterativeMatrixMethodsTable.class);
+                Intent t = new Intent(LinearEquationIterativeRelaxed.this, IterativeMatrixMethodsTable.class);
                 t.putExtra("iterations", arrayIterations);
                 t.putExtra("delta", arrayDelta);
                 t.putExtra("x", arrayX);
@@ -150,16 +151,17 @@ public class LinearEquationIterative extends Activity {
                 }
                 iterationsM = Integer.parseInt(iterations.getText().toString());
                 toleranceM = Double.parseDouble(tolerance.getText().toString());
+                weightM = Double.parseDouble(weight.getText().toString());
                 switch (method){
 
-                    case "Jacobi":
-                        Jacobi jab = new Jacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
-                        resultTable = jab.getTable();
+                    case "Relaxed Jacobi":
+                        RelaxedJacobi reja = new RelaxedJacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM,weightM);
+                        resultTable = reja.getTable();
                         table.setEnabled(true);
                         break;
-                    case "Gauss Seidel":
-                        GaussSeidel gau = new GaussSeidel(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
-                        resultTable = gau.getTable();
+                    case "Relaxed Gauss Seidel":
+                        RelaxedGauss rega = new RelaxedGauss(A_matrix, vect_b, vect_x0, toleranceM, iterationsM,weightM);
+                        resultTable = rega.getTable();
                         table.setEnabled(true);
                         break;
                     default:
