@@ -9,6 +9,8 @@
         <item name="android:colorBackground">@color/blue_edwin</item>
         <item name="android:textColorPrimaryInverse">@android:color/background_light</item>
         <item name="colorButtonNormal">@color/button_color</item>
+        <!--<item name="android:textViewStyle">@style/CasualTextViewStyle</item>-->
+        <!--<item name="android:fontFamily">@style/CasualTextViewStyle</item>-->
         <!--<item name="android:background">@drawable/inf</item>-->
     </style>
 
@@ -16,6 +18,11 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+
+    <style name="CasualTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">casual</item>
+    </style>
+
 
     <style name="Theme.AppTheme.Wallpaper" parent="android:Theme.DeviceDefault.Wallpaper" >
         <item name="android:colorPrimary">@android:color/darker_gray</item>

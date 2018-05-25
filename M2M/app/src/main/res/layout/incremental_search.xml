@@ -135,6 +135,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Run"
+        android:background="@drawable/round_shape_methods"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.339"
@@ -204,6 +205,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Clear"
+        android:background="@drawable/round_shape_methods"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.76"
@@ -219,13 +221,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/round_shape_methods"
         android:text=" Table "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+        app:layout_constraintVertical_bias="0.903" />
 
     <Button
         android:id="@+id/button8"
@@ -236,6 +239,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="G"
+        android:background="@drawable/round_shape_methods"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -252,6 +256,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="\?"
+        android:background="@drawable/round_shape_methods"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
