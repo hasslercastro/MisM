@@ -1,5 +1,7 @@
 package methods;
 
+import android.util.Log;
+
 public class NewtonPolinomio {
     private double[][] table;
     private double[] y;
@@ -8,6 +10,9 @@ public class NewtonPolinomio {
         this.table = new double[x.length][x.length + 1];
         this.y = x;
         for (int i = 0; i < x.length; i++) {
+            Log.d("x",String.valueOf(x[i]));
+            Log.d("y",String.valueOf(f[i]));
+            Log.d("i", String.valueOf(i));
             this.table[i][0] = x[i];
             this.table[i][1] = f[i];
         }
@@ -40,12 +45,12 @@ public class NewtonPolinomio {
     public String getPolinomio(){
         String polinomio = "";
         double[] coefficien = this.getCoefficient();
-        int n = y.length - 2;
-        for (int i = 0; i < this.y.length - 1; i++) {
+        int n = y.length - 1;
+        for (int i = 0; i < this.y.length ; i++) {
             polinomio += "("+coefficien[i]+")x^"+ n+ " + ";
             n--;
         }
-        return polinomio;
+        return polinomio.substring(0,polinomio.length()-3) ;
     }
 
     public void eval(){

@@ -3,6 +3,7 @@ package com.eafit.dis.mathismath.CodeMethods;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,7 +25,6 @@ import methods.NewtonPolinomio;
 
 public class Interpolation extends Activity {
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interpolation);
@@ -32,62 +32,50 @@ public class Interpolation extends Activity {
         int Size = Integer.parseInt(getIntent().getStringExtra("size"));
         final ArrayList<String> x_array = new ArrayList<>();
         final ArrayList<String> y_array = new ArrayList<>();
-        {
 
-            final double [] x = new double[Size];
+
+            final double [] x  = new double[Size];
             final double [] y = new double[Size];
 
 
             final TextView polinomio = (TextView) findViewById(R.id.polinomio);
             //Setear el texto dps
             final TableLayout table = (TableLayout) findViewById(R.id.data);
-            //final EditText x = (EditText) findViewById(R.id.x);
-            //final EditText y = (EditText) findViewById(R.id.y);
 
-            TableRow row = new TableRow(Interpolation.this);
-            EditText ord = new EditText(Interpolation.this);
-            row.addView(ord);
-            row.addView(ord);
 
+            Log.d("K", String.valueOf(Size));
             for(int i = 0 ; i < Size ; i++ ){
-                table.addView(row);
+                Log.d("s", ":V:V:V");
+                TableRow row = new TableRow(this);
+                EditText x_e = new EditText(this);
+                EditText y_e = new EditText(this);
+                x_e.setText("0");
+                y_e.setText("0");
+                row.addView(x_e);
+                row.addView(y_e);
+                table.addView(row,i);
             }
-            /**
-            Button add = (Button) findViewById(R.id.add);
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    x_array.add(x.getText().toString());
-                    y_array.add(y.getText().toString());
-                    TableRow row = new TableRow(Interpolation.this);
-                    EditText value = new EditText(Interpolation.this);
-                    value.setText(x.getText().toString() + " , " + y.getText().toString());
-                    row.addView(value);
-                    table.addView(row);
 
-                }
-            });*/
+
             Button newton = (Button) findViewById(R.id.newton);
             newton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     for(int i = 0 ; i < x.length ; i++){
-                        TableRow row = (TableRow) table.getChildAt(i);
-                        EditText temp = (EditText) row.getChildAt(0);
-                        EditText temp2 = (EditText) row.getChildAt(1);
-                        x[i] = Double.parseDouble(temp.getText().toString());
-                        y[i] = Double.parseDouble(temp2.getText().toString());
-                        NewtonPolinomio np = new NewtonPolinomio(x,y);
-                        polinomio.setText(np.getPolinomio());
-                    }
 
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    NewtonPolinomio np = new NewtonPolinomio(x,y);
+                    np.eval();
+                    polinomio.setText(np.getPolinomio());
                 }
             });
-
-
         }
-
-
     }
-}
+
