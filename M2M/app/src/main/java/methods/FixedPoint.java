@@ -2,6 +2,7 @@ package methods;
 
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 public class FixedPoint {
@@ -100,12 +101,13 @@ public class FixedPoint {
         Expression expressionG = new Expression(this.functionG).setPrecision(16);
         BigDecimal resultG = expressionG.setVariable("x", this.x).eval();
         ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
+        MathContext mc = new MathContext(5);
         ArrayList<Double> firstIteration = new ArrayList<>();
         int counter = 0;
         Double error = this.tolerance + 1;
         firstIteration.add((double) (counter));
-        firstIteration.add(this.x.doubleValue());
-        firstIteration.add(resultG.doubleValue());
+        firstIteration.add(this.x.round(mc).doubleValue());
+        firstIteration.add(resultG.round(mc).doubleValue());
         firstIteration.add(0.0);
         resultTable.add(firstIteration);
         while ((resultG.doubleValue() != 0.0) && (error > this.tolerance) && (counter < this.niter)) {
@@ -114,9 +116,9 @@ public class FixedPoint {
             BigDecimal xn = resultG;
             error = Math.abs(xn.doubleValue() - this.x.doubleValue());
             nIteration.add(counter + 1.0);
-            nIteration.add(xn.doubleValue());
-            nIteration.add(resultG.doubleValue());
-            nIteration.add(error);
+            nIteration.add(xn.round(mc).doubleValue());
+            nIteration.add(resultG.round(mc).doubleValue());
+            nIteration.add(new BigDecimal(error).round(mc).doubleValue());
             resultTable.add(nIteration);
             this.x = xn;
             counter++;

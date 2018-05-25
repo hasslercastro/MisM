@@ -5,6 +5,7 @@ package methods;
  */
 import methods.com.udojava.evalex.Expression;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 public class IncrementalSearch {
@@ -132,7 +133,7 @@ public class IncrementalSearch {
     }
     
     public ArrayList<ArrayList<Double>> incrementalSearch() {
-
+        MathContext mc = new MathContext(5);
         Expression expression = new Expression(this.function).setPrecision(16);
         expression.setVariable("x", this.x0);
         BigDecimal fx0 = expression.eval();
@@ -141,7 +142,7 @@ public class IncrementalSearch {
         BigDecimal delta = new BigDecimal(this.delta);
         if (fx0.doubleValue() == 0.0) {
             ArrayList<Double> currentResult = new ArrayList<>();
-            currentResult.add(this.x0.doubleValue());
+            currentResult.add(this.x0.round(mc).doubleValue());
             this.resultA.add(currentResult);
             this.message = this.resultA.toString() + " is a root";
             return this.resultA;
@@ -158,10 +159,10 @@ public class IncrementalSearch {
                 expression.setVariable("x", x1);
                 fx1 = expression.eval();
                 currentResult.add((double) i);
-                currentResult.add(this.x0.doubleValue());
-                currentResult.add(x1.doubleValue());
-                currentResult.add(fx0.doubleValue());
-                currentResult.add(fx1.doubleValue());
+                currentResult.add(this.x0.round(mc).doubleValue());
+                currentResult.add(x1.round(mc).doubleValue());
+                currentResult.add(fx0.round(mc).doubleValue());
+                currentResult.add(fx1.round(mc).doubleValue());
                 this.resultA.add(currentResult);
                 i++;
             }
