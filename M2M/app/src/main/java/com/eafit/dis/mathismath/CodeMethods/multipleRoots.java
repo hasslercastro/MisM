@@ -147,6 +147,16 @@ public class multipleRoots extends Activity{
                 }
             }
         });
+
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(multipleRoots.this, PopHelp.class);
+                intent.putExtra("help", "To guarantee that a function f has\t a root p that is multiple, at least f'(p) = 0 must be fulfilled. To determine the multiplicity of the\t\t p-root, higher-order derivatives must be evaluated sequentially\n until one of them, when evaluated in p is different from zero. The degree of said derivation is multiplicity.");
+                startActivity(intent);
+            }
+        });
     }
 }
 

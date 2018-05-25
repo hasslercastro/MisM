@@ -17,4 +17,18 @@
         android:layout_marginTop="10dp"
         android:text="System of linear equations" />
 
+    <Button
+        android:id="@+id/Interpolation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Interpolation" />
+
+    <Button
+        android:id="@+id/Splines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Splines" />
+
 </LinearLayout>
