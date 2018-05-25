@@ -148,17 +148,13 @@ public class LinearEquationIterative extends Activity {
                         A_matrix[i][j] = Double.valueOf(temp.getText().toString());
                     }
                 }
-<<<<<<< HEAD
                 iterationsM = Integer.parseInt(iterations.getText().toString());
                 toleranceM = Double.parseDouble(tolerance.getText().toString());
-=======
                 //temp borrar luego junto con los parametros de  gauss seidel y jacobi
                 double[] arr = {1,2,3};
->>>>>>> 39a8e36099eb1ed2a050a5a3970c0b054f4f6f9f
                 switch (method){
 
                     case "Jacobi":
-<<<<<<< HEAD
                         Jacobi jab = new Jacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
                         resultTable = jab.getTable();
                         table.setEnabled(true);
@@ -167,22 +163,6 @@ public class LinearEquationIterative extends Activity {
                         GaussSeidel gau = new GaussSeidel(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
                         resultTable = gau.getTable();
                         table.setEnabled(true);
-=======
-
-                        Jacobi jab = new Jacobi(A_matrix, vect_b,arr,1E-4,100);
-                        solution = jab.getSolution();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
-                        break;
-                    case "Gauss Seidel":
-                        GaussSeidel ga = new GaussSeidel(A_matrix, vect_b,arr,1E-4,100);
-                        solution = ga.getSolution();
-                        for (int i = 0 ; i < solution.length ; i++){
-                            sol.add(String.valueOf(solution[i]));
-                        }
->>>>>>> 39a8e36099eb1ed2a050a5a3970c0b054f4f6f9f
-                        break;
                     default:
                         solution = new double[] {-1, -1, -1};
                 }
