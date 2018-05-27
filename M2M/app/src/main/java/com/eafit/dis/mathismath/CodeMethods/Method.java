@@ -43,15 +43,5 @@ public class Method extends Activity{
                 startActivity(new Intent(Method.this, pre_interpolation_view.class));
             }
         });
-
-        Button splines = (Button) findViewById(R.id.Splines);
-        splines.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Method.this, splinesView.class));
-            }
-        });
-
     }
-
 }

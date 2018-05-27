@@ -1,3 +1,4 @@
+package methods;
 
 public class LinearSpline {
     private double[] points;
@@ -21,7 +22,7 @@ public class LinearSpline {
                 return result;
             }
         }
-        return -6.66; // Error, the polinomio is not defined at this point
+        return -6.66; // Error, the polynomial is not defined at this point
     }
 
     public void makePolinomio() {

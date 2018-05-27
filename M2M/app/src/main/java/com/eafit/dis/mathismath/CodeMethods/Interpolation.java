@@ -16,7 +16,6 @@ import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
 
-import methods.Newton;
 import methods.NewtonPolinomio;
 
 /**

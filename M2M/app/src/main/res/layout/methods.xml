@@ -8,27 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="One Variable Equations" />
+        android:text="One Variable Equations"
+        android:background="@drawable/round_sahpe"/>
+
 
     <Button
         android:id="@+id/Equations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="System of linear equations" />
+        android:text="System of linear equations"
+        android:background="@drawable/round_sahpe"/>
 
     <Button
         android:id="@+id/Interpolation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Interpolation" />
-
-    <Button
-        android:id="@+id/Splines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Splines" />
+        android:text="Interpolation"
+        android:background="@drawable/round_sahpe"/>
 
 </LinearLayout>

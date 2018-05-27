@@ -10,18 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
+        android:background="@drawable/round_sahpe"
         android:text="Incremental Search" />
 
     <Button
         android:id="@+id/bisection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_sahpe"
         android:text="Bisection" />
 
     <Button
         android:id="@+id/FalsePosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_sahpe"
         android:text="False Position" />
 
 
@@ -30,24 +33,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/round_sahpe"
         android:text="Fixed Point" />
 
     <Button
         android:id="@+id/newton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_sahpe"
         android:text="Newton" />
 
     <Button
         android:id="@+id/secant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_sahpe"
         android:text="Secant" />
 
     <Button
         android:id="@+id/mroots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_sahpe"
         android:text="Multiple roots" />
 
 </LinearLayout>
