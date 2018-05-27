@@ -1,4 +1,6 @@
 package methods;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * QuadraticSplines
@@ -7,10 +9,12 @@ public class QuadraticSplines {
     private double[] x;
     private double[] y;
     private String[] polinomio;
+    private MathContext mc;
     
     public QuadraticSplines(double[] x, double[] y){
         this.x = x;
         this.y = y;
+        this.mc = new MathContext(5);
         this.eval();
     }
 
@@ -87,7 +91,10 @@ public class QuadraticSplines {
         String[] result =new String[n];
         int k = 0;
         for (int i = 0; i < n * 3; i+=3) {
-            result[k] = coefficient[i]+ "x^2 +" + coefficient[i+1] + "x + " + coefficient[i+2]; 
+            double a = new BigDecimal(coefficient[i]).round(mc).doubleValue();
+            double b = new BigDecimal(coefficient[i+1]).round(mc).doubleValue();
+            double c = new BigDecimal(coefficient[i+2]).round(mc).doubleValue();            
+            result[k] = a+ "x^2 +"+ b + "x + " + c + "  " + this.x[i]+" <= x <" + this.x[i+1];
             k++;
         }
         return result;

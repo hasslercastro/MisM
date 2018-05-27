@@ -17,10 +17,9 @@ public class DirectElimination {
         double[] sol = new SimpleGauss(this.L, this.b).getSolution(); // Lz
         sol = new SimpleGauss(this.U, sol).getSolution(); // Ux
         return  sol;
-
     }
+    
     public void eval(){
-        double [][][] res = new double[2][A.length][A.length];
         this.auxFactorization();
         double sum1;
         for (int k = 0; k < A.length; k++) {

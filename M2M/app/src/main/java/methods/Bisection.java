@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /**
  * Bisection
  */
+
 public class Bisection {
     private String function;
     private Double a;

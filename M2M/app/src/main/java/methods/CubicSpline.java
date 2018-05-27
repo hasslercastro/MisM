@@ -1,12 +1,18 @@
 package methods;
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 
 public class CubicSpline {
     private double[] points;
     private double[] f;
     private String[] polinomio;
+    private MathContext mc;
+
     public CubicSpline(double[] points, double[] f){
         this.points =  points;
         this.f = f;
+        this.mc = new MathContext(5);
         this.eval();
     }
 
@@ -60,7 +66,8 @@ public class CubicSpline {
         }
         //Polinomio trazador
         for (int i = 0; i < n-1; i++) {
-            this.polinomio[i] = a[i] + "(x-"+this.points[i] +")^3 +" + b[i]+"(x-"+this.points[i] +")^2 +" + c[i]+"(x-"+this.points[i]+") +" + d[i];
+            double aux = new BigDecimal(d[i]).round(mc).doubleValue();
+            this.polinomio[i] = a[i] + "(x-"+this.points[i] +")^3 +" + b[i]+"(x-"+this.points[i] +")^2 +" + c[i]+"(x-"+this.points[i]+") +" + aux + "  "+this.points[i]+" <= x < "+this.points[i+1];
         }
     }
     public String[] getPolinomio() {

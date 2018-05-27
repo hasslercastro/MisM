@@ -1,14 +1,22 @@
 package methods;
+<<<<<<< HEAD
+=======
+import java.math.BigDecimal;
+import java.math.MathContext;
+
+>>>>>>> 2bf1898bfa0a36de7de0f2cbd186ace0e9139d8a
 
 public class LinearSpline {
     private double[] points;
     private double[] f;
     private String[] polinomio;
+    private MathContext mc;
 
     public LinearSpline(double[] points, double[] f){
         this.points = points;
         this.f = f;
         this.polinomio = new String[this.points.length - 1];
+        this.mc = new MathContext(5);
         this.makePolinomio();
     }
 
@@ -28,8 +36,8 @@ public class LinearSpline {
     public void makePolinomio() {
         double m;
         for (int i = 0; i < this.polinomio.length; i++) {
-            m = (this.f[i + 1] - this.f[i]) / (this.points[i + 1] - this.points[i]);
-            this.polinomio[i] =  m+"*x + " + (-m*this.points[i] + this.f[i]) + "";
+            m = new BigDecimal((this.f[i + 1] - this.f[i]) / (this.points[i + 1] - this.points[i])).round(mc).doubleValue();
+            this.polinomio[i] = m+"*x + " + (-m*this.points[i] + this.f[i]) +"  "+ this.points[i] + " <= x < " + this.points[i+1];
         }
     }
 
