@@ -1,10 +1,7 @@
 package methods;
-<<<<<<< HEAD
-=======
 import java.math.BigDecimal;
 import java.math.MathContext;
 
->>>>>>> 2bf1898bfa0a36de7de0f2cbd186ace0e9139d8a
 
 public class LinearSpline {
     private double[] points;
