@@ -36,39 +36,36 @@ public class IterativeMatrixMethodsTable extends Activity {
     }
 
     public void init(){
-        Log.d("size", "init: "+size);
         TableLayout ll = (TableLayout) findViewById(R.id.myTableLayout);
         int i = 0;
         sizeAux = size;
             for (int j = 0; j < iterations.size(); j++){
                 TableRow row= new TableRow(this);
                 TextView vistaN = new TextView(this);
+                //vistaN.setWidth(50);
+                //vistaN.setHeight(70);
                 vistaN.setGravity(0x00000001);
                 vistaN.setText(iterations.get(j));
-                Log.d("iteraciones table", iterations.get(j));
                 row.addView(vistaN);
 
                 while(i < size ){
-                    Log.d("estoy entrando aqui???", "xd");
                     TextView vistaXi = new TextView(this);
+                    //vistaXi.setWidth(50);
+                    //vistaXi.setHeight(70);
                     vistaXi.setGravity(0x00000001);
                     vistaXi.setText(x.get(i));
-                    Log.d("x table", x.get(i));
                     row.addView(vistaXi);
                     i = i + 1;
                 }
 
-                Log.d("mierda", "init: "+i);
                 size+=sizeAux;
 
                 TextView vistaXn = new TextView(this);
+                //vistaXn.setWidth(50);
+                //vistaXn.setHeight(70);
                 vistaXn.setGravity(0x00000001);
                 vistaXn.setText(delta.get(j));
-                Log.d("delta table", delta.get(j));
                 row.addView(vistaXn);
-
-
-
 
                 ll.addView(row,j+1);
 
