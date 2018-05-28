@@ -34,7 +34,7 @@ public class LinearSpline {
         double m;
         for (int i = 0; i < this.polinomio.length; i++) {
             m = new BigDecimal((this.f[i + 1] - this.f[i]) / (this.points[i + 1] - this.points[i])).round(mc).doubleValue();
-            this.polinomio[i] = m+"*x + " + (-m*this.points[i] + this.f[i]) +"  "+ this.points[i] + " <= x < " + this.points[i+1];
+            this.polinomio[i] = m+"*x + " + (-m*this.points[i] + this.f[i]) +"      "+ this.points[i] + " <= x <= " + this.points[i+1];
         }
     }
 
