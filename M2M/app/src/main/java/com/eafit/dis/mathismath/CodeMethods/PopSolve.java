@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * Created by Hassler on 6/05/2018.
@@ -30,24 +32,26 @@ public class PopSolve extends Activity {
         double[][] A = (double[][]) bundle.getSerializable("A");
         double[][] L = (double[][]) bundle.getSerializable("L");
         double[][] U = (double[][]) bundle.getSerializable("U");
+        MathContext mc = new MathContext(4);
         String type = getIntent().getStringExtra("type");
         TableLayout x_vector = (TableLayout) findViewById(R.id.x_vector);
         int titleSize = 30;
         int elementSize = 20;
 
-        Log.d("aiajkshdakjsdh", type);
         if (type.equals("Simple Gauss") || type.equals("Partial Pivoting") || type.equals("Total Pivoting")) {
 
             TextView title_A = new TextView(this);
             title_A.setTextSize(titleSize);
             title_A.setText("A Matrix");
             x_vector.addView(title_A);
-
+            BigDecimal value;
             for (int i = 0; i < solution.size(); i++) {
                 TableRow row = new TableRow(this);
                 String concat = "";
                 for (int j = 0; j < solution.size(); j++) {
-                    concat = concat + String.valueOf(A[i][j]) + " ";
+                    value = new BigDecimal(A[i][j]);
+                    value = value.round(mc);
+                    concat = concat + value.toString() + " ";
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);
@@ -62,11 +66,14 @@ public class PopSolve extends Activity {
             title_L.setTextSize(titleSize);
             title_L.setText("L Matrix");
             x_vector.addView(title_L);
+            BigDecimal value2;
             for (int i = 0; i < solution.size(); i++) {
                 TableRow row = new TableRow(this);
                 String concat = "";
                 for (int j = 0; j < solution.size(); j++) {
-                    concat = concat + String.valueOf(L[i][j]) + " ";
+                    value2 = new BigDecimal(L[i][j]);
+                    value2 = value2.round(mc);
+                    concat = concat + value2.toString() + " ";
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);
@@ -85,7 +92,9 @@ public class PopSolve extends Activity {
                 TableRow row = new TableRow(this);
                 String concat = "";
                 for (int j = 0; j < solution.size(); j++) {
-                    concat = concat + String.valueOf(U[i][j]) + " ";
+                    value2 = new BigDecimal(U[i][j]);
+                    value2 = value2.round(mc);
+                    concat = concat + value2.toString() + " ";
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);

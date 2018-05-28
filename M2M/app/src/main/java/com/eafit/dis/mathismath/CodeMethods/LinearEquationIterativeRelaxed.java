@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
-import methods.GaussSeidel;
-import methods.Jacobi;
 import methods.RelaxedGauss;
 import methods.RelaxedJacobi;
 
@@ -32,6 +32,8 @@ public class LinearEquationIterativeRelaxed extends Activity {
     ArrayList<String> arrayIterations = new ArrayList<>();
     ArrayList<String> arrayDelta = new ArrayList<>();
     ArrayList<String> arrayX = new ArrayList<>();
+    BigDecimal value;
+    MathContext mc = new MathContext(5);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -109,7 +111,10 @@ public class LinearEquationIterativeRelaxed extends Activity {
                     arrayIterations.add(resultTable.get(i).get(0).toString());
                     arrayDelta.add(resultTable.get(i).get(resultTable.get(i).size()-1).toString());
                     for (int j = 1; j < resultTable.get(i).size()-1; j++){
-                        arrayX.add(resultTable.get(i).get(j).toString());
+                        value = new BigDecimal(resultTable.get(i).get(j));
+                        value = value.round(mc);
+                        arrayX.add(value.toString());
+                        //arrayX.add(resultTable.get(i).get(j).toString());
                     }
                 }
                 Intent t = new Intent(LinearEquationIterativeRelaxed.this, IterativeMatrixMethodsTable.class);

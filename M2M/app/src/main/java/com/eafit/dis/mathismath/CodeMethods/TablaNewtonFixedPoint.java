@@ -30,7 +30,6 @@ public class TablaNewtonFixedPoint extends Activity {
         GXn = getIntent().getExtras().getStringArrayList("GXn");
         error = getIntent().getExtras().getStringArrayList("error");
 
-
         init();
 
     }
@@ -74,10 +73,4 @@ public class TablaNewtonFixedPoint extends Activity {
             }
 
         }
-
-
-
-
-
-
 }
