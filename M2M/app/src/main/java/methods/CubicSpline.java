@@ -43,7 +43,7 @@ public class CubicSpline {
         B[n-3] = 6*((this.f[n-1]-this.f[n-2])/h[n-2] - (this.f[n-2]-this.f[n-3])/h[n-3]);
 
         //Solve equations system
-        double[] r = new TotalPivoting(A, B).getSolution();
+        double[] r = new SimpleGauss(A, B).getSolution();
 
         for (int i = 1; i < n-1; i++) {
             S[i] = r[i-1];
@@ -64,10 +64,22 @@ public class CubicSpline {
             c[i] = (this.f[i+1]-this.f[i])/h[i] - (2*h[i]*S[i]+h[i]*S[i+1])/6;
             d[i] = this.f[i];
         }
-        //Polinomio trazador
-        for (int i = 0; i < n-1; i++) {
-            double aux = new BigDecimal(d[i]).round(mc).doubleValue();
-            this.polinomio[i] = a[i] + "(x-"+this.points[i] +")^3 +" + b[i]+"(x-"+this.points[i] +")^2 +" + c[i]+"(x-"+this.points[i]+") +" + aux + "  "+this.points[i]+" <= x < "+this.points[i+1];
+        //Spliner polynomial
+        double[][] resullt = new double[4][n];
+        for (int j = 0; j < n-1; j++) {
+            resullt[0][j] = a[j];
+            resullt[1][j] = b[j] - a[j]*3*points[j];
+            resullt[2][j] = c[j] - b[j]*2*points[j] + a[j]*3*Math.pow(points[j], 2);
+            resullt[3][j] = d[j] - c[j]*points[j] + b[j]*Math.pow(points[j], 2) - a[j]*Math.pow(points[j], 3);
+        }
+        for (int i = 0; i < 3; i++) {
+            double a1 = new BigDecimal(resullt[0][i]).round(mc).doubleValue();
+            double b1 = new BigDecimal(resullt[1][i]).round(mc).doubleValue();
+            double c1 = new BigDecimal(resullt[2][i]).round(mc).doubleValue();
+            double d1 = new BigDecimal(resullt[3][i]).round(mc).doubleValue();
+            this.polinomio[i] += a1 + "x^3 + " + b1+"x^2 + "+c1+"x + "+ d1 +" "+ polinomio[i]+" <= x < "+points[i+1];
+            this.polinomio[i] = this.polinomio[i].replace("nunull","").replace("+ -","-");
+            this.polinomio[i] = this.polinomio[i].replace("null","");
         }
     }
     public String[] getPolinomio() {

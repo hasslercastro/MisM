@@ -93,8 +93,13 @@ public class QuadraticSplines {
         for (int i = 0; i < n * 3; i+=3) {
             double a = new BigDecimal(coefficient[i]).round(mc).doubleValue();
             double b = new BigDecimal(coefficient[i+1]).round(mc).doubleValue();
-            double c = new BigDecimal(coefficient[i+2]).round(mc).doubleValue();            
-            result[k] = a+ "x^2 +"+ b + "x + " + c + "  " + this.x[i]+" <= x <" + this.x[i+1];
+            double c = new BigDecimal(coefficient[i+2]).round(mc).doubleValue();
+            if (Math.abs(a) < 1E-10) a = 0.0;
+            if (Math.abs(b) < 1E-10) b = 0.0;
+            if (Math.abs(c) < 1E-10) c = 0.0;
+
+            result[k] = a+ "x^2 +"+ b + "x + " + c + "      " + this.x[k]+" <= x <" + this.x[k+1];
+            result[k].replace("+ -", "+");
             k++;
         }
         return result;
