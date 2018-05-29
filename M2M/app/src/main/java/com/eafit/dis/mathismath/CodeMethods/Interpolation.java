@@ -16,6 +16,8 @@ import com.eafit.dis.mathismath.R;
 
 import java.util.ArrayList;
 
+
+import methods.Lagrange;
 import methods.NewtonPolinomio;
 
 /**
@@ -33,48 +35,91 @@ public class Interpolation extends Activity {
         final ArrayList<String> y_array = new ArrayList<>();
 
 
-            final double [] x  = new double[Size];
-            final double [] y = new double[Size];
+        final double [] x  = new double[Size];
+        final double [] y = new double[Size];
 
 
-            final TextView polinomio = (TextView) findViewById(R.id.polinomio);
-            //Setear el texto dps
-            final TableLayout table = (TableLayout) findViewById(R.id.data);
+        final TextView polinomio = (TextView) findViewById(R.id.polinomio);
+        //Setear el texto dps
+        final TableLayout table = (TableLayout) findViewById(R.id.data);
+
+        final EditText eval = (EditText) findViewById(R.id.editText20);
 
 
-            Log.d("K", String.valueOf(Size));
-            for(int i = 0 ; i < Size ; i++ ){
-                Log.d("s", ":V:V:V");
-                TableRow row = new TableRow(this);
-                EditText x_e = new EditText(this);
-                EditText y_e = new EditText(this);
-                x_e.setText("0");
-                y_e.setText("0");
-                row.addView(x_e);
-                row.addView(y_e);
-                table.addView(row,i);
+        Log.d("K", String.valueOf(Size));
+        for(int i = 0 ; i < Size ; i++ ){
+            Log.d("s", ":V:V:V");
+            TableRow row = new TableRow(this);
+            EditText x_e = new EditText(this);
+            EditText y_e = new EditText(this);
+            x_e.setText("0");
+            y_e.setText("0");
+            row.addView(x_e);
+            row.addView(y_e);
+            table.addView(row,i);
+        }
+
+
+        Button newton = (Button) findViewById(R.id.newton);
+        newton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i = 0 ; i < x.length ; i++){
+                    TableRow row = (TableRow) table.getChildAt(i);
+                    EditText tempO = (EditText) row.getChildAt(0);
+                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                    EditText temp2 = (EditText) row.getChildAt(1);
+                    x[i] = Double.parseDouble(tempO.getText().toString());
+                    y[i] = Double.parseDouble(temp2.getText().toString());
+                }
+                NewtonPolinomio np = new NewtonPolinomio(x,y);
+                np.eval();
+                polinomio.setText(np.getPolinomio());
+            }
+        });
+
+
+        Button executer = (Button) findViewById(R.id.execute);
+        executer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i = 0 ; i < x.length ; i++){
+                    TableRow row = (TableRow) table.getChildAt(i);
+                    EditText tempO = (EditText) row.getChildAt(0);
+                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                    EditText temp2 = (EditText) row.getChildAt(1);
+                    x[i] = Double.parseDouble(tempO.getText().toString());
+                    y[i] = Double.parseDouble(temp2.getText().toString());
+                }
+                NewtonPolinomio np = new NewtonPolinomio(x,y);
+                np.eval();
+                polinomio.setText(polinomio.getText() + " Evaluated at " +eval.getText().toString() + " is equals to " +np.getSolution(Double.parseDouble(eval.getText().toString())));
+
+
             }
 
+        });
 
-            Button newton = (Button) findViewById(R.id.newton);
-            newton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    for(int i = 0 ; i < x.length ; i++){
-
-                        TableRow row = (TableRow) table.getChildAt(i);
-                        EditText tempO = (EditText) row.getChildAt(0);
-                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                        EditText temp2 = (EditText) row.getChildAt(1);
-                        x[i] = Double.parseDouble(tempO.getText().toString());
-                        y[i] = Double.parseDouble(temp2.getText().toString());
-                    }
-                    NewtonPolinomio np = new NewtonPolinomio(x,y);
-                    np.eval();
-                    polinomio.setText(np.getPolinomio());
+        Button lagrange = (Button) findViewById(R.id.button12);
+        lagrange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int i = 0 ; i < x.length ; i++){
+                    TableRow row = (TableRow) table.getChildAt(i);
+                    EditText tempO = (EditText) row.getChildAt(0);
+                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                    EditText temp2 = (EditText) row.getChildAt(1);
+                    x[i] = Double.parseDouble(tempO.getText().toString());
+                    y[i] = Double.parseDouble(temp2.getText().toString());
                 }
-            });
-        }
-    }
+                //NewtonPolinomio np = new NewtonPolinomio(x,y);
+                Lagrange lg = new Lagrange(x,y);
+                polinomio.setText("Polynomial:\n" + lg.getPolinomio());
+                        //+ " Evaluated at " +eval.getText().toString() + " is equals to " + lg.getSolution(Double.parseDouble(eval.getText().toString())));
 
+
+            }
+
+        });
+    }
+}

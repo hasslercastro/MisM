@@ -9,14 +9,16 @@
         android:id="@+id/Incremental"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/round_sahpe"
+        android:baselineAligned="false"
         android:text="Incremental Search" />
 
     <Button
         android:id="@+id/bisection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_sahpe"
         android:text="Bisection" />
 
@@ -24,6 +26,7 @@
         android:id="@+id/FalsePosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_sahpe"
         android:text="False Position" />
 
@@ -32,6 +35,7 @@
         android:id="@+id/FixedPoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/round_sahpe"
         android:text="Fixed Point" />
@@ -40,6 +44,7 @@
         android:id="@+id/newton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_sahpe"
         android:text="Newton" />
 
@@ -47,6 +52,7 @@
         android:id="@+id/secant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_sahpe"
         android:text="Secant" />
 
@@ -54,6 +60,7 @@
         android:id="@+id/mroots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/round_sahpe"
         android:text="Multiple roots" />
 
