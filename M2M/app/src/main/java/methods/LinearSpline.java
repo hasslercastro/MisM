@@ -1,7 +1,12 @@
 package methods;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
+import methods.com.udojava.evalex.Expression;
+import java.math.BigDecimal;
+
 
 public class LinearSpline {
     private double[] points;
@@ -20,11 +25,12 @@ public class LinearSpline {
     public double getResult(double x){
         double result = 0;
         double m = 0;
-        for (int i = 0; i < this.points.length; i++) {
+        for (int i = 0; i < this.points.length - 1; i++) {
             if(x >= this.points[i] && x < this.points[i + 1]){
-                m = (this.f[i + 1] - this.f[i]) / (this.points[i + 1] - this.points[i]);
-                result = m*(x - this.points[i]) - this.f[i];
-                return result;
+
+                System.out.println(polinomio[i]);
+                Expression expression = new Expression(polinomio[i].split("     ")[0]).setPrecision(16);
+                return expression.setVariable("x", String.valueOf(x)).eval().doubleValue();
             }
         }
         return -6.66; // Error, the polynomial is not defined at this point
@@ -42,17 +48,17 @@ public class LinearSpline {
         return polinomio;
     }
 
-    /*
+
     public static void main(String[] args) {
-        double[] points = {0,1,2,3};
-        double[] f = {0,1,1, 0};
+        double[] points = {1,2,3};
+        double[] f = {1,2,3};
         LinearSpline a = new LinearSpline(points, f);
         for (int i = 0; i < a.getPolinomio().length; i++) {
             System.out.println(a.getPolinomio()[i]);    
         }
         
     }
-    */
+
 
     
 }

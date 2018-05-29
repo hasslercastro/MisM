@@ -2,6 +2,7 @@ package methods;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import methods.com.udojava.evalex.Expression;
 
 public class CubicSpline {
     private double[] points;
@@ -77,7 +78,7 @@ public class CubicSpline {
             double b1 = new BigDecimal(resullt[1][i]).round(mc).doubleValue();
             double c1 = new BigDecimal(resullt[2][i]).round(mc).doubleValue();
             double d1 = new BigDecimal(resullt[3][i]).round(mc).doubleValue();
-            this.polinomio[i] += a1 + "x^3 + " + b1+"x^2 + "+c1+"x + "+ d1 +" "+ polinomio[i]+" <= x < "+points[i+1];
+            this.polinomio[i] += a1 + "*x^3 + " + b1+"*x^2 + "+c1+"*x + "+ d1 +"      "+ points[i]+" <= x < "+points[i+1];
             this.polinomio[i] = this.polinomio[i].replace("nunull","").replace("+ -","-");
             this.polinomio[i] = this.polinomio[i].replace("null","");
         }
@@ -97,6 +98,21 @@ public class CubicSpline {
         }
         System.out.println("");
     }
+
+    public double getResult(double x1){
+        double result = 0;
+        double m = 0;
+        for (int i = 0; i < this.points.length - 1; i++) {
+            if(x1 >= this.points[i] && x1 < this.points[i + 1]){
+
+                System.out.println(polinomio[i]);
+                Expression expression = new Expression(polinomio[i].split("     ")[0]).setPrecision(16);
+                return expression.setVariable("x", String.valueOf(x1)).eval().doubleValue();
+            }
+        }
+        return -6.66; // Error, the polynomial is not defined at this point
+    }
+
     /**
     public static void main(String[] args) {
         double[] x = {0,1,2,3};

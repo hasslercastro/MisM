@@ -2,6 +2,8 @@ package methods;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import methods.com.udojava.evalex.Expression;
+
 /**
  * QuadraticSplines
  */
@@ -98,7 +100,7 @@ public class QuadraticSplines {
             if (Math.abs(b) < 1E-10) b = 0.0;
             if (Math.abs(c) < 1E-10) c = 0.0;
 
-            result[k] = a+ "x^2 +"+ b + "x + " + c + "      " + this.x[k]+" <= x <" + this.x[k+1];
+            result[k] = a+ "*x^2 +"+ b + "*x + " + c + "      " + this.x[k]+" <= x <" + this.x[k+1];
             result[k].replace("+ -", "+");
             k++;
         }
@@ -109,5 +111,18 @@ public class QuadraticSplines {
      */
     public String[] getPolinomio() {
         return polinomio;
+    }
+    public double getResult(double x1){
+        double result = 0;
+        double m = 0;
+        for (int i = 0; i < this.x.length - 1; i++) {
+            if(x1 >= this.x[i] && x1 < this.x[i + 1]){
+
+                System.out.println(polinomio[i]);
+                Expression expression = new Expression(polinomio[i].split("      ")[0]).setPrecision(16);
+                return expression.setVariable("x", String.valueOf(x1)).eval().doubleValue();
+            }
+        }
+        return -6.66; // Error, the polynomial is not defined at this point
     }
 }
