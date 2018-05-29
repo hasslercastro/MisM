@@ -8,6 +8,19 @@
     android:background="@drawable/pop_color"
     android:fillViewport="true">
 
+    <HorizontalScrollView
+        android:layout_width="320dp"
+        android:layout_height="250dp"
+        android:scrollbars="horizontal|vertical"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="432dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
     <TextView
         android:id="@+id/helpText"
         android:layout_width="320dp"
@@ -25,4 +38,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498" />
 
+    </LinearLayout>
+    </HorizontalScrollView>
 </ScrollView>
