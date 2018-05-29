@@ -113,14 +113,12 @@ public class LinearEquationIterative extends Activity {
                         value = new BigDecimal(resultTable.get(i).get(j));
                         value = value.round(mc);
                         arrayX.add(value.toString());
-                        //arrayX.add(resultTable.get(i).get(j).toString());
                     }
                 }
                 Intent t = new Intent(LinearEquationIterative.this, IterativeMatrixMethodsTable.class);
                 t.putExtra("iterations", arrayIterations);
                 t.putExtra("delta", arrayDelta);
                 t.putExtra("x", arrayX);
-                //t.putExtra("size",arrayX.size());
                 t.putExtra("size",getIntent().getExtras().getInt("size"));
                 startActivity(t);
 
@@ -155,7 +153,6 @@ public class LinearEquationIterative extends Activity {
                 }
                 iterationsM = Integer.parseInt(iterations.getText().toString());
                 toleranceM = Double.parseDouble(tolerance.getText().toString());
-                //temp borrar luego junto con los parametros de  gauss seidel y jacobi
                 double[] arr = {1,2,3};
                 switch (method){
 

@@ -45,13 +45,15 @@ public class PopSolve extends Activity {
             title_A.setText("A Matrix");
             x_vector.addView(title_A);
             BigDecimal value;
+            String ans1 = "";
             for (int i = 0; i < solution.size(); i++) {
                 TableRow row = new TableRow(this);
                 String concat = "";
                 for (int j = 0; j < solution.size(); j++) {
                     value = new BigDecimal(A[i][j]);
                     value = value.round(mc);
-                    concat = concat + value.toString() + " ";
+                    ans1 = String.format("%9.4f", value.floatValue());
+                    concat = concat + ans1;
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);
@@ -67,13 +69,16 @@ public class PopSolve extends Activity {
             title_L.setText("L Matrix");
             x_vector.addView(title_L);
             BigDecimal value2;
+            String ans = "";
             for (int i = 0; i < solution.size(); i++) {
                 TableRow row = new TableRow(this);
                 String concat = "";
+
                 for (int j = 0; j < solution.size(); j++) {
                     value2 = new BigDecimal(L[i][j]);
                     value2 = value2.round(mc);
-                    concat = concat + value2.toString() + " ";
+                    ans = String.format("%9.4f", value2.floatValue());
+                    concat = concat + ans;
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);
@@ -94,7 +99,8 @@ public class PopSolve extends Activity {
                 for (int j = 0; j < solution.size(); j++) {
                     value2 = new BigDecimal(U[i][j]);
                     value2 = value2.round(mc);
-                    concat = concat + value2.toString() + " ";
+                    ans = String.format("%9.4f", value2.floatValue());
+                    concat = concat + ans;
                 }
                 TextView tv = new TextView(this);
                 tv.setText(concat);

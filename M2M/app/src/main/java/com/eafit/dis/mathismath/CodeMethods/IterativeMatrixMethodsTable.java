@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.eafit.dis.mathismath.R;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +21,11 @@ import java.util.ArrayList;
 public class IterativeMatrixMethodsTable extends Activity {
 
 
-
-    ArrayList<String> iterations,delta,x;
+    ArrayList<String> iterations, delta, x;
     int size, sizeAux;
+    BigDecimal value;
+    MathContext mc = new MathContext(4);
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.iterative_matrix_methods_table);
@@ -35,40 +39,75 @@ public class IterativeMatrixMethodsTable extends Activity {
 
     }
 
-    public void init(){
+    public void init() {
         TableLayout ll = (TableLayout) findViewById(R.id.myTableLayout);
         int i = 0;
         sizeAux = size;
-            for (int j = 0; j < iterations.size(); j++){
-                TableRow row= new TableRow(this);
-                TextView vistaN = new TextView(this);
-                //vistaN.setWidth(50);
-                //vistaN.setHeight(70);
-                vistaN.setGravity(0x00000001);
-                vistaN.setText(iterations.get(j));
-                row.addView(vistaN);
 
-                while(i < size ){
-                    TextView vistaXi = new TextView(this);
-                    //vistaXi.setWidth(50);
-                    //vistaXi.setHeight(70);
-                    vistaXi.setGravity(0x00000001);
-                    vistaXi.setText(x.get(i));
-                    row.addView(vistaXi);
-                    i = i + 1;
-                }
+        TableRow rowAux = new TableRow(this);
+        TextView textIterations = new TextView(this);
+        textIterations.setWidth(300);
+        textIterations.setHeight(100);
+        textIterations.setGravity(0x00000001);
+        textIterations.setText("Iterations");
+        rowAux.addView(textIterations);
 
-                size+=sizeAux;
+        //Add all Xi
+        for(int k = 0; k < sizeAux; k++){
+            TextView textXi = new TextView(this);
+            textXi.setWidth(300);
+            textXi.setHeight(100);
+            textXi.setGravity(0x00000001);
+            textXi.setText("X"+ String.valueOf(k+1));
+            rowAux.addView(textXi);
+        }
 
-                TextView vistaXn = new TextView(this);
-                //vistaXn.setWidth(50);
-                //vistaXn.setHeight(70);
-                vistaXn.setGravity(0x00000001);
-                vistaXn.setText(delta.get(j));
-                row.addView(vistaXn);
+        TextView textDelta = new TextView(this);
+        textDelta.setWidth(300);
+        textDelta.setHeight(100);
+        textDelta.setGravity(0x00000001);
+        textDelta.setText("δ");
+        rowAux.addView(textDelta);
 
-                ll.addView(row,j+1);
+        ll.addView(rowAux, 0);
 
+        for (int j = 0; j < iterations.size(); j++) {
+            TableRow row = new TableRow(this);
+            TextView vistaN = new TextView(this);
+            vistaN.setWidth(300);
+            vistaN.setHeight(100);
+            vistaN.setGravity(0x00000001);
+            vistaN.setText(iterations.get(j));
+            row.addView(vistaN);
+
+            while (i < size) {
+                TextView vistaXi = new TextView(this);
+                vistaXi.setWidth(300);
+                vistaXi.setHeight(100);
+                vistaXi.setGravity(0x00000001);
+                value = new BigDecimal(x.get(i));
+                value = value.round(mc);
+                vistaXi.setText(value.toString());
+                //vistaXi.setText(x.get(i));
+                row.addView(vistaXi);
+                i = i + 1;
             }
+
+            size += sizeAux;
+
+            TextView vistaXn = new TextView(this);
+            vistaXn.setWidth(300);
+            vistaXn.setHeight(100);
+            vistaXn.setGravity(0x00000001);
+            value = new BigDecimal(delta.get(j));
+            value = value.round(mc);
+            vistaXn.setText(value.toString());
+            //vistaXn.setText(delta.get(j));
+            row.addView(vistaXn);
+
+            ll.addView(row, j + 1);
+
+        }
+
     }
 }
