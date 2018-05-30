@@ -3,6 +3,7 @@ package com.eafit.dis.mathismath.CodeMethods;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -51,7 +52,9 @@ public class Interpolation extends Activity {
             Log.d("s", ":V:V:V");
             TableRow row = new TableRow(this);
             EditText x_e = new EditText(this);
+            x_e.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             EditText y_e = new EditText(this);
+            y_e.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             x_e.setText("0");
             y_e.setText("0");
             row.addView(x_e);
