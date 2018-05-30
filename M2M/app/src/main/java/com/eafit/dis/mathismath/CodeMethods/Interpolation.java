@@ -1,6 +1,8 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -34,6 +36,15 @@ public class Interpolation extends Activity {
         int Size = Integer.parseInt(getIntent().getStringExtra("size"));
         final ArrayList<String> x_array = new ArrayList<>();
         final ArrayList<String> y_array = new ArrayList<>();
+        final AlertDialog alertDialog = new AlertDialog.Builder(Interpolation.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
 
         final double [] x  = new double[Size];
@@ -49,7 +60,6 @@ public class Interpolation extends Activity {
 
         Log.d("K", String.valueOf(Size));
         for(int i = 0 ; i < Size ; i++ ){
-            Log.d("s", ":V:V:V");
             TableRow row = new TableRow(this);
             EditText x_e = new EditText(this);
             x_e.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
@@ -67,17 +77,22 @@ public class Interpolation extends Activity {
         newton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0 ; i < x.length ; i++){
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                try {
+                    for (int i = 0; i < x.length; i++) {
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    NewtonPolinomio np = new NewtonPolinomio(x, y);
+                    np.eval();
+                    if (np.getPolinomio().contains("NaN"))throw  new Exception();
+                    polinomio.setText(np.getPolinomio());
+                }catch (Exception e){
+                    alertDialog.show();
                 }
-                NewtonPolinomio np = new NewtonPolinomio(x,y);
-                np.eval();
-                polinomio.setText(np.getPolinomio());
             }
         });
 
@@ -86,18 +101,21 @@ public class Interpolation extends Activity {
         executer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0 ; i < x.length ; i++){
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                try {
+                    for (int i = 0; i < x.length; i++) {
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    NewtonPolinomio np = new NewtonPolinomio(x, y);
+                    np.eval();
+                    polinomio.setText(polinomio.getText() + " Evaluated at " + eval.getText().toString() + " is equals to " + np.getSolution(Double.parseDouble(eval.getText().toString())));
+                } catch (Exception e){
+                    alertDialog.show();
                 }
-                NewtonPolinomio np = new NewtonPolinomio(x,y);
-                np.eval();
-                polinomio.setText(polinomio.getText() + " Evaluated at " +eval.getText().toString() + " is equals to " +np.getSolution(Double.parseDouble(eval.getText().toString())));
-
 
             }
 
@@ -107,22 +125,37 @@ public class Interpolation extends Activity {
         lagrange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0 ; i < x.length ; i++){
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                try {
+                    for (int i = 0; i < x.length; i++) {
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    //NewtonPolinomio np = new NewtonPolinomio(x,y);
+                    Lagrange lg = new Lagrange(x, y);
+                    if (lg.getPolinomio().contains("NaN"))throw  new Exception();
+                    polinomio.setText("Polynomial:\n" + lg.getPolinomio());
+                    //+ " Evaluated at " +eval.getText().toString() + " is equals to " + lg.getSolution(Double.parseDouble(eval.getText().toString())));
+                }catch (Exception e){
+                    alertDialog.show();
                 }
-                //NewtonPolinomio np = new NewtonPolinomio(x,y);
-                Lagrange lg = new Lagrange(x,y);
-                polinomio.setText("Polynomial:\n" + lg.getPolinomio());
-                        //+ " Evaluated at " +eval.getText().toString() + " is equals to " + lg.getSolution(Double.parseDouble(eval.getText().toString())));
-
 
             }
 
+        });
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Interpolation.this, PopHelp.class);
+                intent.putExtra("help", " Given a sequence\n" +
+                        "of (n +1) data points and a function f, the aim is to determine an n-th degree polynomial which interpolates\n" +
+                        "f at these points.\n\n-Be careful to don't repeat any x, else it won't be a function");
+                startActivity(intent);
+            }
         });
     }
 }
