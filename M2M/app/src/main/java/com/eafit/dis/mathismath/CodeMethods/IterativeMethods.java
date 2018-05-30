@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.text.InputFilter;
 
 import com.eafit.dis.mathismath.R;
 
@@ -24,6 +25,7 @@ public class IterativeMethods extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         final EditText size = (EditText) findViewById(R.id.sizeIterative);
+        size.setFilters(new InputFilter[]{new CustomRangeInputFilter(1, 50)});
         size.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         Button Jacobi = (Button) findViewById(R.id.Jacobi);
