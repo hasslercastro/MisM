@@ -1,6 +1,9 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -46,6 +49,15 @@ public class splinesView extends Activity{
         final double [] x  = new double[Size];
         final double [] y = new double[Size];
 
+        final AlertDialog alertDialog = new AlertDialog.Builder(splinesView.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         final TextView polinomio = (TextView) findViewById(R.id.polinomio);
         //Setear el texto dps
@@ -72,23 +84,27 @@ public class splinesView extends Activity{
             @Override
             public void onClick(View view) {
                 flag = 1;
-                for(int i = 0 ; i < x.length ; i++){
+                try {
+                    for (int i = 0; i < x.length; i++) {
 
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    ls = new LinearSpline(x, y);
+                    String temp = "";
+                    for (String i : ls.getPolinomio()) {
+                        temp += i + "\n";
+                    }
+                    polinomio.setText(temp);
+                }catch (Exception e){
+                    alertDialog.show();
                 }
-                ls = new LinearSpline(x,y);
-                String temp="";
-                for(String i: ls.getPolinomio()){
-                    temp +=i+"\n";
-                }
-                polinomio.setText(temp);
             }
         });
 
@@ -98,23 +114,27 @@ public class splinesView extends Activity{
             public void onClick(View view) {
                 Log.d("s", "cuadratico-------------");
                 flag = 2;
-                for(int i = 0 ; i < x.length ; i++){
+                try {
+                    for (int i = 0; i < x.length; i++) {
 
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    qs = new QuadraticSplines(x, y);
+                    String temp = "";
+                    for (String i : qs.getPolinomio()) {
+                        temp += i + "\n";
+                    }
+                    polinomio.setText(temp);
+                }catch (Exception e){
+                    alertDialog.show();
                 }
-                qs = new QuadraticSplines(x,y);
-                String temp="";
-                for(String i: qs.getPolinomio()){
-                    temp +=i+"\n";
-                }
-                polinomio.setText(temp);
             }
         });
 
@@ -124,23 +144,27 @@ public class splinesView extends Activity{
             public void onClick(View view) {
                 Log.d("s", "Entrando a spline cubico");
                 flag = 3;
-                for(int i = 0 ; i < x.length ; i++){
+                try {
+                    for (int i = 0; i < x.length; i++) {
 
-                    TableRow row = (TableRow) table.getChildAt(i);
-                    EditText tempO = (EditText) row.getChildAt(0);
-                    tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
-                    EditText temp2 = (EditText) row.getChildAt(1);
-                    temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                    x[i] = Double.parseDouble(tempO.getText().toString());
-                    y[i] = Double.parseDouble(temp2.getText().toString());
+                        TableRow row = (TableRow) table.getChildAt(i);
+                        EditText tempO = (EditText) row.getChildAt(0);
+                        tempO.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        //Log.d("J", String.valueOf( Double.valueOf(tempO.getText().toString())) );
+                        EditText temp2 = (EditText) row.getChildAt(1);
+                        temp2.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                        x[i] = Double.parseDouble(tempO.getText().toString());
+                        y[i] = Double.parseDouble(temp2.getText().toString());
+                    }
+                    cs = new CubicSpline(x, y);
+                    String temp = "";
+                    for (String i : cs.getPolinomio()) {
+                        temp += i + "\n";
+                    }
+                    polinomio.setText(temp);
+                }catch (Exception e){
+                    alertDialog.show();
                 }
-                cs = new CubicSpline(x,y);
-                String temp="";
-                for(String i: cs.getPolinomio()){
-                    temp +=i+"\n";
-                }
-                polinomio.setText(temp);
             }
         });
         Button eval = (Button) findViewById(R.id.eval);
@@ -148,36 +172,55 @@ public class splinesView extends Activity{
 
             @Override
             public void onClick(View view) {
+                try {
                 TextView result = (TextView) findViewById(R.id.result);
                 EditText point = (EditText) findViewById(R.id.point);
                 point.setText(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-                double x = new Double(point.getText().toString());
-
-                double temp1;
-                switch (flag){
-                    case 1:      //spline lineal
-                        temp1 = ls.getResult(x);
-                        if (temp1 == -6.66) result.setText("Error, out of the range");
-                        else {result.setText(( String.valueOf(temp1)));}
-                        break;
-                    case 2:    //Quadratic
-                        temp1 = qs.getResult(x);
-                        Log.d("q poly", qs.getPolinomio()[0]);
-                        if (temp1 == -6.66) result.setText("   Error, out of the range");
-                        else {result.setText(( String.valueOf(temp1)));}
-                        break;
-                    case 3:    //Cubic
-                        temp1 = cs.getResult(x);
-                        Log.d("cub poly", cs.getPolinomio()[0]);
-                        if (temp1 == -6.66) result.setText("   Error, out of the range");
-                        else {result.setText(( String.valueOf(temp1)));}
-                        break;
-                    default:
-                        //Alert
-                        break;
+                    double x = new Double(point.getText().toString());
+                    double temp1;
+                    switch (flag) {
+                        case 1:      //spline lineal
+                            temp1 = ls.getResult(x);
+                            if (temp1 == -6.66) result.setText("Error, out of the range");
+                            else {
+                                result.setText((String.valueOf(temp1)));
+                            }
+                            break;
+                        case 2:    //Quadratic
+                            temp1 = qs.getResult(x);
+                            Log.d("q poly", qs.getPolinomio()[0]);
+                            if (temp1 == -6.66) result.setText("   Error, out of the range");
+                            else {
+                                result.setText((String.valueOf(temp1)));
+                            }
+                            break;
+                        case 3:    //Cubic
+                            temp1 = cs.getResult(x);
+                            Log.d("cub poly", cs.getPolinomio()[0]);
+                            if (temp1 == -6.66) result.setText("   Error, out of the range");
+                            else {
+                                result.setText((String.valueOf(temp1)));
+                            }
+                            break;
+                        default:
+                            //Alert
+                            break;
+                    }
+                }catch (Exception e){
+                    alertDialog.show();
                 }
 
+            }
+        });
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(splinesView.this, PopHelp.class);
+                intent.putExtra("help", "Spline interpolation is a form of interpolation where the interpolant is a" +
+                        " special type of piecewise polynomial called a spline.\n\n");
+                startActivity(intent);
             }
         });
     }
