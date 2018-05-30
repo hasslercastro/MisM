@@ -33,6 +33,7 @@ public class IterativeMethods extends Activity {
                 final int nSize = Integer.parseInt(size.getText().toString());
                 Intent intent = new Intent(IterativeMethods.this, LinearEquationIterative.class);
                 intent.putExtra("method", "Jacobi");
+                intent.putExtra("help","→ The standard convergence condition is when the spectral radius of the iteration matrix is less than 1\n\n→The matrix A is strictly or irreducibly diagonally dominant. Strict row diagonal dominance means that for each row, the absolute value of the diagonal term is greater than the sum of absolute values of other terms.\n\n→The Jacobi method sometimes converges even if these conditions are not satisfied.\n\n→The Jacobi method does not converge for every symmetric positive-definite matrix.\n");
                 intent.putExtra("size"  ,nSize);
                 startActivity(intent);
             }
@@ -45,9 +46,7 @@ public class IterativeMethods extends Activity {
                 final int nSize = Integer.parseInt(size.getText().toString());
                 Intent intent = new Intent(IterativeMethods.this, LinearEquationIterative.class);
                 intent.putExtra("method", "Gauss Seidel");
-                intent.putExtra("help","The computation of xi(k+1) uses only the elements of x(k+1) that have already been computed, and only the elements of x(k) that have not yet to be advanced to iteration k+1. This means that, unlike the Jacobi method, only one storage vector is required as elements can be overwritten as they are computed, which can be advantageous for very large problems.\n" +
-                        "\n" +
-                        "However, unlike the Jacobi method, the computations for each element cannot be done in parallel. Furthermore, the values at each iteration are dependent on the order of the original \n");//"The Gauss–Seidel method sometimes converges even if these conditions are not satisfied.\n\nThe convergence properties of the Gauss–Seidel method are dependent on the matrix A. Namely, the procedure is known to converge if either:\n\n→ A is symmetric positive-definite, or\n→ A is strictly or irreducibly diagonally dominant.");
+                intent.putExtra("help","The convergence properties of the Gauss–Seidel method are dependent on the matrix A. Namely, the procedure is known to converge if either:\n\n→ A is symmetric positive-definite, or\n\n→ A is strictly or irreducibly diagonally dominant.\n\n→The standard convergence condition is when the spectral radius of the iteration matrix is less than 1.\n\n→The Gauss–Seidel method sometimes converges even if these conditions are not satisfied.\n");
                 intent.putExtra("size"  ,nSize);
                 startActivity(intent);
             }
