@@ -28,6 +28,10 @@ import methods.NewtonPolinomio;
  */
 
 public class splinesView extends Activity{
+    int flag = 0;
+    LinearSpline ls;
+    QuadraticSplines qs;
+    CubicSpline cs;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splines);
@@ -63,11 +67,11 @@ public class splinesView extends Activity{
             table.addView(row,i);
         }
 
-
         Button lineall = (Button) findViewById(R.id.lineal);
         lineall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flag = 1;
                 for(int i = 0 ; i < x.length ; i++){
 
                     TableRow row = (TableRow) table.getChildAt(i);
@@ -79,7 +83,7 @@ public class splinesView extends Activity{
                     x[i] = Double.parseDouble(tempO.getText().toString());
                     y[i] = Double.parseDouble(temp2.getText().toString());
                 }
-                LinearSpline ls = new LinearSpline(x,y);
+                ls = new LinearSpline(x,y);
                 String temp="";
                 for(String i: ls.getPolinomio()){
                     temp +=i+"\n";
@@ -93,6 +97,7 @@ public class splinesView extends Activity{
             @Override
             public void onClick(View view) {
                 Log.d("s", "cuadratico-------------");
+                flag = 2;
                 for(int i = 0 ; i < x.length ; i++){
 
                     TableRow row = (TableRow) table.getChildAt(i);
@@ -104,7 +109,7 @@ public class splinesView extends Activity{
                     x[i] = Double.parseDouble(tempO.getText().toString());
                     y[i] = Double.parseDouble(temp2.getText().toString());
                 }
-                QuadraticSplines qs = new QuadraticSplines(x,y);
+                qs = new QuadraticSplines(x,y);
                 String temp="";
                 for(String i: qs.getPolinomio()){
                     temp +=i+"\n";
@@ -118,6 +123,7 @@ public class splinesView extends Activity{
             @Override
             public void onClick(View view) {
                 Log.d("s", "Entrando a spline cubico");
+                flag = 3;
                 for(int i = 0 ; i < x.length ; i++){
 
                     TableRow row = (TableRow) table.getChildAt(i);
@@ -129,12 +135,49 @@ public class splinesView extends Activity{
                     x[i] = Double.parseDouble(tempO.getText().toString());
                     y[i] = Double.parseDouble(temp2.getText().toString());
                 }
-                CubicSpline cs = new CubicSpline(x,y);
+                cs = new CubicSpline(x,y);
                 String temp="";
                 for(String i: cs.getPolinomio()){
                     temp +=i+"\n";
                 }
                 polinomio.setText(temp);
+            }
+        });
+        Button eval = (Button) findViewById(R.id.eval);
+        eval.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView result = (TextView) findViewById(R.id.result);
+                EditText point = (EditText) findViewById(R.id.point);
+                point.setText(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+                double x = new Double(point.getText().toString());
+
+                double temp1;
+                switch (flag){
+                    case 1:      //spline lineal
+                        temp1 = ls.getResult(x);
+                        if (temp1 == -6.66) result.setText("Error, out of the range");
+                        else {result.setText(( String.valueOf(temp1)));}
+                        break;
+                    case 2:    //Quadratic
+                        temp1 = qs.getResult(x);
+                        Log.d("q poly", qs.getPolinomio()[0]);
+                        if (temp1 == -6.66) result.setText("   Error, out of the range");
+                        else {result.setText(( String.valueOf(temp1)));}
+                        break;
+                    case 3:    //Cubic
+                        temp1 = cs.getResult(x);
+                        Log.d("cub poly", cs.getPolinomio()[0]);
+                        if (temp1 == -6.66) result.setText("   Error, out of the range");
+                        else {result.setText(( String.valueOf(temp1)));}
+                        break;
+                    default:
+                        //Alert
+                        break;
+                }
+
             }
         });
     }

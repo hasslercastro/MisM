@@ -1,6 +1,8 @@
 package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -28,7 +30,7 @@ public class LinearEquationIterativeRelaxed extends Activity {
     int iterationsM;
     Double toleranceM;
     Double weightM;
-    ArrayList<ArrayList<Double>> resultTable =  new ArrayList<>();
+    ArrayList<ArrayList<Double>> resultTable = new ArrayList<>();
     ArrayList<String> arrayIterations = new ArrayList<>();
     ArrayList<String> arrayDelta = new ArrayList<>();
     ArrayList<String> arrayX = new ArrayList<>();
@@ -36,16 +38,25 @@ public class LinearEquationIterativeRelaxed extends Activity {
     MathContext mc = new MathContext(5);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.iterative_matrix_relaxed);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        final int rows= getIntent().getExtras().getInt("size");
-        final int columns= getIntent().getExtras().getInt("size");;
+        final int rows = getIntent().getExtras().getInt("size");
+        final int columns = getIntent().getExtras().getInt("size");
         final String method = getIntent().getExtras().getString("method");
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(LinearEquationIterativeRelaxed.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
         TextView title = (TextView) findViewById(R.id.title_iterative_r);
         title.setText(method);
@@ -60,38 +71,36 @@ public class LinearEquationIterativeRelaxed extends Activity {
         final EditText weight = (EditText) findViewById(R.id.editTextWeight);
 
 
-        for(int i = 0 ; i < rows ; i++){
-            TableRow row= new TableRow(this);
+        for (int i = 0; i < rows; i++) {
+            TableRow row = new TableRow(this);
             EditText position = new EditText(this);
             position.setText(" 0 ");
             position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             row.addView(position);
-            b.addView(row,i);
+            b.addView(row, i);
 
         }
 
-        for(int i = 0 ; i < rows ; i++){
-            TableRow row= new TableRow(this);
+        for (int i = 0; i < rows; i++) {
+            TableRow row = new TableRow(this);
             EditText position = new EditText(this);
             position.setText(" 0 ");
             position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
             row.addView(position);
-            x0.addView(row,i);
+            x0.addView(row, i);
 
         }
 
 
-        for (int i=0;i<rows;i++)
-        {
-            TableRow row= new TableRow(this);
-            for (int j=0;j<columns;j++)
-            {
+        for (int i = 0; i < rows; i++) {
+            TableRow row = new TableRow(this);
+            for (int j = 0; j < columns; j++) {
                 EditText position = new EditText(this);
                 position.setText(" 0 ");
                 position.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 row.addView(position);
             }
-            A.addView(row,i);
+            A.addView(row, i);
         }
 
         final ArrayList<String> sol = new ArrayList<String>();
@@ -107,22 +116,20 @@ public class LinearEquationIterativeRelaxed extends Activity {
                 arrayIterations.clear();
                 arrayDelta.clear();
                 arrayX.clear();
-                for(int i = 0 ; i < resultTable.size() ; i++ ){
+                for (int i = 0; i < resultTable.size(); i++) {
                     arrayIterations.add(resultTable.get(i).get(0).toString());
-                    arrayDelta.add(resultTable.get(i).get(resultTable.get(i).size()-1).toString());
-                    for (int j = 1; j < resultTable.get(i).size()-1; j++){
+                    arrayDelta.add(resultTable.get(i).get(resultTable.get(i).size() - 1).toString());
+                    for (int j = 1; j < resultTable.get(i).size() - 1; j++) {
                         value = new BigDecimal(resultTable.get(i).get(j));
                         value = value.round(mc);
                         arrayX.add(value.toString());
-                        //arrayX.add(resultTable.get(i).get(j).toString());
                     }
                 }
                 Intent t = new Intent(LinearEquationIterativeRelaxed.this, IterativeMatrixMethodsTable.class);
                 t.putExtra("iterations", arrayIterations);
                 t.putExtra("delta", arrayDelta);
                 t.putExtra("x", arrayX);
-                //t.putExtra("size",arrayX.size());
-                t.putExtra("size",getIntent().getExtras().getInt("size"));
+                t.putExtra("size", getIntent().getExtras().getInt("size"));
                 startActivity(t);
 
             }
@@ -131,47 +138,52 @@ public class LinearEquationIterativeRelaxed extends Activity {
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double[] solution;
-                double[][] A_matrix = new double[rows][columns];
-                double[] vect_b = new double[rows];
-                double[] vect_x0 = new double[rows];
+                try {
+                    double[] solution;
+                    double[][] A_matrix = new double[rows][columns];
+                    double[] vect_b = new double[rows];
+                    double[] vect_x0 = new double[rows];
 
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row_r = (TableRow) b.getChildAt(i);
-                    EditText temp = (EditText) row_r.getChildAt(0);
-                    vect_b[i] = Double.valueOf(temp.getText().toString());
-                }
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row_rx0 = (TableRow) x0.getChildAt(i);
-                    EditText temp_x0 = (EditText) row_rx0.getChildAt(0);
-                    vect_x0[i] = Double.valueOf(temp_x0.getText().toString());
-                    Log.d("Valoooor de x0",String.valueOf(Double.valueOf(temp_x0.getText().toString())));
-                }
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row = (TableRow) A.getChildAt(i);
-                    for(int j = 0 ; j < rows ; j++){
-                        EditText temp = (EditText) row.getChildAt(j);
-                        A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row_r = (TableRow) b.getChildAt(i);
+                        EditText temp = (EditText) row_r.getChildAt(0);
+                        vect_b[i] = Double.valueOf(temp.getText().toString());
                     }
-                }
-                iterationsM = Integer.parseInt(iterations.getText().toString());
-                toleranceM = Double.parseDouble(tolerance.getText().toString());
-                weightM = Double.parseDouble(weight.getText().toString());
-                switch (method){
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row_rx0 = (TableRow) x0.getChildAt(i);
+                        EditText temp_x0 = (EditText) row_rx0.getChildAt(0);
+                        vect_x0[i] = Double.valueOf(temp_x0.getText().toString());
+                        Log.d("Valoooor de x0", String.valueOf(Double.valueOf(temp_x0.getText().toString())));
+                    }
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row = (TableRow) A.getChildAt(i);
+                        for (int j = 0; j < rows; j++) {
+                            EditText temp = (EditText) row.getChildAt(j);
+                            A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                        }
+                    }
+                    iterationsM = Integer.parseInt(iterations.getText().toString());
+                    toleranceM = Double.parseDouble(tolerance.getText().toString());
+                    weightM = Double.parseDouble(weight.getText().toString());
+                    switch (method) {
 
-                    case "Relaxed Jacobi":
-                        RelaxedJacobi reja = new RelaxedJacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM,weightM);
-                        resultTable = reja.getTable();
-                        table.setEnabled(true);
-                        break;
-                    case "Relaxed Gauss Seidel":
-                        RelaxedGauss rega = new RelaxedGauss(A_matrix, vect_b, vect_x0, toleranceM, iterationsM,weightM);
-                        resultTable = rega.getTable();
-                        table.setEnabled(true);
-                        break;
-                    default:
-                        solution = new double[] {-1, -1, -1};
+                        case "Relaxed Jacobi":
+                            RelaxedJacobi reja = new RelaxedJacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM, weightM);
+                            resultTable = reja.getTable();
+                            table.setEnabled(true);
+                            break;
+                        case "Relaxed Gauss Seidel":
+                            RelaxedGauss rega = new RelaxedGauss(A_matrix, vect_b, vect_x0, toleranceM, iterationsM, weightM);
+                            resultTable = rega.getTable();
+                            table.setEnabled(true);
+                            break;
+                        default:
+                            solution = new double[]{-1, -1, -1};
+                    }
+                }catch (Exception e){
+                    alertDialog.show();
                 }
+
             }
         });
     }
