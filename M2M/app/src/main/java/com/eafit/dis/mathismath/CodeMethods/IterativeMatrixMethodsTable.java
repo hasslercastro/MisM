@@ -46,7 +46,7 @@ public class IterativeMatrixMethodsTable extends Activity {
 
         TableRow rowAux = new TableRow(this);
         TextView textIterations = new TextView(this);
-        textIterations.setWidth(300);
+        textIterations.setWidth(250);
         textIterations.setHeight(100);
         textIterations.setGravity(0x00000001);
         textIterations.setText("Iterations");
@@ -55,7 +55,7 @@ public class IterativeMatrixMethodsTable extends Activity {
         //Add all Xi
         for(int k = 0; k < sizeAux; k++){
             TextView textXi = new TextView(this);
-            textXi.setWidth(300);
+            textXi.setWidth(250);
             textXi.setHeight(100);
             textXi.setGravity(0x00000001);
             textXi.setText("X"+ String.valueOf(k+1));
@@ -63,7 +63,7 @@ public class IterativeMatrixMethodsTable extends Activity {
         }
 
         TextView textDelta = new TextView(this);
-        textDelta.setWidth(300);
+        textDelta.setWidth(250);
         textDelta.setHeight(100);
         textDelta.setGravity(0x00000001);
         textDelta.setText("δ");
@@ -74,7 +74,7 @@ public class IterativeMatrixMethodsTable extends Activity {
         for (int j = 0; j < iterations.size(); j++) {
             TableRow row = new TableRow(this);
             TextView vistaN = new TextView(this);
-            vistaN.setWidth(300);
+            vistaN.setWidth(250);
             vistaN.setHeight(100);
             vistaN.setGravity(0x00000001);
             vistaN.setText(iterations.get(j));
@@ -82,7 +82,7 @@ public class IterativeMatrixMethodsTable extends Activity {
 
             while (i < size) {
                 TextView vistaXi = new TextView(this);
-                vistaXi.setWidth(300);
+                vistaXi.setWidth(250);
                 vistaXi.setHeight(100);
                 vistaXi.setGravity(0x00000001);
                 value = new BigDecimal(x.get(i));
@@ -96,7 +96,7 @@ public class IterativeMatrixMethodsTable extends Activity {
             size += sizeAux;
 
             TextView vistaXn = new TextView(this);
-            vistaXn.setWidth(300);
+            vistaXn.setWidth(250);
             vistaXn.setHeight(100);
             vistaXn.setGravity(0x00000001);
             value = new BigDecimal(delta.get(j));
