@@ -19,24 +19,19 @@ import java.util.ArrayList;
 import methods.MultipleRoots;
 import methods.Secant;
 
-/**
- * Created by Hassler on 21/03/2018.
- */
+public class multipleRoots extends Activity {
+    ArrayList<ArrayList<Double>> toTable = new ArrayList<>();
+    ArrayList<String> n = new ArrayList<>();
+    ArrayList<String> x = new ArrayList<>();
+    ArrayList<String> fx = new ArrayList<>();
+    ArrayList<String> dfx = new ArrayList<>();
+    ArrayList<String> ddfx = new ArrayList<>();
+    ArrayList<String> error = new ArrayList<>();
 
-//iterations , x , f(x), derivada , segunda, error
-public class multipleRoots extends Activity{
-    ArrayList<ArrayList<Double>> toTable =  new ArrayList<>();
-    ArrayList<String> n =  new ArrayList<>();
-    ArrayList<String> x =  new ArrayList<>();
-    ArrayList<String> fx =  new ArrayList<>();
-    ArrayList<String> dfx =  new ArrayList<>();
-    ArrayList<String> ddfx =  new ArrayList<>();
-    ArrayList<String> error =  new ArrayList<>();
-
-    EditText function,tolerance,iterations, firstD, secondD, initialPoint;
+    EditText function, tolerance, iterations, firstD, secondD, initialPoint;
     TextView root;
     Double toleranceTo;
-    int iterTo ;
+    int iterTo;
     BigDecimal initial;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +43,7 @@ public class multipleRoots extends Activity{
         firstD = (EditText) findViewById(R.id.editText14);
         secondD = (EditText) findViewById(R.id.editText6);
         initialPoint = (EditText) findViewById(R.id.editText12);
-        tolerance =  (EditText) findViewById(R.id.editText7);
+        tolerance = (EditText) findViewById(R.id.editText7);
         root = (TextView) findViewById(R.id.textView13);
 
 
@@ -61,24 +56,6 @@ public class multipleRoots extends Activity{
                         dialog.dismiss();
                     }
                 });
-
-        Button sec = (Button) findViewById(R.id.button3);
-        sec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    initial = new BigDecimal(initialPoint.getText().toString());
-                    iterTo = Integer.parseInt(iterations.getText().toString());
-                    toleranceTo = Double.parseDouble(tolerance.getText().toString());
-                    MultipleRoots mroot = new MultipleRoots(toleranceTo, initial, iterTo, function.getText().toString(), firstD.getText().toString(), secondD.getText().toString());
-                    toTable = mroot.eval();
-                    root.setText(mroot.getMessage());
-                }catch (Exception e){
-                    alertDialog.show();
-                }
-
-            }
-        });
 
         Button clear = (Button) findViewById(R.id.button6);
         clear.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +74,8 @@ public class multipleRoots extends Activity{
             }
         });
 
-        Button table = (Button) findViewById(R.id.table);
+        final Button table = (Button) findViewById(R.id.table);
+        table.setEnabled(false);
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +91,7 @@ public class multipleRoots extends Activity{
                 dfx.add("f'(X)");
                 ddfx.add("f''(X)");
                 error.add("error");
-                for(int i = 0 ; i < toTable.size() ; i++ ){
+                for (int i = 0; i < toTable.size(); i++) {
                     n.add(String.valueOf(toTable.get(i).get(0).intValue()));
                     x.add(toTable.get(i).get(1).toString());
                     fx.add(toTable.get(i).get(2).toString());
@@ -122,14 +100,33 @@ public class multipleRoots extends Activity{
                     error.add(toTable.get(i).get(5).toString());
                 }
 
-                Intent t = new Intent(multipleRoots.this,  multipleRootsTable.class);
+                Intent t = new Intent(multipleRoots.this, multipleRootsTable.class);
                 t.putExtra("n", n);
-                t.putExtra("x",x);
+                t.putExtra("x", x);
                 t.putExtra("fx", fx);
                 t.putExtra("dfx", dfx);
                 t.putExtra("ddfx", ddfx);
                 t.putExtra("error", error);
                 startActivity(t);
+            }
+        });
+
+        final Button sec = (Button) findViewById(R.id.button3);
+        sec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    initial = new BigDecimal(initialPoint.getText().toString());
+                    iterTo = Integer.parseInt(iterations.getText().toString());
+                    toleranceTo = Double.parseDouble(tolerance.getText().toString());
+                    MultipleRoots mroot = new MultipleRoots(toleranceTo, initial, iterTo, function.getText().toString(), firstD.getText().toString(), secondD.getText().toString());
+                    toTable = mroot.eval();
+                    root.setText(mroot.getMessage());
+                    table.setEnabled(true);
+                } catch (Exception e) {
+                    alertDialog.show();
+                }
+
             }
         });
 
@@ -141,7 +138,7 @@ public class multipleRoots extends Activity{
                     Intent t = new Intent(multipleRoots.this, GraphFromMethods.class);
                     t.putExtra("function", function.getText().toString());
                     startActivity(t);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("This is the error", e.toString());
                     alertDialog.show();
                 }

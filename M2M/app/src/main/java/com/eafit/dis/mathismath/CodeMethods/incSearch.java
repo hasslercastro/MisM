@@ -20,33 +20,21 @@ import java.util.ArrayList;
 
 import methods.IncrementalSearch;
 
-/**
- * Created by Hassler on 17/03/2018.
- */
-
 public class incSearch extends Activity {
 
-    //    editText9 Initial point
-    // editText5 function
-    //editText8 step
-    //Text view  20 B
-    //Text view 21 A
-
-    //Buton4 run
-
-
-    ArrayList<ArrayList<Double>> toTable =  new ArrayList<>();
+    ArrayList<ArrayList<Double>> toTable = new ArrayList<>();
     ArrayList<String> arrayN = new ArrayList();
     ArrayList<String> arrayXi = new ArrayList();
     ArrayList<String> arrayXf = new ArrayList();
     ArrayList<String> arrayFXi = new ArrayList();
     ArrayList<String> arrayFXf = new ArrayList();
 
-    EditText initialPoint,function,step,nIter;
+    EditText initialPoint, function, step, nIter;
     TextView msg;
     Double stepTo;
     BigDecimal initialPointTo;
     int nIterTo;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.incremental_search);
@@ -56,10 +44,7 @@ public class incSearch extends Activity {
         initialPoint = (EditText) findViewById(R.id.editText9);
         step = (EditText) findViewById(R.id.editText8);
         nIter = (EditText) findViewById(R.id.editText10);
-
-
         msg = (TextView) findViewById(R.id.textView20);
-
 
         final AlertDialog alertDialog = new AlertDialog.Builder(incSearch.this).create();
         alertDialog.setTitle("Alert");
@@ -70,27 +55,6 @@ public class incSearch extends Activity {
                         dialog.dismiss();
                     }
                 });
-
-
-
-        Button incremental = (Button) findViewById(R.id.button4);
-        incremental.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    initialPointTo = BigDecimal.valueOf(Double.parseDouble(initialPoint.getText().toString()));
-                    stepTo = Double.parseDouble(step.getText().toString());
-                    nIterTo = Integer.parseInt(nIter.getText().toString());
-                    IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
-                    toTable = iSearch.incrementalSearch();
-                    msg.setMovementMethod(new ScrollingMovementMethod());
-                    msg.setText(iSearch.getMessage());
-                }catch (Exception e){
-                    alertDialog.show();
-                }
-
-            }
-        });
 
         Button clear = (Button) findViewById(R.id.button5);
         clear.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +71,7 @@ public class incSearch extends Activity {
 
 
         final Button table = (Button) findViewById(R.id.table);
+        table.setEnabled(false);
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +80,7 @@ public class incSearch extends Activity {
                 arrayXf.clear();
                 arrayFXi.clear();
                 arrayFXf.clear();
-                for(int i = 0 ; i < toTable.size() ; i++ ){
+                for (int i = 0; i < toTable.size(); i++) {
                     arrayN.add(toTable.get(i).get(0).toString());
                     arrayXi.add(toTable.get(i).get(1).toString());
                     arrayXf.add(toTable.get(i).get(2).toString());
@@ -133,6 +98,26 @@ public class incSearch extends Activity {
             }
         });
 
+        Button incremental = (Button) findViewById(R.id.button4);
+        incremental.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    initialPointTo = BigDecimal.valueOf(Double.parseDouble(initialPoint.getText().toString()));
+                    stepTo = Double.parseDouble(step.getText().toString());
+                    nIterTo = Integer.parseInt(nIter.getText().toString());
+                    IncrementalSearch iSearch = new IncrementalSearch(function.getText().toString(), initialPointTo, stepTo, nIterTo);
+                    toTable = iSearch.incrementalSearch();
+                    msg.setMovementMethod(new ScrollingMovementMethod());
+                    msg.setText(iSearch.getMessage());
+                    table.setEnabled(true);
+                } catch (Exception e) {
+                    alertDialog.show();
+                }
+
+            }
+        });
+
         Button grph = (Button) findViewById(R.id.button8);
         grph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +126,7 @@ public class incSearch extends Activity {
                     Intent t = new Intent(incSearch.this, GraphFromMethods.class);
                     t.putExtra("function", function.getText().toString());
                     startActivity(t);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("This is the error", e.toString());
                     alertDialog.show();
                 }
