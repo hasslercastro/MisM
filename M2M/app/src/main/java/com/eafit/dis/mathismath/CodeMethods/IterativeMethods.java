@@ -45,6 +45,9 @@ public class IterativeMethods extends Activity {
                 final int nSize = Integer.parseInt(size.getText().toString());
                 Intent intent = new Intent(IterativeMethods.this, LinearEquationIterative.class);
                 intent.putExtra("method", "Gauss Seidel");
+                intent.putExtra("help","The computation of xi(k+1) uses only the elements of x(k+1) that have already been computed, and only the elements of x(k) that have not yet to be advanced to iteration k+1. This means that, unlike the Jacobi method, only one storage vector is required as elements can be overwritten as they are computed, which can be advantageous for very large problems.\n" +
+                        "\n" +
+                        "However, unlike the Jacobi method, the computations for each element cannot be done in parallel. Furthermore, the values at each iteration are dependent on the order of the original \n");//"The Gauss–Seidel method sometimes converges even if these conditions are not satisfied.\n\nThe convergence properties of the Gauss–Seidel method are dependent on the matrix A. Namely, the procedure is known to converge if either:\n\n→ A is symmetric positive-definite, or\n→ A is strictly or irreducibly diagonally dominant.");
                 intent.putExtra("size"  ,nSize);
                 startActivity(intent);
             }
