@@ -72,7 +72,7 @@ public class Interpolation extends Activity {
             table.addView(row,i);
         }
 
-
+        final boolean[] flag = new boolean[1];
         Button newton = (Button) findViewById(R.id.newton);
         newton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +90,7 @@ public class Interpolation extends Activity {
                     np.eval();
                     if (np.getPolinomio().contains("NaN"))throw  new Exception();
                     polinomio.setText(np.getPolinomio());
+                    flag[0] = false;
                 }catch (Exception e){
                     alertDialog.show();
                 }
@@ -110,9 +111,16 @@ public class Interpolation extends Activity {
                         x[i] = Double.parseDouble(tempO.getText().toString());
                         y[i] = Double.parseDouble(temp2.getText().toString());
                     }
-                    NewtonPolinomio np = new NewtonPolinomio(x, y);
-                    np.eval();
-                    polinomio.setText(polinomio.getText() + " Evaluated at " + eval.getText().toString() + " is equals to " + np.getSolution(Double.parseDouble(eval.getText().toString())));
+                    if(flag[0]){
+                        Lagrange lg = new Lagrange(x,y);
+                        polinomio.setText(lg.getPolinomio() + " Evaluated at " + eval.getText().toString() + " is equals to " + lg.getSolution(Double.parseDouble(eval.getText().toString())));
+
+                    }else {
+                        NewtonPolinomio np = new NewtonPolinomio(x, y);
+                        np.eval();
+                        polinomio.setText(np.getPolinomio() + " Evaluated at " + eval.getText().toString() + " is equals to " + np.getSolution(Double.parseDouble(eval.getText().toString())));
+                    }
+
                 } catch (Exception e){
                     alertDialog.show();
                 }
@@ -137,6 +145,7 @@ public class Interpolation extends Activity {
                     //NewtonPolinomio np = new NewtonPolinomio(x,y);
                     Lagrange lg = new Lagrange(x, y);
                     if (lg.getPolinomio().contains("NaN"))throw  new Exception();
+                    flag[0] = true;
                     polinomio.setText("Polynomial:\n" + lg.getPolinomio());
                     //+ " Evaluated at " +eval.getText().toString() + " is equals to " + lg.getSolution(Double.parseDouble(eval.getText().toString())));
                 }catch (Exception e){
@@ -153,7 +162,7 @@ public class Interpolation extends Activity {
                 Intent intent = new Intent(Interpolation.this, PopHelp.class);
                 intent.putExtra("help", " Given a sequence\n" +
                         "of (n +1) data points and a function f, the aim is to determine an n-th degree polynomial which interpolates\n" +
-                        "f at these points.\n\n-Be careful to don't repeat any x, else it won't be a function");
+                        "f at these points.\n\n-Be careful to don't repeat any x, else it won't be a function\n");
                 startActivity(intent);
             }
         });
