@@ -14,10 +14,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
 
-/**
- * Created by Hassler on 17/03/2018.
- */
-
 public class IterativeMatrixMethodsTable extends Activity {
 
 
@@ -88,7 +84,6 @@ public class IterativeMatrixMethodsTable extends Activity {
                 value = new BigDecimal(x.get(i));
                 value = value.round(mc);
                 vistaXi.setText(value.toString());
-                //vistaXi.setText(x.get(i));
                 row.addView(vistaXi);
                 i = i + 1;
             }
@@ -102,7 +97,6 @@ public class IterativeMatrixMethodsTable extends Activity {
             value = new BigDecimal(delta.get(j));
             value = value.round(mc);
             vistaXn.setText(value.toString());
-            //vistaXn.setText(delta.get(j));
             row.addView(vistaXn);
 
             ll.addView(row, j + 1);

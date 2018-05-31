@@ -2,6 +2,8 @@ package com.eafit.dis.mathismath.CodeMethods;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -25,7 +27,7 @@ import methods.Jacobi;
 import methods.GaussSeidel;
 
 public class LinearEquationIterative extends Activity {
-
+    boolean isJacobi = false;
     int iterationsM;
     Double toleranceM;
     ArrayList<ArrayList<Double>> resultTable =  new ArrayList<>();
@@ -57,6 +59,7 @@ public class LinearEquationIterative extends Activity {
         final TableLayout x0 = (TableLayout) findViewById(R.id.x0_iterative);
         final EditText tolerance = (EditText) findViewById(R.id.editTextTolerance);
         final EditText iterations = (EditText) findViewById(R.id.editTextIterations);
+        iterations.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
 
         for(int i = 0 ; i < rows ; i++){
@@ -124,51 +127,77 @@ public class LinearEquationIterative extends Activity {
 
             }
         });
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(LinearEquationIterative.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Input Error\nCheck that all fields are full");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
         Button run = (Button) findViewById(R.id.run_iterative);
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double[] solution;
-                double[][] A_matrix = new double[rows][columns];
-                double[] vect_b = new double[rows];
-                double[] vect_x0 = new double[rows];
+                try {
+                    double[] solution;
+                    double[][] A_matrix = new double[rows][columns];
+                    double[] vect_b = new double[rows];
+                    double[] vect_x0 = new double[rows];
 
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row_r = (TableRow) b.getChildAt(i);
-                    EditText temp = (EditText) row_r.getChildAt(0);
-                    vect_b[i] = Double.valueOf(temp.getText().toString());
-                }
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row_rx0 = (TableRow) x0.getChildAt(i);
-                    EditText temp_x0 = (EditText) row_rx0.getChildAt(0);
-                    vect_x0[i] = Double.valueOf(temp_x0.getText().toString());
-                    Log.d("Valoooor de x0",String.valueOf(Double.valueOf(temp_x0.getText().toString())));
-                }
-                for(int i = 0 ; i < rows ; i++){
-                    TableRow row = (TableRow) A.getChildAt(i);
-                    for(int j = 0 ; j < rows ; j++){
-                        EditText temp = (EditText) row.getChildAt(j);
-                        A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row_r = (TableRow) b.getChildAt(i);
+                        EditText temp = (EditText) row_r.getChildAt(0);
+                        vect_b[i] = Double.valueOf(temp.getText().toString());
                     }
-                }
-                iterationsM = Integer.parseInt(iterations.getText().toString());
-                toleranceM = Double.parseDouble(tolerance.getText().toString());
-                double[] arr = {1,2,3};
-                switch (method){
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row_rx0 = (TableRow) x0.getChildAt(i);
+                        EditText temp_x0 = (EditText) row_rx0.getChildAt(0);
+                        vect_x0[i] = Double.valueOf(temp_x0.getText().toString());
+                        Log.d("Valoooor de x0", String.valueOf(Double.valueOf(temp_x0.getText().toString())));
+                    }
+                    for (int i = 0; i < rows; i++) {
+                        TableRow row = (TableRow) A.getChildAt(i);
+                        for (int j = 0; j < rows; j++) {
+                            EditText temp = (EditText) row.getChildAt(j);
+                            A_matrix[i][j] = Double.valueOf(temp.getText().toString());
+                        }
+                    }
+                    iterationsM = Integer.parseInt(iterations.getText().toString());
+                    toleranceM = Double.parseDouble(tolerance.getText().toString());
+                    double[] arr = {1, 2, 3};
+                    switch (method) {
 
-                    case "Jacobi":
-                        Jacobi jab = new Jacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
-                        resultTable = jab.getTable();
-                        table.setEnabled(true);
-                        break;
-                    case "Gauss Seidel":
-                        GaussSeidel gau = new GaussSeidel(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
-                        resultTable = gau.getTable();
-                        table.setEnabled(true);
-                    default:
-                        solution = new double[] {-1, -1, -1};
+                        case "Jacobi":
+                            Jacobi jab = new Jacobi(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
+                            resultTable = jab.getTable();
+                            table.setEnabled(true);
+                            break;
+                        case "Gauss Seidel":
+                            GaussSeidel gau = new GaussSeidel(A_matrix, vect_b, vect_x0, toleranceM, iterationsM);
+                            resultTable = gau.getTable();
+                            table.setEnabled(true);
+                        default:
+                            solution = new double[]{-1, -1, -1};
+                    }
+                }catch(Exception e){
+                    alertDialog.show();
                 }
             }
         });
+
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LinearEquationIterative.this, PopHelp.class);
+                intent.putExtra("help", getIntent().getExtras().getString("help"));
+                startActivity(intent);
+            }
+        });
+
     }
 }
