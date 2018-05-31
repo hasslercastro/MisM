@@ -175,8 +175,7 @@ public class splinesView extends Activity{
                 try {
                 TextView result = (TextView) findViewById(R.id.result);
                 EditText point = (EditText) findViewById(R.id.point);
-                point.setText(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-
+                //point.setText(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                     double x = new Double(point.getText().toString());
                     double temp1;
                     switch (flag) {
