@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +37,9 @@ public class falsePositionView extends Activity {
         function = (EditText) findViewById(R.id.editText2);
         tolerance = (EditText) findViewById(R.id.editText);
         limA = (EditText) findViewById(R.id.editText3);
+        limA.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         limB = (EditText) findViewById(R.id.editText4);
+        limB.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         root = (TextView) findViewById(R.id.textView9);
 
         final AlertDialog alertDialog = new AlertDialog.Builder(falsePositionView.this).create();
