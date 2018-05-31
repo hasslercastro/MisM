@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup.Input;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -201,6 +202,10 @@ public class LinearEquation extends Activity {
                         }
                     }
 
+                    if(determinante(A_matrix) == 0 ){
+                        throw new Exception();
+                    }
+
                     switch (method) {
                         case "Simple Gauss":
                             SimpleGauss sg = new SimpleGauss(A_matrix, vect_b);
@@ -357,17 +362,21 @@ public class LinearEquation extends Activity {
         pop.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),  PopSolve.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("A" , res_A);
-                intent.putExtra("A" , res_A);
-                bundle.putSerializable("L" , L);
-                intent.putExtra("L" , L);
-                bundle.putSerializable("U" , U);
-                intent.putExtra("U" , U);
-                intent.putExtra("solution", sol);
-                intent.putExtra("type", method);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(getApplicationContext(), PopSolve.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("A", res_A);
+                    intent.putExtra("A", res_A);
+                    bundle.putSerializable("L", L);
+                    intent.putExtra("L", L);
+                    bundle.putSerializable("U", U);
+                    intent.putExtra("U", U);
+                    intent.putExtra("solution", sol);
+                    intent.putExtra("type", method);
+                    startActivity(intent);
+                }catch (Exception e){
+                    alertDialog.show();
+                }
             }
 
 

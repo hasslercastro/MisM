@@ -112,6 +112,7 @@ public class MatrixMethods extends Activity {
                     Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                     intent.putExtra("method", "Crout");
                     intent.putExtra("size"  ,nSize);
+                    intent.putExtra("help","");
                     startActivity(intent);
                 }catch (Exception e){
                     alertDialog.show();
@@ -131,6 +132,7 @@ public class MatrixMethods extends Activity {
                     Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                     intent.putExtra("method", "Doolittle");
                     intent.putExtra("size"  ,nSize);
+                    intent.putExtra("help","");
                     startActivity(intent);
                 }catch (Exception e){
                     alertDialog.show();
@@ -150,6 +152,7 @@ public class MatrixMethods extends Activity {
                     Intent intent = new Intent(MatrixMethods.this, LinearEquation.class);
                     intent.putExtra("method", "Cholesky");
                     intent.putExtra("size"  ,nSize);
+                    intent.putExtra("help","");
                     startActivity(intent);
                 }catch (Exception e){
                     alertDialog.show();
