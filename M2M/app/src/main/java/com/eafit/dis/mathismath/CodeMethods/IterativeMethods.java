@@ -60,6 +60,7 @@ public class IterativeMethods extends Activity {
             public void onClick(View view) {
                 final int nSize = Integer.parseInt(size.getText().toString());
                 Intent intent = new Intent(IterativeMethods.this, LinearEquationIterativeRelaxed.class);
+                intent.putExtra("help", "Rembember: \n\n →If w = 1, In this case we say that there isn't relaxation.\n\n→If 0 < w < 1, It is used to obtain the convergence of some systems that are not convergent by Gauss Seidel's method\n\n→If 1 < w < 2, It is used to accelerate the convergence of non-convergent and slow systems with the Gauss Seidel's method\n\n");
                 intent.putExtra("method", "Relaxed Jacobi");
                 intent.putExtra("size"  ,nSize);
                 startActivity(intent);
@@ -72,6 +73,7 @@ public class IterativeMethods extends Activity {
             public void onClick(View view) {
                 final int nSize = Integer.parseInt(size.getText().toString());
                 Intent intent = new Intent(IterativeMethods.this, LinearEquationIterativeRelaxed.class);
+                intent.putExtra("help", "Rembember: \n\n →If w = 1, In this case we say that there isn't relaxation.\n\n→If 0 < w < 1, It is used to obtain the convergence of some systems that are not convergent by Gauss Seidel's method\n\n→If 1 < w < 2, It is used to accelerate the convergence of non-convergent and slow systems with the Gauss Seidel's method\n\n");
                 intent.putExtra("method", "Relaxed Gauss Seidel");
                 intent.putExtra("size"  ,nSize);
                 startActivity(intent);

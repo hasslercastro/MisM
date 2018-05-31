@@ -186,5 +186,14 @@ public class LinearEquationIterativeRelaxed extends Activity {
 
             }
         });
+        Button help = findViewById(R.id.help_button);
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LinearEquationIterativeRelaxed.this, PopHelp.class);
+                intent.putExtra("help", getIntent().getExtras().getString("help"));
+                startActivity(intent);
+            }
+        });
     }
 }
