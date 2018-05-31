@@ -73,7 +73,7 @@ public class CubicSpline {
             resullt[2][j] = c[j] - b[j]*2*points[j] + a[j]*3*Math.pow(points[j], 2);
             resullt[3][j] = d[j] - c[j]*points[j] + b[j]*Math.pow(points[j], 2) - a[j]*Math.pow(points[j], 3);
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < points.length-1; i++) {
             double a1 = new BigDecimal(resullt[0][i]).round(mc).doubleValue();
             double b1 = new BigDecimal(resullt[1][i]).round(mc).doubleValue();
             double c1 = new BigDecimal(resullt[2][i]).round(mc).doubleValue();
