@@ -49,6 +49,7 @@
             />
         <activity android:name=".CodeMethods.PopHelp" android:theme="@style/AppTheme.black"/>
         <activity android:name=".CodeMethods.splinesView"/>
+        <activity android:name=".CodeMethods.InformationView"/>
         <activity android:name=".CodeMethods.pre_interpolation_view"/>
 
     </application>

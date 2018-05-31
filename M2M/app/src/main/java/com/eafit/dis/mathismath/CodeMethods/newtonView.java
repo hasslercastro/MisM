@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,8 +42,10 @@ public class newtonView extends Activity {
         function = (EditText) findViewById(R.id.editText7);
         tolerance = (EditText) findViewById(R.id.editText11);
         initial = (EditText) findViewById(R.id.editText12);
+        initial.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         derivative = (EditText) findViewById(R.id.editText13);
         iteration = (EditText) findViewById(R.id.editText6);
+        iteration.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         root = (TextView) findViewById(R.id.textView14);
 
         final AlertDialog alertDialog = new AlertDialog.Builder(newtonView.this).create();

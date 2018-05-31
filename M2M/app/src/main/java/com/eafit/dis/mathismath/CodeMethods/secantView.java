@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,8 +38,11 @@ public class secantView extends Activity {
         function = (EditText) findViewById(R.id.editText11);
         tolerance = (EditText) findViewById(R.id.editText14);
         xOne = (EditText) findViewById(R.id.editText7);
+        xOne.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         xZero = (EditText) findViewById(R.id.editText6);
+        xZero.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         iters = (EditText) findViewById(R.id.editText12);
+        iters.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         root = (TextView) findViewById(R.id.textView14);
 
 

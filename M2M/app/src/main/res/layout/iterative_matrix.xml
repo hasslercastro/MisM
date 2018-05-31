@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56">
+        app:layout_constraintVertical_bias="0.62">
 
         <TableLayout
             android:id="@+id/b_iterative"
@@ -63,10 +63,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintHorizontal_bias="0.803"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56">
+        app:layout_constraintVertical_bias="0.62">
 
         <TableLayout
             android:id="@+id/x0_iterative"
@@ -216,7 +216,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48">
+        app:layout_constraintVertical_bias="0.56">
 
 
         <HorizontalScrollView
@@ -235,6 +235,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
+                android:background="@drawable/round_shape_methods"
                 app:layout_constraintBottom_toTopOf="@+id/run"
                 app:layout_constraintEnd_toStartOf="@+id/tableLayout4"
                 app:layout_constraintStart_toStartOf="parent"
