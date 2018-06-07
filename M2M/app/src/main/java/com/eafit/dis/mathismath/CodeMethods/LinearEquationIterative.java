@@ -101,29 +101,43 @@ public class LinearEquationIterative extends Activity {
         final double[][] L = new double[rows][columns];
         final double[][] U = new double[rows][columns];
 
+        final AlertDialog alertDialog2 = new AlertDialog.Builder(LinearEquationIterative.this).create();
+        alertDialog2.setTitle("Alert");
+        alertDialog2.setMessage("Table error");
+        alertDialog2.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
         final Button table = (Button) findViewById(R.id.table_iterative);
         table.setEnabled(false);
         table.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                arrayIterations.clear();
-                arrayDelta.clear();
-                arrayX.clear();
-                for(int i = 0 ; i < resultTable.size() ; i++ ){
-                    arrayIterations.add(resultTable.get(i).get(0).toString());
-                    arrayDelta.add(resultTable.get(i).get(resultTable.get(i).size()-1).toString());
-                    for (int j = 1; j < resultTable.get(i).size()-1; j++){
-                        value = new BigDecimal(resultTable.get(i).get(j));
-                        value = value.round(mc);
-                        arrayX.add(value.toString());
+                try {
+                    arrayIterations.clear();
+                    arrayDelta.clear();
+                    arrayX.clear();
+                    for (int i = 0; i < resultTable.size(); i++) {
+                        arrayIterations.add(resultTable.get(i).get(0).toString());
+                        arrayDelta.add(resultTable.get(i).get(resultTable.get(i).size() - 1).toString());
+                        for (int j = 1; j < resultTable.get(i).size() - 1; j++) {
+                            value = new BigDecimal(resultTable.get(i).get(j));
+                            value = value.round(mc);
+                            arrayX.add(value.toString());
+                        }
                     }
+                    Intent t = new Intent(LinearEquationIterative.this, IterativeMatrixMethodsTable.class);
+                    t.putExtra("iterations", arrayIterations);
+                    t.putExtra("delta", arrayDelta);
+                    t.putExtra("x", arrayX);
+                    t.putExtra("size", getIntent().getExtras().getInt("size"));
+                    startActivity(t);
+                }catch(Exception e){
+                    alertDialog2.show();
                 }
-                Intent t = new Intent(LinearEquationIterative.this, IterativeMatrixMethodsTable.class);
-                t.putExtra("iterations", arrayIterations);
-                t.putExtra("delta", arrayDelta);
-                t.putExtra("x", arrayX);
-                t.putExtra("size",getIntent().getExtras().getInt("size"));
-                startActivity(t);
 
             }
         });
